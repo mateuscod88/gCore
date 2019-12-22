@@ -5,7 +5,7 @@ import { Home } from './components/Home';
 import { FetchData } from './components/FetchData';
 import { Counter } from './components/Counter';
 import { CarContainer } from './components/CarContainer';
-import { CarAddContainer } from './components/CarAddContainer';
+import CarAddContainer  from './components/CarAddContainer';
 
 
 export default class App extends Component {
