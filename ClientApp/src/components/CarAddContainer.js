@@ -24,6 +24,8 @@ import Chip from '@material-ui/core/Chip';
 
 import CancelIcon from '@material-ui/icons/Cancel';
 import { emphasize } from '@material-ui/core/styles/colorManipulator';
+import { CarButtons } from './CarButtons'
+
 
 function generateYearsArray(years) {
     var currentDate = new Date();
@@ -419,6 +421,7 @@ class CarAddContainer extends React.Component {
                     margin="normal"
                     variant="outlined"
                 />
+                <CarButtons/>
             </div>
         );
     }
