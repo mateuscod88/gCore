@@ -4,10 +4,10 @@ import { Layout } from './components/Layout';
 import { Home } from './components/Home';
 import { FetchData } from './components/FetchData';
 import { Counter } from './components/Counter';
-import { CarContainer } from './components/CarContainer';
-import  CarAddContainer  from './components/CarAddContainer';
-import { RepairContainer } from './components/RepairContainer';
-import RepairAddContainer from './components/RepairAddContainer';
+import { CarContainer } from './components/Car/CarContainer';
+import  CarAddContainer  from './components/Car/CarAddContainer';
+import { RepairContainer } from './components/Repair/RepairContainer';
+import RepairAddContainer from './components/Repair/RepairAddContainer';
 
 
 
