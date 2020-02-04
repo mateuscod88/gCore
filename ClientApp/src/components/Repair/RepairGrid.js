@@ -1,7 +1,7 @@
 ﻿import React, { Component } from 'react';
 import { EditingState, PagingState, IntegratedPaging, SelectionState } from '@devexpress/dx-react-grid';
 import { Grid, Table, TableHeaderRow, TableEditColumn, PagingPanel, TableSelection } from '@devexpress/dx-react-grid-material-ui';
-
+import RepairService from '../Services/RepairService.js';
 const getRowId = row => row.id;
 
 class RepairGrid extends Component {
@@ -14,11 +14,12 @@ class RepairGrid extends Component {
             selection: [],
 
         };
+        this.service = new RepairService();
     }
-    GetRows = async () => {
-        var service = this.props.service;
-        var rows = await service.GetAll();
-        await rows;
+    GetRows =  () => {
+        var service = this.service;
+        var rows =  service.GetAll();
+        rows;
         this.setState({
             rows: rows,
         });
@@ -26,7 +27,7 @@ class RepairGrid extends Component {
     }
 
     async componentDidMount() {
-        var service = this.props.service;
+        var service = this.service;
 
         this.GetRows();
         var columnss = service.GetColumns();
@@ -37,7 +38,7 @@ class RepairGrid extends Component {
         });
     }
     componentDidUpdate(prevProps) {
-        var service = this.props.service;
+        var service = this.service;
         if (service.GetUpdateGrid() == true) {
             this.GetRows();
             service.SetUpdateGrid(false);
@@ -57,7 +58,7 @@ class RepairGrid extends Component {
     }
 
     changeSelection = selection => {
-        var service = this.props.service;
+        var service = this.service;
         var sel = [];
         sel[0] = selection[selection.length - 1];
         var rowId = sel[0];

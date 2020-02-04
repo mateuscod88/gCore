@@ -30,22 +30,41 @@
         });
         await putResult;
     }
-    async GetAll() {
-        const result = await fetch('/repairs/GetRepairs')
-            .then(response => response.json())
-            .then(data => this.repairs = {
-                rows: (data.map(suggestion => ({
-                    id: suggestion.Id,
-                    name: suggestion.Name,
-                    date: suggestion.Date,
-                    note: suggestion.Note,
-                    carBrand: suggestion.Brand,
-                    carModel: suggestion.Model,
-                    carRegNum: suggestion.PlateNumber,
+    GetAll() {
+        //const result = await fetch('/repairs/GetRepairs')
+        //    .then(response => response.json())
+        //    .then(data => this.repairs = {
+        //        rows: (data.map(suggestion => ({
+        //            id: suggestion.Id,
+        //            name: suggestion.Name,
+        //            date: suggestion.Date,
+        //            note: suggestion.Note,
+        //            carBrand: suggestion.Brand,
+        //            carModel: suggestion.Model,
+        //            carRegNum: suggestion.PlateNumber,
 
-                }))),
-            });
-        await result;
+        //        }))),
+        //    });
+        //await result;
+        debugger;
+        let data = [
+            { Id: 1, Name: "rozrzad", Date: "21.01.2020", Note: "Wymiana rozrzadu ina", Brand: "Vw", Model: "Passat", PlateNumber: "BIA004411" },
+            { Id: 2, Name: "olej", Date: "21.01.2020", Note: "Wymiana rozrzadu ina", Brand: "Vw", Model: "Passat", PlateNumber: "BIA004411" },
+            { Id: 3, Name: "filtr paliwa", Date: "21.01.2020", Note: "Wymiana rozrzadu ina", Brand: "Vw", Model: "Passat", PlateNumber: "BIA004411" },
+            { Id: 4, Name: "wymiana klockow", Date: "21.01.2020", Note: "Wymiana rozrzadu ina", Brand: "Vw", Model: "Passat", PlateNumber: "BIA004411" }
+        ];
+        this.repairs =  {
+            rows: data.map(suggestion => ({
+                id: suggestion.Id,
+                name: suggestion.Name,
+                date: suggestion.Date,
+                note: suggestion.Note,
+                carBrand: suggestion.Brand,
+                carModel: suggestion.Model,
+                carRegNum: suggestion.PlateNumber,
+
+            }))
+        };
         debugger;
         return this.repairs.rows;
     }

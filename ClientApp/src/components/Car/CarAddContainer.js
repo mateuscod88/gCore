@@ -25,6 +25,7 @@ import Chip from '@material-ui/core/Chip';
 import CancelIcon from '@material-ui/icons/Cancel';
 import { emphasize } from '@material-ui/core/styles/colorManipulator';
 import { CarButtons } from './CarButtons'
+import CarService from '../Services/CarService.js';
 
 
 function generateYearsArray(years) {
@@ -215,11 +216,13 @@ const components = {
 class CarAddContainer extends React.Component {
     constructor(props) {
         super(props);
+        this.service = new CarService();
         this.state = {
             data: null,
             phone: '',
             phoneErrorText: '',
             brand: [],
+            brands: [],
             singleBrand: '',
             model: [],
             singleModel: '',
@@ -252,26 +255,56 @@ class CarAddContainer extends React.Component {
             isRowSelected: true,
             isEditDialogBox: false,
         };
+        
     };
+    componentDidMount() {
+        var brands = this.service.GetBrands().map(x => ({ value: x.id, label: x.brand }));
+        console.log(brands);
+        this.setState({
+            brands,
+        });
+    }
     handleChangeDropDown = name => event => {
         this.setState({
             [name]: event.target.value,
             yearError: '',
         });
     };
-    handleChangeBrand = (text) => {
-        console.log(text);
+    handleChangeBrand = name => event => {
+        this.setState({
+            [name]: event
+        });
+        var model = this.service.GetModelByBrandId(event.value).map(x => ({ value: x.id, label: x.model }));
+        this.setState({
+            model
+        });
+        console.log(event);
     };
-    handleChangeModel = (text) => {
-        console.log(text);
+    handleChangeModel = event => {
+        var engine = this.service.GetEngines(this.state.singleBrand.value, event.value).map(x => ({ value: x.id, label: x.name }));
+        var singleModel = event;
+        this.setState({
+            engine,
+            singleModel
+        });
+        console.log(event);
     };
-    handleChangeEngine = (text) => {
-        console.log(text);
+    handleChangeEngine = (event) => {
+        var singleEngine = event;
+        this.setState({
+            singleEngine
+        });
+        console.log(event);
     };
-    handleChangeCounter = (text) => {
-        console.log(text);
+    handleChangeCounter = name => event => {
+        debugger;
+        this.setState(
+            {
+                [name]: event.target.value
+            });
+        console.log(name);
     };
-    handleChangeRegNumber = (text) => {
+    handleChangeRegNumber = text => event => {
         console.log(text);
     };
     OnDateChange = (text) => {
@@ -300,7 +333,7 @@ class CarAddContainer extends React.Component {
                     <Select
                         classes={classes}
                         styles={selectStyles}
-                        options={this.state.brand}
+                        options={this.state.brands}
                         components={components}
                         value={this.state.singleBrand}
                         onChange={this.handleChangeBrand('singleBrand')}
@@ -317,7 +350,7 @@ class CarAddContainer extends React.Component {
                         options={this.state.model}
                         components={components}
                         value={this.state.singleModel}
-                        onChange={this.handleChangeModel('singleModel')}
+                        onChange={this.handleChangeModel}
                         placeholder="Wybierz Model"
                         isClearable
                     />
@@ -332,7 +365,7 @@ class CarAddContainer extends React.Component {
                         options={this.state.engine}
                         components={components}
                         value={this.state.singleEngine}
-                        onChange={this.handleChangeEngine('singleEngine')}
+                        onChange={this.handleChangeEngine}
                         placeholder="Wybierz Silnik"
                         isClearable
                     />

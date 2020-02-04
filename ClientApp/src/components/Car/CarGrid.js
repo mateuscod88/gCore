@@ -1,14 +1,20 @@
 ﻿import React from 'react';
-import { Grid, Table, TableHeaderRow } from '@devexpress/dx-react-grid-material-ui';
+import { EditingState, PagingState, IntegratedPaging, SelectionState } from '@devexpress/dx-react-grid';
+import { Grid, Table, TableHeaderRow, TableEditColumn, PagingPanel, TableSelection } from '@devexpress/dx-react-grid-material-ui';
+
 import { Column } from '@devexpress/dx-react-grid';
 import CarService from '../Services/CarService.js';
+
+const getRowId = row => row.id;
 
 export class CarGrid extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             columns: [],
-            rows:[]
+            rows: [],
+            selectedRows: 0,
+            selection: [],
             //columns:
             //    [
             //        { name: 'model', title: 'Model' },
@@ -29,8 +35,7 @@ export class CarGrid extends React.Component {
         }
         this.service = new CarService();
     }
-    componentDidMount()
-    {
+    componentDidMount() {
         var columns = this.service.GetColumns();
         var rows = this.service.GetAll();
         console.log(rows);
@@ -39,15 +44,100 @@ export class CarGrid extends React.Component {
             rows: rows.rows
         });
     }
+    changeSelection = selection => {
+        var service = this.service;
+        var sel = [];
+        sel[0] = selection[selection.length - 1];
+        var rowId = sel[0];
+
+        var row = this.state.rows[this.state.rows.findIndex(row => row.id == rowId)];
+        if (selection.length != 0) {
+            service.SetSingleRow(row);
+            service.SetIsRowSelected(true);
+            //this.props.onRowSelected(true);
+            debugger;
+        }
+        else {
+            service.SetIsRowSelected(false);
+            //this.props.onRowSelected(false);
+        }
+        debugger;
+
+        this.setState({ selection: sel, selectedRows: sel[0], });
+
+        let   rows = this.state.rows;
+        //rows = rows.concat({
+        //    id: "3",
+        //    brand: "VW",
+        //    model: "Polo",
+        //    engine: "1.9TDI",
+        //    regNum: "BIA8872",
+        //    phone: "514515151",
+        //    dueDateTechService: "",
+        //    lastOilChange: ""
+        //});
+
+        this.setState({
+            rows
+        });
+
+    }
+    componentDidUpdate(prevProps) {
+        //var service = this.props.service;
+        //if (service.GetUpdateGrid() == true) {
+        //    this.GetRows();
+        //    service.SetUpdateGrid(false);
+        //}
+    }
+    commitChanges = ({ added, changed, deleted }) => {
+        debugger;
+        //const { rows } = this.state;
+        
+        if (added) {
+
+        }
+        if (changed) {
+
+        }
+        if (deleted) {
+
+        }
+    }
     render() {
-        const { columns, rows } = this.state;
+        const { columns, rows, selection } = this.state;
+
         return (
             <div class="mateo">
                 <Grid
-                    rows={rows}
-                    columns={columns}>
+                    rows={this.state.rows}
+                    columns={columns}
+                    getRowId={getRowId}>
+
+                    <SelectionState
+                        selection={selection}
+                        onSelectionChange={this.changeSelection}
+                    />
+                    <PagingState
+                        defaultCurrentPage={0}
+                        pageSize={5}
+                    />
+                    <IntegratedPaging />
+                    <EditingState
+                        onCommitChanges={this.commitChanges}
+                    />
                     <Table />
                     <TableHeaderRow />
+                    <PagingPanel />
+                    <TableEditColumn
+                        showAddCommand
+                        showEditCommand
+                        showDeleteCommand
+                    />
+                    <TableSelection
+                        selectByRowClick
+                        highlightRow
+                        showSelectionColumn={false}
+                    />
                 </Grid>
             </div>
         );
