@@ -79,11 +79,19 @@ class RepairAddContainer extends React.Component {
         this.state = {
             phone: '',
             phoneErrorText: '',
+            note: '',
+            noteErrorText: '',
+
         };
     }
     handleChangePhone = (text) => {
         console.log(text);
-    } 
+    }
+    handleChangeNote = name => event => {
+        this.setState({
+            [name]: event.target.value
+        });
+    };
     OnDateChange = (text) => {
         console.log(text);
     };
@@ -103,6 +111,18 @@ class RepairAddContainer extends React.Component {
                     variant="outlined"
                 />
                 <TextField
+                    id="outlined-name"
+                    label="Notatka"
+                    error={this.state.noteErrorText.length !== 0 ? true : false}
+                    helperText={this.state.noteErrorText}
+                    className={classes.textField}
+                    value={this.state.note}
+                    onChange={this.handleChangeNote('note')}
+                    margin="normal"
+                    variant="outlined"
+                    multiline="true"
+                />
+                <TextField
                     id="date"
                     label="Data Naprawy"
                     type="date"
@@ -114,6 +134,7 @@ class RepairAddContainer extends React.Component {
                     }}
 
                 />
+
             </div>
         );
     }

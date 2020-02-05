@@ -217,6 +217,7 @@ class CarAddContainer extends React.Component {
     constructor(props) {
         super(props);
         this.service = new CarService();
+        let owners = this.service.GetOwners().map(x => ({ value: x.id, label: x.name }));
         this.state = {
             data: null,
             phone: '',
@@ -241,7 +242,7 @@ class CarAddContainer extends React.Component {
             regNumError: '',
             dueDateTechService: '',
             owner: '',
-            owners: [],
+            owners: owners,
             isOwnerValid: false,
             age: '',
             year: '',
@@ -255,7 +256,7 @@ class CarAddContainer extends React.Component {
             isRowSelected: true,
             isEditDialogBox: false,
         };
-        
+
     };
     componentDidMount() {
         var brands = this.service.GetBrands().map(x => ({ value: x.id, label: x.brand }));
@@ -305,16 +306,26 @@ class CarAddContainer extends React.Component {
         console.log(name);
     };
     handleChangeRegNumber = text => event => {
-        console.log(text);
+        this.setState({
+            [text]: event.target.value
+        });
     };
-    OnDateChange = (text) => {
-        console.log(text);
+    OnDateChange = text => event => {
+        let dueDateTechService = event.target.value;
+        this.setState({
+            dueDateTechService
+        });
     };
-    handleChangeOwner = (text) => {
-        console.log(text);
+    handleChangeOwner = text => event => {
+        let owner = event;
+        this.setState({
+            owner
+        });
     };
-    handleChangePhone = (text) => {
-        console.log(text);
+    handleChangePhone = text => event => {
+        this.setState({
+            [text]: event.target.value
+        });
     };
     render() {
         const { classes, theme } = this.props;
@@ -454,7 +465,7 @@ class CarAddContainer extends React.Component {
                     margin="normal"
                     variant="outlined"
                 />
-                <CarButtons/>
+                <CarButtons />
             </div>
         );
     }

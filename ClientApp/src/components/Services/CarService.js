@@ -80,5 +80,9 @@
         let engines = models.find(y => y.id == modelId).engines
         return cars.find(x => x.id == brandId).models.find(y => y.id == modelId).engines;
     }
+    GetOwners() {
+        let owners = [{ id: 1, name: "Mat mal" }, { id: 2, name: "Mat mal1" }, { id: 3, name: "Mat mal2" }, { id: 4, name: "Mat mal3" }]
+        return owners;
+    }
 }
 export default CarService
