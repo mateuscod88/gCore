@@ -9,6 +9,8 @@ export class CarButtons extends React.Component {
         }
     }
     onClick = () => {
+        debugger;
+        this.props.addButtonHandler();
         this.setState({ openAddCar: true, });
     }
     render() {

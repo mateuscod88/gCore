@@ -302,7 +302,8 @@ class CarAddContainer extends React.Component {
         });
         var model = this.service.GetModelByBrandId(event.value).map(x => ({ value: x.id, label: x.model }));
         this.setState({
-            model
+            model,
+            isCarBrandValid: false
         });
         console.log(event);
     };
@@ -311,14 +312,16 @@ class CarAddContainer extends React.Component {
         var singleModel = event;
         this.setState({
             engine,
-            singleModel
+            singleModel,
+            isCarModelValid:false,
         });
         console.log(event);
     };
     handleChangeEngine = (event) => {
         var singleEngine = event;
         this.setState({
-            singleEngine
+            singleEngine,
+            isCarEngineValid:false
         });
         console.log(event);
     };
@@ -326,13 +329,14 @@ class CarAddContainer extends React.Component {
         this.NumberValidation(event.target.value, name, 8, 'counterErrorText');
         this.setState(
             {
-                [name]: event.target.value
+                [name]: event.target.value,
             });
         console.log(name);
     };
     handleChangeRegNumber = text => event => {
         this.setState({
-            [text]: event.target.value.toUpperCase()
+            [text]: event.target.value.toUpperCase(),
+            regNumError:''
         });
     };
     OnDateChange = text => event => {
@@ -344,14 +348,117 @@ class CarAddContainer extends React.Component {
     handleChangeOwner = text => event => {
         let owner = event;
         this.setState({
-            owner
+            owner,
+            isOwnerValid:false
         });
     };
     handleChangePhone = name => event => {
         this.NumberValidation(event.target.value, name, 15, 'phoneErrorText');
         this.setState({
-            [name]: event.target.value
+            [name]: event.target.value,
         });
+    };
+    handleSaveButton = async () => {
+
+        if (this.state.isEditDialogBox == false) {
+            var isCarModelInvalid = this.state.singleModel === '';
+            var isCarBrandInvalid = this.state.singleBrand === '';
+            var isCarEngineInvalid = this.state.singleEngine === '';
+            var isPhoneInvalid = this.state.phone === '';
+            var isOwnerNotSelected = this.state.owner === '' || this.state.owner === null;
+            var isYearInvalid = this.state.year === '';
+            var isRegNumInvalid = this.state.regNumber === '';
+
+            if (isCarModelInvalid) {
+                this.setState({ isCarModelValid: true });
+            }
+            if (isCarBrandInvalid) {
+                this.setState({ isCarBrandValid: true });
+            }
+            if (isCarEngineInvalid) {
+                this.setState({ isCarEngineValid: true });
+            }
+            if (isPhoneInvalid && isOwnerNotSelected) {
+                this.setState({
+                    phoneErrorText: 'Telefon lub właściciel wymagany',
+                    isOwnerValid: true,
+                });
+            }
+            if (isRegNumInvalid) {
+                this.setState({
+                    regNumError: 'Numer rejestracyjny wymagany',
+                });
+            }
+            if (isYearInvalid) {
+                this.setState({
+                    yearError: 'Rok produkcji wymagany',
+                });
+            }
+            if (!isCarModelInvalid && !isCarBrandInvalid && !isCarEngineInvalid && (!isOwnerNotSelected || !isPhoneInvalid)) {
+                //var ownerId = this.state.owners[this.state.owners.findIndex((owner) => this.state.owner.label == owner.label && this.state.owner.value == owner.value)].value;
+
+                //var carDTO =
+                //{
+                //    BrandId: this.state.brand[this.state.brand.findIndex((singleBrand) => this.state.singleBrand == singleBrand)].value,
+                //    ModelId: this.state.model[this.state.model.findIndex((singleModel) => this.state.singleModel == singleModel)].value,
+                //    Engine: this.state.engine[this.state.engine.findIndex((singleEngine) => this.state.singleEngine == singleEngine)].label,
+                //    Year: this.state.years[this.state.years.findIndex((year) => this.state.year == year.value)].value,
+                //    TechnicalCheck: (document.getElementById('date')).value,
+                //    PlateNumber: this.state.regNumber,
+                //    KilometerCounter: this.state.counter,
+                //    OwnerId: ownerId,
+                //    Phone: this.state.phone,
+                //};
+
+
+                //const postResult = await fetch('/home/addCar', {
+                //    headers: {
+                //        'Accept': 'application/json',
+                //        'Content-Type': 'application/json'
+                //    },
+                //    method: 'POST',
+                //    body: JSON.stringify(carDTO)
+                //});
+                //await postResult;
+                //this.setState({
+                //    open: false,
+                //    updateCarGrid: true,
+                //});
+            }
+        }
+        else {
+            //debugger;
+            //var ownerId = this.state.owners[this.state.owners.findIndex((owner) => this.state.owner.label == owner.label && this.state.owner.value == owner.value)].value;
+            //var enginee = this.state.engine[this.state.engine.findIndex((singleEngine) => this.state.singleEngine.label == singleEngine.label && this.state.singleEngine.value == singleEngine.value)].label;
+            //var carDTO =
+            //{
+            //    Id: this.state.row.id,
+            //    BrandId: this.state.brand[this.state.brand.findIndex((singleBrand) => this.state.singleBrand == singleBrand)].value,
+            //    ModelId: this.state.model[this.state.model.findIndex((singleModel) => this.state.singleModel == singleModel)].value,
+            //    Engine: this.state.engine[this.state.engine.findIndex((singleEngine) => this.state.singleEngine.label == singleEngine.label && this.state.singleEngine.value == singleEngine.value)].label,
+            //    Year: this.state.years[this.state.years.findIndex((year) => this.state.year == year.value)].value,
+            //    TechnicalCheck: (document.getElementById('date')).value,
+            //    PlateNumber: this.state.regNumber,
+            //    KilometerCounter: this.state.counter,
+            //    OwnerId: ownerId,
+            //    Phone: this.state.phone,
+
+            //};
+            //const putResult = await fetch('home/updateCar?id=' + this.state.row.id, {
+            //    headers: {
+            //        'Accept': 'application/json',
+            //        'Content-Type': 'application/json'
+            //    },
+            //    method: 'PUT',
+            //    body: JSON.stringify(carDTO)
+
+            //});
+            //await putResult;
+            //this.setState({
+            //    open: false,
+            //    updateCarGrid: true,
+            //});
+        }
     };
     render() {
         const { classes, theme } = this.props;
@@ -491,7 +598,7 @@ class CarAddContainer extends React.Component {
                     margin="normal"
                     variant="outlined"
                 />
-                <CarButtons />
+                <CarButtons addButtonHandler={this.handleSaveButton} />
             </div>
         );
     }
