@@ -265,6 +265,31 @@ class CarAddContainer extends React.Component {
             brands,
         });
     }
+    NumberValidation = (value, name, length, errorMsg) => {
+        var regex = /^\d+$/;
+        if (!(value === null)) {
+            if ((value.match(regex) && value.length < length) || value === "") {
+                this.setState({
+                    [name]: value,
+                    [errorMsg]: ''
+                });
+            }
+            else if (value.length === length) {
+
+            }
+            else {
+                this.setState({
+                    [errorMsg]: 'Tylko cyfry',
+                })
+            }
+        }
+        else {
+            this.setState({
+                [name]: '',
+                [errorMsg]: '',
+            })
+        }
+    }
     handleChangeDropDown = name => event => {
         this.setState({
             [name]: event.target.value,
@@ -298,7 +323,7 @@ class CarAddContainer extends React.Component {
         console.log(event);
     };
     handleChangeCounter = name => event => {
-        debugger;
+        this.NumberValidation(event.target.value, name, 8, 'counterErrorText');
         this.setState(
             {
                 [name]: event.target.value
@@ -307,7 +332,7 @@ class CarAddContainer extends React.Component {
     };
     handleChangeRegNumber = text => event => {
         this.setState({
-            [text]: event.target.value
+            [text]: event.target.value.toUpperCase()
         });
     };
     OnDateChange = text => event => {
@@ -322,9 +347,10 @@ class CarAddContainer extends React.Component {
             owner
         });
     };
-    handleChangePhone = text => event => {
+    handleChangePhone = name => event => {
+        this.NumberValidation(event.target.value, name, 15, 'phoneErrorText');
         this.setState({
-            [text]: event.target.value
+            [name]: event.target.value
         });
     };
     render() {
