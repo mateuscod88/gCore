@@ -51,6 +51,9 @@ export class CarGrid extends React.Component {
         var rowId = sel[0];
 
         var row = this.state.rows[this.state.rows.findIndex(row => row.id == rowId)];
+
+        console.log(row);
+        this.props.setCarId(row.id);
         if (selection.length != 0) {
             service.SetSingleRow(row);
             service.SetIsRowSelected(true);
