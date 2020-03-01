@@ -1,7 +1,7 @@
 ﻿import React from 'react';
 import Button from '@material-ui/core/Button';
 import { Redirect } from 'react-router-dom';
-export class CarButtons extends React.Component {
+export class CarAddButtons extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -13,33 +13,12 @@ export class CarButtons extends React.Component {
             cantUpdate: false,
         }
     }
-    componentDidUpdate(prevProps) {
-        debugger;
-        var isAddRepair = this.props.setButtonVisibility();
-        var prev = this.state.isAddRepairDisabledPrev;
-        if (prev != isAddRepair) {
-            this.setState({
-                isAddRepairDisabled: isAddRepair,
-                isAddRepairDisabledPrev: isAddRepair,
-            });
 
-        }
-    }
     onClick = () => {
-        debugger;
         this.props.addButtonHandler();
         this.setState({ openAddCar: true, });
     }
-    onClickAddRepair = () => {
-        this.setState({
-            redirect: true,
-        });
-    }
-    redirectAddRepair = () => {
-        if (this.state.redirect) {
-            return <Redirect to={'/repair-add?carId=' + this.props.getCarId()} />
-        }
-    }
+
     render() {
         return (
             <div>
@@ -52,10 +31,7 @@ export class CarButtons extends React.Component {
                 <Button variant="outlined" color="primary" >
                     Usun
             </Button>
-                {this.redirectAddRepair()}
-                <Button variant="outlined" color="primary" onClick={this.onClickAddRepair} disabled={this.state.isAddRepairDisabled}>
-                    Dodaj Naprawe
-            </Button>
+
             </div>
         );
     }

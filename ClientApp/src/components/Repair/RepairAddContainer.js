@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { emphasize } from '@material-ui/core/styles/colorManipulator';
-
+import CarService from '../Services/CarService.js';
 const styles = theme => ({
     root: {
         flexGrow: 1,
@@ -81,8 +81,28 @@ class RepairAddContainer extends React.Component {
             phoneErrorText: '',
             note: '',
             noteErrorText: '',
-
+            carBrand: '',
+            carModel: '',
+            carEngine: '',
+            regNum:'',
         };
+        this.carService = new CarService();
+    }
+    componentDidMount() {
+        var carId = this.props.location.search.substring(7, 8);
+        if (carId.length > 0) {
+            var car = this.carService.GetCarById(carId);
+            if (car != undefined) {
+                this.setState({
+                    carBrand: car.brand,
+                    carModel: car.model,
+                    carEngine: car.engine,
+                    regNum: car.regNum,
+                });
+            }
+           
+        }
+        
     }
     handleChangePhone = (text) => {
         console.log(text);
@@ -99,6 +119,7 @@ class RepairAddContainer extends React.Component {
         const { classes, theme } = this.props;
         return (
             <div>
+                <div>{this.state.carBrand} {this.state.carModel} {this.state.carEngine}  {this.state.regNum}</div>
                 <TextField
                     id="outlined-name"
                     label="Nazwa"

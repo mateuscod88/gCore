@@ -24,7 +24,7 @@ import Chip from '@material-ui/core/Chip';
 
 import CancelIcon from '@material-ui/icons/Cancel';
 import { emphasize } from '@material-ui/core/styles/colorManipulator';
-import { CarButtons } from './CarButtons'
+import { CarAddButtons } from './CarAddButtons'
 import CarService from '../Services/CarService.js';
 
 
@@ -396,6 +396,20 @@ class CarAddContainer extends React.Component {
                 });
             }
             if (!isCarModelInvalid && !isCarBrandInvalid && !isCarEngineInvalid && (!isOwnerNotSelected || !isPhoneInvalid)) {
+                var dateToday = Date.now().toString();
+
+                var car = {
+                    id: "3",
+                    brand: this.state.singleBrand,
+                    model: this.state.singleModel,
+                    engine: this.state.singleEngine,
+                    regNum: this.state.regNumber,
+                    phone: this.state.phone,
+                    dueDateTechService: (document.getElementById('date')).value,
+                    lastOilChange: dateToday
+                };
+                this.service.Add(car);
+                debugger;
                 //var ownerId = this.state.owners[this.state.owners.findIndex((owner) => this.state.owner.label == owner.label && this.state.owner.value == owner.value)].value;
 
                 //var carDTO =
@@ -599,7 +613,7 @@ class CarAddContainer extends React.Component {
                     margin="normal"
                     variant="outlined"
                 />
-                <CarButtons addButtonHandler={this.handleSaveButton} />
+                <CarAddButtons addButtonHandler={this.handleSaveButton}  />
             </div>
         );
     }

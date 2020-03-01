@@ -48,44 +48,56 @@ export class CarGrid extends React.Component {
         var service = this.service;
         var sel = [];
         sel[0] = selection[selection.length - 1];
-        var rowId = sel[0];
+        var selection = sel[0];
+        if (selection != undefined) {
+            var rowId = sel[0];
+            console.log(sel[0]);
+            this.props.enableButton();
+            var row = this.state.rows[this.state.rows.findIndex(row => row.id == rowId)];
 
-        var row = this.state.rows[this.state.rows.findIndex(row => row.id == rowId)];
-
-        console.log(row);
-        this.props.setCarId(row.id);
-        if (selection.length != 0) {
-            service.SetSingleRow(row);
-            service.SetIsRowSelected(true);
-            //this.props.onRowSelected(true);
+            console.log(row);
             debugger;
+            this.props.setCarId(row.id);
+            if (selection.length != 0) {
+                service.SetSingleRow(row);
+                service.SetIsRowSelected(true);
+                //this.props.onRowSelected(true);
+                debugger;
+            }
+            else {
+                service.SetIsRowSelected(false);
+                //this.props.onRowSelected(false);
+            }
+            debugger;
+
+            this.setState({ selection: sel, selectedRows: sel[0], });
+
+            let rows = this.state.rows;
+            //rows = rows.concat({
+            //    id: "3",
+            //    brand: "VW",
+            //    model: "Polo",
+            //    engine: "1.9TDI",
+            //    regNum: "BIA8872",
+            //    phone: "514515151",
+            //    dueDateTechService: "",
+            //    lastOilChange: ""
+            //});
+
+            this.setState({
+                rows
+            });
         }
         else {
+            this.setState({ selection: [], selectedRows: 0, });
             service.SetIsRowSelected(false);
-            //this.props.onRowSelected(false);
+            this.props.disableButton();
         }
-        debugger;
 
-        this.setState({ selection: sel, selectedRows: sel[0], });
-
-        let   rows = this.state.rows;
-        //rows = rows.concat({
-        //    id: "3",
-        //    brand: "VW",
-        //    model: "Polo",
-        //    engine: "1.9TDI",
-        //    regNum: "BIA8872",
-        //    phone: "514515151",
-        //    dueDateTechService: "",
-        //    lastOilChange: ""
-        //});
-
-        this.setState({
-            rows
-        });
 
     }
     componentDidUpdate(prevProps) {
+        debugger;
         //var service = this.props.service;
         //if (service.GetUpdateGrid() == true) {
         //    this.GetRows();

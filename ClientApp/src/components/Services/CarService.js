@@ -7,24 +7,9 @@
         this.isRowSelected = false;
         this.isRepairDetailsDialogBox = false;
         this.updateGrid = false;
-    }
-    GetColumns() {
-        this.columns =
-            [
-                { name: 'model', title: 'Model' },
-                { name: 'brand', title: 'Marka' },
-                { name: 'engine', title: 'Silnik' },
-                { name: 'regNum', title: 'Nr Rejestracyjny' },
-                { name: 'phone', title: 'Telefon' },
-                { name: 'dueDateTechService', title: 'Do Przeglądu' },
-                { name: 'lastOilChange', title: 'Wymiana Oleju' }
-
-            ];
-        return this.columns;
-    }
-    GetAll() {
         var dateToday = Date.now().toString();
-        var cars = [
+
+        this.carsGetByID = [
 
             {
                 id: "1",
@@ -47,7 +32,27 @@
                 lastOilChange: dateToday
             },
         ];
+    }
+    Add(car) {
+        this.carsGetByID.push(car);
+    }
+    GetColumns() {
+        this.columns =
+            [
+                { name: 'model', title: 'Model' },
+                { name: 'brand', title: 'Marka' },
+                { name: 'engine', title: 'Silnik' },
+                { name: 'regNum', title: 'Nr Rejestracyjny' },
+                { name: 'phone', title: 'Telefon' },
+                { name: 'dueDateTechService', title: 'Do Przeglądu' },
+                { name: 'lastOilChange', title: 'Wymiana Oleju' }
 
+            ];
+        return this.columns;
+    }
+    GetAll() {
+        var dateToday = Date.now().toString();
+        var cars = this.carsGetByID
 
         this.cars = {
             rows: cars
@@ -83,6 +88,9 @@
     GetOwners() {
         let owners = [{ id: 1, name: "Mat mal" }, { id: 2, name: "Mat mal1" }, { id: 3, name: "Mat mal2" }, { id: 4, name: "Mat mal3" }]
         return owners;
+    }
+    GetCarById(carId) {
+        return this.carsGetByID.find(x => x.id == carId);
     }
 }
 export default CarService
