@@ -9,31 +9,48 @@ export class CarButtons extends React.Component {
             redirect: false,
             isAddRepairDisabled: true,
             isAddRepairDisabledPrev: true,
+            isEditCarDisabled: true,
+            isEditCarDisabledPrev: true,
+            isRemoveCarDisabled: true,
+            isRemoveCarDisabledPrev:true,
             canUpdate: true,
             cantUpdate: false,
+            redirectAddCar: false,
         }
     }
     componentDidUpdate(prevProps) {
         debugger;
         var isAddRepair = this.props.setButtonVisibility();
-        var prev = this.state.isAddRepairDisabledPrev;
-        if (prev != isAddRepair) {
+        this.toggleButton('isAddRepairDisabled', 'isAddRepairDisabledPrev', isAddRepair);
+        this.toggleButton('isEditCarDisabled', 'isEditCarDisabledPrev', isAddRepair);
+        this.toggleButton('isRemoveCarDisabled', 'isRemoveCarDisabledPrev', isAddRepair);
+
+    }
+    toggleButton = (current, prev, isAddRepair) => {
+        debugger;
+        var prevIs = this.state[prev];
+        if (prevIs != isAddRepair) {
             this.setState({
-                isAddRepairDisabled: isAddRepair,
-                isAddRepairDisabledPrev: isAddRepair,
+                [current]: isAddRepair,
+                [prev]: isAddRepair,
             });
 
         }
     }
     onClick = () => {
-        debugger;
-        this.props.addButtonHandler();
-        this.setState({ openAddCar: true, });
+        this.setState({
+            redirectAddCar: true,
+        });
     }
     onClickAddRepair = () => {
         this.setState({
             redirect: true,
         });
+    }
+    redirectAddCar = () => {
+        if (this.state.redirectAddCar) {
+            return <Redirect to={'/car-add'} />
+        }
     }
     redirectAddRepair = () => {
         if (this.state.redirect) {
@@ -43,13 +60,14 @@ export class CarButtons extends React.Component {
     render() {
         return (
             <div>
-                <Button variant="outlined" color="primary" onClick={this.onClick}>
+                {this.redirectAddCar()}
+            <Button variant="outlined" color="primary" onClick={this.onClick}>
                     Dodaj
             </Button>
-                <Button variant="outlined" color="primary" >
+                <Button variant="outlined" color="primary" disabled={this.state.isEditCarDisabled} >
                     Edytuj
             </Button>
-                <Button variant="outlined" color="primary" >
+                <Button variant="outlined" color="primary" disabled={this.state.isRemoveCarDisabled}>
                     Usun
             </Button>
                 {this.redirectAddRepair()}

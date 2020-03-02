@@ -26,7 +26,7 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import { emphasize } from '@material-ui/core/styles/colorManipulator';
 import { CarAddButtons } from './CarAddButtons'
 import CarService from '../Services/CarService.js';
-
+import CarDto from '../Services/Dto/CarDto.ts';
 
 function generateYearsArray(years) {
     var currentDate = new Date();
@@ -397,18 +397,29 @@ class CarAddContainer extends React.Component {
             }
             if (!isCarModelInvalid && !isCarBrandInvalid && !isCarEngineInvalid && (!isOwnerNotSelected || !isPhoneInvalid)) {
                 var dateToday = Date.now().toString();
-
-                var car = {
-                    id: "3",
-                    brand: this.state.singleBrand,
-                    model: this.state.singleModel,
-                    engine: this.state.singleEngine,
-                    regNum: this.state.regNumber,
-                    phone: this.state.phone,
-                    dueDateTechService: (document.getElementById('date')).value,
-                    lastOilChange: dateToday
+                var ownerId = this.state.owners[this.state.owners.findIndex((owner) => this.state.owner.label == owner.label && this.state.owner.value == owner.value)].value;
+                var carDto = {
+                    BrandId: this.state.brand[this.state.brand.findIndex((singleBrand) => this.state.singleBrand == singleBrand)].value,
+                    ModelId: this.state.model[this.state.model.findIndex((singleModel) => this.state.singleModel == singleModel)].value,
+                    Engine: this.state.engine[this.state.engine.findIndex((singleEngine) => this.state.singleEngine == singleEngine)].label,
+                    Year: this.state.years[this.state.years.findIndex((year) => this.state.year == year.value)].value,
+                    TechnicalCheck: (document.getElementById('date')).value,
+                    PlateNumber: this.state.regNumber,
+                    KilometerCounter: this.state.counter,
+                    OwnerId: ownerId,
+                    Phone: this.state.phone,
                 };
-                this.service.Add(car);
+                //var car = {
+                //    id: "3",
+                //    brand: this.state.singleBrand,
+                //    model: this.state.singleModel,
+                //    engine: this.state.singleEngine,
+                //    regNum: this.state.regNumber,
+                //    phone: this.state.phone,
+                //    dueDateTechService: (document.getElementById('date')).value,
+                //    lastOilChange: dateToday
+                //};
+                this.service.Add(carDto);
                 debugger;
                 //var ownerId = this.state.owners[this.state.owners.findIndex((owner) => this.state.owner.label == owner.label && this.state.owner.value == owner.value)].value;
 

@@ -143,11 +143,7 @@ export class CarGrid extends React.Component {
                     <Table />
                     <TableHeaderRow />
                     <PagingPanel />
-                    <TableEditColumn
-                        showAddCommand
-                        showEditCommand
-                        showDeleteCommand
-                    />
+                   
                     <TableSelection
                         selectByRowClick
                         highlightRow
