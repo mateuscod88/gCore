@@ -1,6 +1,6 @@
 ﻿import React, { Component } from 'react';
-import { EditingState, PagingState, IntegratedPaging, SelectionState } from '@devexpress/dx-react-grid';
-import { Grid, Table, TableHeaderRow, TableEditColumn, PagingPanel, TableSelection } from '@devexpress/dx-react-grid-material-ui';
+import { EditingState, PagingState, IntegratedPaging, SelectionState, SearchState, IntegratedFiltering } from '@devexpress/dx-react-grid';
+import { Grid, Table, TableHeaderRow, TableEditColumn, PagingPanel, TableSelection, SearchPanel, Toolbar} from '@devexpress/dx-react-grid-material-ui';
 import RepairService from '../Services/RepairService.js';
 const getRowId = row => row.id;
 
@@ -12,6 +12,7 @@ class RepairGrid extends Component {
             rows: [],
             selectedRows: 0,
             selection: [],
+            searchValue: '',
 
         };
         this.service = new RepairService();
@@ -83,6 +84,13 @@ class RepairGrid extends Component {
         var st = rowIds;
 
     }
+
+    setSearchState = (value) => {
+        this.setState({
+            searchValue: value,
+        });
+    }
+
     render() {
 
         const { columns, rows, selection } = this.state;
@@ -97,6 +105,13 @@ class RepairGrid extends Component {
                         selection={selection}
                         onSelectionChange={this.changeSelection}
                     />
+                    <SearchState
+                        value={this.state.searchValue}
+                        onValueChange={this.setSearchState}
+                    />
+                    <IntegratedFiltering />
+                    <Toolbar />
+                    <SearchPanel />
                     <PagingState
                         defaultCurrentPage={0}
                         pageSize={5}
@@ -108,11 +123,7 @@ class RepairGrid extends Component {
                     <Table />
                     <TableHeaderRow />
                     <PagingPanel />
-                    <TableEditColumn
-                        showAddCommand
-                        showEditCommand
-                        showDeleteCommand
-                    />
+                    
                     <TableSelection
                         selectByRowClick
                         highlightRow
