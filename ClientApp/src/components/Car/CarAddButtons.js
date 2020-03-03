@@ -11,9 +11,24 @@ export class CarAddButtons extends React.Component {
             isAddRepairDisabledPrev: true,
             canUpdate: true,
             cantUpdate: false,
+            buttonLabel:'',
         }
     }
-
+    componentDidMount() {
+        var operationType = this.props.operationType;
+        debugger;
+        if (operationType == 'add') {
+            this.setState({
+                buttonLabel: 'Dodaj'
+            });
+        }
+        else {
+            this.setState({
+                buttonLabel: 'Zapisz'
+            });
+        }
+            
+    }
     onClick = () => {
         this.props.addButtonHandler();
         this.setState({ openAddCar: true, });
@@ -23,7 +38,7 @@ export class CarAddButtons extends React.Component {
         return (
             <div>
                 <Button variant="outlined" color="primary" onClick={this.onClick}>
-                    Dodaj
+                    {this.state.buttonLabel}
             </Button>
             </div>
         );

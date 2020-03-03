@@ -16,6 +16,8 @@ export class CarButtons extends React.Component {
             canUpdate: true,
             cantUpdate: false,
             redirectAddCar: false,
+            redirectEditCar: false,
+
         }
     }
     componentDidUpdate(prevProps) {
@@ -47,9 +49,19 @@ export class CarButtons extends React.Component {
             redirect: true,
         });
     }
+    onClickEditCar = () => {
+        this.setState({
+            redirectEditCar: true,
+        });
+    }
     redirectAddCar = () => {
         if (this.state.redirectAddCar) {
             return <Redirect to={'/car-add'} />
+        }
+    }
+    redirectEditCar = () => {
+        if (this.state.redirectEditCar) {
+            return <Redirect to={'/car-add?carId=' + this.props.getCarId()} />
         }
     }
     redirectAddRepair = () => {
@@ -64,7 +76,8 @@ export class CarButtons extends React.Component {
             <Button variant="outlined" color="primary" onClick={this.onClick}>
                     Dodaj
             </Button>
-                <Button variant="outlined" color="primary" disabled={this.state.isEditCarDisabled} >
+                {this.redirectEditCar()}
+                <Button variant="outlined" color="primary" onClick={this.onClickEditCar} disabled={this.state.isEditCarDisabled} >
                     Edytuj
             </Button>
                 <Button variant="outlined" color="primary" disabled={this.state.isRemoveCarDisabled}>

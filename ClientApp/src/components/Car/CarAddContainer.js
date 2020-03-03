@@ -255,6 +255,8 @@ class CarAddContainer extends React.Component {
             row: null,
             isRowSelected: true,
             isEditDialogBox: false,
+            ccarId: 0,
+            operationType:'',
         };
 
     };
@@ -264,7 +266,36 @@ class CarAddContainer extends React.Component {
         this.setState({
             brands,
         });
+        var carId = this.props.location.search.substring(7, 8);
+        debugger;
+        if (carId > 0) {
+
+            var car = this.service.GetCarById(carId);
+            if (car != undefined) {
+                this.setState({
+                    singleBrand: { value: car.brandId, label: car.brand },
+                    singleModel: { value: car.modelId, label: car.model },
+                    singleEngine: { value: car.engineId, label: car.engine },
+                    regNumber: car.regNum,
+                    year: car.year,
+                    counter: car.kilometerCounter,
+                    dueDateTechService: car.technicalService,
+                    phone: car.phone,
+                    owner: { value: car.ownerId, label: car.owner },
+                    ccarId: carId,
+                    operationType: 'edit',
+                });
+                //(document.getElementById('date')).value
+            }
+
+        }
+        else {
+            this.setState({
+                operationType: 'add',
+            });
+        }
     }
+    
     NumberValidation = (value, name, length, errorMsg) => {
         var regex = /^\d+$/;
         if (!(value === null)) {
@@ -297,6 +328,7 @@ class CarAddContainer extends React.Component {
         });
     };
     handleChangeBrand = name => event => {
+        debugger;
         this.setState({
             [name]: event
         });
@@ -624,7 +656,7 @@ class CarAddContainer extends React.Component {
                     margin="normal"
                     variant="outlined"
                 />
-                <CarAddButtons addButtonHandler={this.handleSaveButton}  />
+                <CarAddButtons addButtonHandler={this.handleSaveButton} operationType={this.state.operationType} />
             </div>
         );
     }

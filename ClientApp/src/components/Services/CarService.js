@@ -15,22 +15,39 @@ class CarService {
             {
                 id: "1",
                 brand: "VW",
+                brandId: 2,
                 model: "Passat",
+                modelId:13,
                 engine: "1.9TDI",
+                engineId:1,
                 regNum: "BIA8872",
                 phone: "514515151",
                 dueDateTechService: dateToday,
-                lastOilChange: dateToday
+                lastOilChange: dateToday,
+                year: 2000,
+                kilometerCounter: 199999,
+                technicalService: "2020-01-01",
+                owner: "Mat mal",
+                ownerId:1,
             },
             {
                 id: "2",
                 brand: "VW",
+                brandId: 2,
                 model: "Golf",
+                modelId: 21,
                 engine: "1.9TDI",
+                engineId: 1,
                 regNum: "BIA8872",
                 phone: "514515151",
                 dueDateTechService: dateToday,
-                lastOilChange: dateToday
+                lastOilChange: dateToday,
+                year: 2001,
+                kilometerCounter: 250000,
+                technicalService: "2020-01-02",
+                owner: "Mat mal1",
+                ownerId: 2,
+
             },
         ];
     }
