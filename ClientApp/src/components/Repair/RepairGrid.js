@@ -32,7 +32,7 @@ class RepairGrid extends Component {
 
         this.GetRows();
         var columnss = service.GetColumns();
-        debugger;
+        
 
         this.setState({
             columns: service.GetColumns(),
@@ -62,25 +62,32 @@ class RepairGrid extends Component {
         var service = this.service;
         var sel = [];
         sel[0] = selection[selection.length - 1];
-        var rowId = sel[0];
+        var selection = sel[0];
+        if (selection != undefined) {
 
-        var row = this.state.rows[this.state.rows.findIndex(row => row.id == rowId)];
-        if (selection.length != 0) {
-            service.SetSingleRow(row);
-            service.SetIsRowSelected(true);
-            this.props.onRowSelected(true);
-            debugger;
+            var rowId = sel[0];
+            this.props.enableButton();
+
+            var row = this.state.rows[this.state.rows.findIndex(row => row.id == rowId)];
+            if (selection.length != 0) {
+                service.SetSingleRow(row);
+                service.SetIsRowSelected(true);
+            }
+            else {
+                service.SetIsRowSelected(false);
+            }
+            
+            this.setState({ selection: sel, selectedRows: sel[0], });
         }
         else {
-            service.SetIsRowSelected(false);
-            this.props.onRowSelected(false);
-        }
-        debugger;
+            this.props.disableButton();
 
-        this.setState({ selection: sel, selectedRows: sel[0], });
+            this.setState({ selection: [], selectedRows: 0, });
+            service.SetIsRowSelected(false);
+        }
     }
     toggleSelectionRow = (rowIds, state) => {
-        debugger;
+        
         var st = rowIds;
 
     }

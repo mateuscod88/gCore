@@ -51,7 +51,6 @@ export class CarGrid extends React.Component {
         var selection = sel[0];
         if (selection != undefined) {
             var rowId = sel[0];
-            console.log(sel[0]);
             this.props.enableButton();
             var row = this.state.rows[this.state.rows.findIndex(row => row.id == rowId)];
 
