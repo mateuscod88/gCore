@@ -4,6 +4,8 @@ import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { emphasize } from '@material-ui/core/styles/colorManipulator';
 import CarService from '../Services/CarService.js';
+import RepairService from '../Services/RepairService.js';
+
 const styles = theme => ({
     root: {
         flexGrow: 1,
@@ -77,8 +79,8 @@ class RepairAddContainer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            phone: '',
-            phoneErrorText: '',
+            noteName: '',
+            noteNameError: '',
             note: '',
             noteErrorText: '',
             carBrand: '',
@@ -86,11 +88,15 @@ class RepairAddContainer extends React.Component {
             carEngine: '',
             regNum:'',
         };
+        debugger;
         this.carService = new CarService();
+        this.repairService = new RepairService();
     }
     componentDidMount() {
         var carId = this.props.location.search.substring(7, 8);
-        if (carId.length > 0) {
+        debugger;
+        var repairId = parseInt(this.props.location.search.substring(10, 11));
+        if (carId > 0) {
             var car = this.carService.GetCarById(carId);
             if (car != undefined) {
                 this.setState({
@@ -100,10 +106,27 @@ class RepairAddContainer extends React.Component {
                     regNum: car.regNum,
                 });
             }
-           
+
+        }
+        else if (repairId > 0) {
+            debugger;
+            var repair = this.repairService.GetRepairById(repairId);
+            if (repair != undefined) {
+                this.setState({
+                    noteName:repair.Name,
+                    note: repair.Note,
+                    carBrand: repair.Brand,
+                    carModel: repair.Model,
+                        carEngine: repair.Engine,
+                    regNum: repair.PlateNumber,
+                    dueDateTechService: repair.Date,
+                    }
+                );
+            }
         }
         
     }
+    
     handleChangePhone = (text) => {
         console.log(text);
     }
@@ -123,10 +146,10 @@ class RepairAddContainer extends React.Component {
                 <TextField
                     id="outlined-name"
                     label="Nazwa"
-                    error={this.state.phoneErrorText.length !== 0 ? true : false}
+                    error={this.state.noteNameError.length !== 0 ? true : false}
                     helperText={this.state.phoneErrorText}
                     className={classes.textField}
-                    value={this.state.phone}
+                    value={this.state.noteName}
                     onChange={this.handleChangePhone('phone')}
                     margin="normal"
                     variant="outlined"

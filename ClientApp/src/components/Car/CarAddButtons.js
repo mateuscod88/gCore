@@ -17,14 +17,16 @@ export class CarAddButtons extends React.Component {
     componentDidMount() {
         var operationType = this.props.operationType;
         debugger;
-        if (operationType == 'add') {
+        var carId = parseInt(this.props.location.search.substring(7, 8));
+        if (carId > 0) {
             this.setState({
-                buttonLabel: 'Dodaj'
+                buttonLabel: 'Zapisz'
             });
         }
         else {
             this.setState({
-                buttonLabel: 'Zapisz'
+                buttonLabel: 'Dodaj'
+
             });
         }
             

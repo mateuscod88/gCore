@@ -6,6 +6,12 @@
         this.isRowSelected = false;
         this.isRepairDetailsDialogBox = false;
         this.updateGrid = false;
+        this.data = [
+            { Id: 1, Name: "rozrzad", Date: "2020-01-02", Note: "Wymiana rozrzadu ina", Brand: "Vw", Model: "Passat", PlateNumber: "BIA004411",Engine:"1.9TDI" },
+            { Id: 2, Name: "olej", Date: "2020-01-02", Note: "Wymiana rozrzadu ina", Brand: "Vw", Model: "Passat", PlateNumber: "BIA004411", Engine: "1.9TDI" },
+            { Id: 3, Name: "filtr paliwa", Date: "2020-01-02", Note: "Wymiana rozrzadu ina", Brand: "Vw", Model: "Passat", PlateNumber: "BIA004411", Engine: "1.9TDI" },
+            { Id: 4, Name: "wymiana klockow", Date: "2020-01-02", Note: "Wymiana rozrzadu ina", Brand: "Vw", Model: "Passat", PlateNumber: "BIA004411", Engine: "1.9TDI" }
+        ]
     }
     async AddRepair(repairDTO) {
         const postResult = await fetch('/repairs/addRepair', {
@@ -30,6 +36,9 @@
         });
         await putResult;
     }
+    GetRepairById(repairId) {
+        return this.data.find(x => x.Id == repairId);
+    }
     GetAll() {
         //const result = await fetch('/repairs/GetRepairs')
         //    .then(response => response.json())
@@ -47,14 +56,9 @@
         //    });
         //await result;
         debugger;
-        let data = [
-            { Id: 1, Name: "rozrzad", Date: "21.01.2020", Note: "Wymiana rozrzadu ina", Brand: "Vw", Model: "Passat", PlateNumber: "BIA004411" },
-            { Id: 2, Name: "olej", Date: "21.01.2020", Note: "Wymiana rozrzadu ina", Brand: "Vw", Model: "Passat", PlateNumber: "BIA004411" },
-            { Id: 3, Name: "filtr paliwa", Date: "21.01.2020", Note: "Wymiana rozrzadu ina", Brand: "Vw", Model: "Passat", PlateNumber: "BIA004411" },
-            { Id: 4, Name: "wymiana klockow", Date: "21.01.2020", Note: "Wymiana rozrzadu ina", Brand: "Vw", Model: "Passat", PlateNumber: "BIA004411" }
-        ];
+        
         this.repairs =  {
-            rows: data.map(suggestion => ({
+            rows: this.data.map(suggestion => ({
                 id: suggestion.Id,
                 name: suggestion.Name,
                 date: suggestion.Date,
