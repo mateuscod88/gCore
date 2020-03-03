@@ -25,13 +25,6 @@ export class CarAddButtons extends React.Component {
                 <Button variant="outlined" color="primary" onClick={this.onClick}>
                     Dodaj
             </Button>
-                <Button variant="outlined" color="primary" >
-                    Edytuj
-            </Button>
-                <Button variant="outlined" color="primary" >
-                    Usun
-            </Button>
-
             </div>
         );
     }
