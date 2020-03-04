@@ -70,9 +70,15 @@ export class RepairAddButton extends React.Component {
         this.setState({ openAddCar: true, });
     }
     onClickEditButton = () => {
-        this.setState({
-            redirectEditRepair : true,
-        })
+        if (this.props.isDataValid()) {
+            this.setState({
+                redirectEditRepair: true,
+            })
+        }
+        else {
+            this.props.setValidationMsg();
+        }
+        
     }
     redirectEditRepair = () => {
         if (this.state.redirectEditRepair) {

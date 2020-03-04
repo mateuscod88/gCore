@@ -141,11 +141,27 @@ class RepairAddContainer extends React.Component {
             dataChanged: true,
         });
     }
+    validateisFieldEmpty(text) {
+        return text == "" ? true : false;
+    }
 
     handleChangeName = (text) => event => {
         debugger;
         if (this.state[text] != event.target.value) {
             this.setDataChanged();
+        }
+        if (this.validateisFieldEmpty(event.target.value)) {
+            this.setState({
+                noteNameError: 'Pole wymagane',
+
+            });
+        }
+        else {
+
+            this.setState({
+                noteNameError: '',
+
+            });
         }
         this.setState({
             [text]: event.target.value
@@ -158,6 +174,19 @@ class RepairAddContainer extends React.Component {
         if (this.state[name] != event.target.value) {
             this.setDataChanged();
            
+        }
+        if (this.validateisFieldEmpty(event.target.value)) {
+            this.setState({
+                noteErrorText: 'Pole wymagane',
+
+            });
+        }
+        else {
+
+            this.setState({
+                noteErrorText: '',
+
+            });
         }
         this.setState({
             [name]: event.target.value
@@ -174,6 +203,22 @@ class RepairAddContainer extends React.Component {
             dueDateTechService
         });
     };
+    isDataValid = () => {
+        debugger;
+        if (this.state.note != '' && this.state.noteName != '', this.state.dueDateTechService != '') {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    setValidationMsg = () => {
+        this.setState({
+            noteErrorText: 'Pole wymagane',
+            noteNameError: 'Pole wymagane',
+        });
+    }
+
     render() {
         const { classes, theme } = this.props;
         return (
@@ -214,7 +259,7 @@ class RepairAddContainer extends React.Component {
                     }}
 
                 />
-                <RepairAddButton operationType={this.state.operationType} dataChanged={this.state.dataChanged} />
+                <RepairAddButton operationType={this.state.operationType} dataChanged={this.state.dataChanged} isDataValid={this.isDataValid} setValidationMsg={this.setValidationMsg} />
             </div>
         );
     }
