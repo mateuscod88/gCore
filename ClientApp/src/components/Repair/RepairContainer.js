@@ -7,6 +7,7 @@ export class RepairContainer extends Component {
         super(props);
         this.state = {
             isAddRepairButtonDisable: true,
+            repairId: 0,
         };
     }
     enableAddRepairButton = () => {
@@ -23,11 +24,19 @@ export class RepairContainer extends Component {
     setButtonVisibility = () => {
         return this.state.isAddRepairButtonDisable;
     }
+    setRepairId = (repairId) => {
+        this.setState({
+            repairId: repairId,
+        });
+    }
+    getRepairId = () => {
+        return this.state.repairId;
+    }
     render() {
         return (
             <div>
-                <RepairGrid enableButton={this.enableAddRepairButton} disableButton={this.disableAddRepairButton}/>
-                <RepairButton setButtonVisibility={this.setButtonVisibility}/>
+                <RepairGrid setRepairId={this.setRepairId} enableButton={this.enableAddRepairButton} disableButton={this.disableAddRepairButton} />
+                <RepairButton getRepairId={this.getRepairId} setButtonVisibility={this.setButtonVisibility} />
             </div>
         );
     }

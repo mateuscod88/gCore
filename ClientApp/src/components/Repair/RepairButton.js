@@ -1,5 +1,6 @@
 ﻿import React from 'react';
 import Button from '@material-ui/core/Button';
+import { Redirect } from 'react-router-dom';
 
 export class RepairButton extends React.Component {
     constructor(props) {
@@ -10,6 +11,7 @@ export class RepairButton extends React.Component {
             isEditRepairDisabledPrev: true,
             isRemoveRepairDisabled: true,
             isRemoveRepairDisabledPrev: true,
+            redirectEditRepair: false,
         }
     }
     componentDidUpdate(prevProps) {
@@ -33,10 +35,21 @@ export class RepairButton extends React.Component {
     onClick = () => {
         this.setState({ openAddCar: true, });
     }
+    onClickEditButton = () => {
+        this.setState({
+            redirectEditRepair : true,
+        })
+    }
+    redirectEditRepair = () => {
+        if (this.state.redirectEditRepair) {
+            return <Redirect to={'/repair-add?repairId=' + this.props.getRepairId()} />
+        }
+    }
     render() {
         return (
             <div>
-                <Button variant="outlined" color="primary" disabled={this.state.isEditRepairDisabled} >
+                {this.redirectEditRepair()}
+                <Button variant="outlined" color="primary" onClick={this.onClickEditButton} disabled={this.state.isEditRepairDisabled} >
                     Edytuj
             </Button>
                 <Button variant="outlined" color="primary" disabled={this.state.isRemoveRepairDisabled}>

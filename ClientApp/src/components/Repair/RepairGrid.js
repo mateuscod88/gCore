@@ -69,7 +69,9 @@ class RepairGrid extends Component {
             this.props.enableButton();
 
             var row = this.state.rows[this.state.rows.findIndex(row => row.id == rowId)];
+
             if (selection.length != 0) {
+                this.props.setRepairId(row.id);
                 service.SetSingleRow(row);
                 service.SetIsRowSelected(true);
             }
