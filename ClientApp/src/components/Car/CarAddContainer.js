@@ -259,6 +259,7 @@ class CarAddContainer extends React.Component {
             isEditDialogBox: false,
             ccarId: 0,
             operationType: operationType,
+            dataChanged:false,
         };
 
     };
@@ -324,6 +325,7 @@ class CarAddContainer extends React.Component {
         }
     }
     handleChangeDropDown = name => event => {
+        
         this.setState({
             [name]: event.target.value,
             yearError: '',
@@ -331,6 +333,9 @@ class CarAddContainer extends React.Component {
     };
     handleChangeBrand = name => event => {
         debugger;
+        if (this.state.singleBrand != event) {
+            this.setDataChanged();
+        }
         this.setState({
             [name]: event
         });
@@ -520,6 +525,27 @@ class CarAddContainer extends React.Component {
             //});
         }
     };
+    setDataChanged = () => {
+        this.setState({
+            dataChanged: true,
+        });
+    }
+    isDataValid = () => {
+        debugger;
+        if (this.state.note != '' && this.state.noteName != '', this.state.dueDateTechService != '') {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    setValidationMsg = () => {
+        this.setState({
+            noteErrorText: 'Pole wymagane',
+            noteNameError: 'Pole wymagane',
+        });
+    }
+
     render() {
         const { classes, theme } = this.props;
         const selectStyles = {
@@ -658,7 +684,7 @@ class CarAddContainer extends React.Component {
                     margin="normal"
                     variant="outlined"
                 />
-                <CarAddButtons addButtonHandler={this.handleSaveButton} operationType={this.state.operationType} />
+                <CarAddButtons addButtonHandler={this.handleSaveButton} operationType={this.state.operationType} dataChanged={this.state.dataChanged} isDataValid={this.isDataValid} setValidationMsg={this.setValidationMsg} />
             </div>
         );
     }

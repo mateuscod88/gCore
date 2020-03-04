@@ -11,7 +11,9 @@ export class CarAddButtons extends React.Component {
             isAddRepairDisabledPrev: true,
             canUpdate: true,
             cantUpdate: false,
-            buttonLabel:'',
+            buttonLabel: '',
+            isButtonDisabled: false,
+            isButtonDisabledPrev: false,
         }
     }
     componentDidMount() {
@@ -19,7 +21,9 @@ export class CarAddButtons extends React.Component {
         debugger;
         if (operationType == 'edit') {
             this.setState({
-                buttonLabel: 'Zapisz'
+                buttonLabel: 'Zapisz',
+                isButtonDisabled: true,
+                isButtonDisabledPrev: true,
             });
         }
         else {
@@ -30,6 +34,20 @@ export class CarAddButtons extends React.Component {
         }
             
     }
+    componentDidUpdate(prevProps) {
+        debugger;
+        if (prevProps.dataChanged != this.props.dataChanged) {
+            var dataChanged = this.props.dataChanged;
+            if (dataChanged) {
+                this.setState({
+                    isButtonDisabled: false,
+                    isButtonDisabledPrev: false,
+
+                })
+            }
+        }
+
+    }
     onClick = () => {
         this.props.addButtonHandler();
         this.setState({ openAddCar: true, });
@@ -38,7 +56,7 @@ export class CarAddButtons extends React.Component {
     render() {
         return (
             <div>
-                <Button variant="outlined" color="primary" onClick={this.onClick}>
+                <Button variant="outlined" color="primary" onClick={this.onClick} disabled={this.state.isButtonDisabled}>
                     {this.state.buttonLabel}
             </Button>
             </div>
