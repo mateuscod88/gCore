@@ -228,7 +228,7 @@ class RepairAddContainer extends React.Component {
                     id="outlined-name"
                     label="Nazwa"
                     error={this.state.noteNameError.length !== 0 ? true : false}
-                    helperText={this.state.phoneErrorText}
+                    helperText={this.state.noteNameError}
                     className={classes.textField}
                     value={this.state.noteName}
                     onChange={this.handleChangeName('noteName')}
