@@ -5,6 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import { emphasize } from '@material-ui/core/styles/colorManipulator';
 import CarService from '../Services/CarService.js';
 import RepairService from '../Services/RepairService.js';
+import { RepairAddButton } from './RepairAddButton';
 
 const styles = theme => ({
     root: {
@@ -78,6 +79,10 @@ const styles = theme => ({
 class RepairAddContainer extends React.Component {
     constructor(props) {
         super(props);
+
+        var repairId = parseInt(this.props.location.search.substring(10, 11));
+        debugger;
+        var operationType = repairId > 0 ? 'edit' : 'add';
         this.state = {
             noteName: '',
             noteNameError: '',
@@ -86,16 +91,20 @@ class RepairAddContainer extends React.Component {
             carBrand: '',
             carModel: '',
             carEngine: '',
-            regNum:'',
+            regNum: '',
+            repairId: repairId,
+            dataChanged: false,
+            operationType: operationType,
+            dueDateTechService:'',
         };
         debugger;
         this.carService = new CarService();
         this.repairService = new RepairService();
     }
     componentDidMount() {
+        var repairId = this.state.repairId;
         var carId = this.props.location.search.substring(7, 8);
         debugger;
-        var repairId = parseInt(this.props.location.search.substring(10, 11));
         if (carId > 0) {
             var car = this.carService.GetCarById(carId);
             if (car != undefined) {
@@ -126,17 +135,44 @@ class RepairAddContainer extends React.Component {
         }
         
     }
-    
-    handleChangePhone = (text) => {
-        console.log(text);
+
+    setDataChanged = () => {
+        this.setState({
+            dataChanged: true,
+        });
     }
+
+    handleChangeName = (text) => event => {
+        debugger;
+        if (this.state[text] != event.target.value) {
+            this.setDataChanged();
+        }
+        this.setState({
+            [text]: event.target.value
+        });
+    }
+    
     handleChangeNote = name => event => {
+        debugger;
+
+        if (this.state[name] != event.target.value) {
+            this.setDataChanged();
+           
+        }
         this.setState({
             [name]: event.target.value
         });
     };
-    OnDateChange = (text) => {
-        console.log(text);
+    OnDateChange = (text) => event => {
+        debugger;
+
+        if (this.state[text] != event.target.value) {
+            this.setDataChanged();
+        }
+        let dueDateTechService = event.target.value;
+        this.setState({
+            dueDateTechService
+        });
     };
     render() {
         const { classes, theme } = this.props;
@@ -150,7 +186,7 @@ class RepairAddContainer extends React.Component {
                     helperText={this.state.phoneErrorText}
                     className={classes.textField}
                     value={this.state.noteName}
-                    onChange={this.handleChangePhone('phone')}
+                    onChange={this.handleChangeName('noteName')}
                     margin="normal"
                     variant="outlined"
                 />
@@ -178,7 +214,7 @@ class RepairAddContainer extends React.Component {
                     }}
 
                 />
-
+                <RepairAddButton operationType={this.state.operationType} dataChanged={this.state.dataChanged} />
             </div>
         );
     }
