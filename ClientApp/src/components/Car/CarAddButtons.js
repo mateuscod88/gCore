@@ -17,8 +17,7 @@ export class CarAddButtons extends React.Component {
     componentDidMount() {
         var operationType = this.props.operationType;
         debugger;
-        var carId = parseInt(this.props.location.search.substring(7, 8));
-        if (carId > 0) {
+        if (operationType == 'edit') {
             this.setState({
                 buttonLabel: 'Zapisz'
             });

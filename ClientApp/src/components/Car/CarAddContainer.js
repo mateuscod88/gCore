@@ -218,6 +218,8 @@ class CarAddContainer extends React.Component {
         super(props);
         this.service = new CarService();
         let owners = this.service.GetOwners().map(x => ({ value: x.id, label: x.name }));
+        var carId = this.props.location.search.substring(7, 8);
+        var operationType = carId > 0 ? 'edit' : 'add';
         this.state = {
             data: null,
             phone: '',
@@ -256,7 +258,7 @@ class CarAddContainer extends React.Component {
             isRowSelected: true,
             isEditDialogBox: false,
             ccarId: 0,
-            operationType:'',
+            operationType: operationType,
         };
 
     };
