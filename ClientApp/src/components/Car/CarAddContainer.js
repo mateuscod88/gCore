@@ -259,7 +259,8 @@ class CarAddContainer extends React.Component {
             isEditDialogBox: false,
             ccarId: 0,
             operationType: operationType,
-            dataChanged:false,
+            dataChanged: false,
+            car: null,
         };
 
     };
@@ -274,6 +275,10 @@ class CarAddContainer extends React.Component {
         if (carId > 0) {
 
             var car = this.service.GetCarById(carId);
+            this.setState({
+                car: car,
+            });
+
             if (car != undefined) {
                 this.setState({
                     singleBrand: { value: car.brandId, label: car.brand },
@@ -298,7 +303,7 @@ class CarAddContainer extends React.Component {
             });
         }
     }
-    
+
     NumberValidation = (value, name, length, errorMsg) => {
         var regex = /^\d+$/;
         if (!(value === null)) {
@@ -325,17 +330,37 @@ class CarAddContainer extends React.Component {
         }
     }
     handleChangeDropDown = name => event => {
-        
+
         this.setState({
             [name]: event.target.value,
             yearError: '',
         });
+
     };
-    handleChangeBrand = name => event => {
+    carDataChangedValidation(value) {
         debugger;
-        if (this.state.singleBrand != event) {
-            this.setDataChanged();
+        var carValid = false;
+        if (this.state.car.brand === value) { return !carValid; }
+        if (this.state.car.model === value) { return !carValid; }
+        if (this.state.car.engine === value) { return !carValid; }
+        if (this.state.car.regNum === value) { return !carValid; }
+        if (this.state.car.year === value) { return !carValid; }
+        if (this.state.car.kilometerCounter === value) { return !carValid; }
+        if (this.state.car.technicalService === value) { return !carValid; }
+        if (this.state.car.phone === value) { return !carValid; }
+        if (this.state.car.owner === value) { return !carValid; }
+        return carValid;
+    }
+    setButtonByDataChanged = (text) => {
+        if (this.carDataChangedValidation(text)) {
+            this.setDataChanged(false);
         }
+        else {
+            this.setDataChanged(true);
+        }
+    }
+    handleChangeBrand = name => event => {
+        this.setButtonByDataChanged(event.label);
         this.setState({
             [name]: event
         });
@@ -347,12 +372,14 @@ class CarAddContainer extends React.Component {
         console.log(event);
     };
     handleChangeModel = event => {
+        this.setButtonByDataChanged(event.label);
+
         var engine = this.service.GetEngines(this.state.singleBrand.value, event.value).map(x => ({ value: x.id, label: x.name }));
         var singleModel = event;
         this.setState({
             engine,
             singleModel,
-            isCarModelValid:false,
+            isCarModelValid: false,
         });
         console.log(event);
     };
@@ -360,7 +387,7 @@ class CarAddContainer extends React.Component {
         var singleEngine = event;
         this.setState({
             singleEngine,
-            isCarEngineValid:false
+            isCarEngineValid: false
         });
         console.log(event);
     };
@@ -375,7 +402,7 @@ class CarAddContainer extends React.Component {
     handleChangeRegNumber = text => event => {
         this.setState({
             [text]: event.target.value.toUpperCase(),
-            regNumError:''
+            regNumError: ''
         });
     };
     OnDateChange = text => event => {
@@ -388,7 +415,7 @@ class CarAddContainer extends React.Component {
         let owner = event;
         this.setState({
             owner,
-            isOwnerValid:false
+            isOwnerValid: false
         });
     };
     handleChangePhone = name => event => {
@@ -397,7 +424,7 @@ class CarAddContainer extends React.Component {
             [name]: event.target.value,
         });
     };
-    
+
     handleSaveButton = async () => {
 
         if (this.state.isEditDialogBox == false) {
@@ -525,11 +552,12 @@ class CarAddContainer extends React.Component {
             //});
         }
     };
-    setDataChanged = () => {
+    setDataChanged = (isChanged) => {
         this.setState({
-            dataChanged: true,
+            dataChanged: isChanged,
         });
     }
+
     isDataValid = () => {
         debugger;
         if (this.state.note != '' && this.state.noteName != '', this.state.dueDateTechService != '') {

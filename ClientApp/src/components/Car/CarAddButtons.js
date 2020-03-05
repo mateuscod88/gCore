@@ -1,6 +1,11 @@
 ﻿import React from 'react';
 import Button from '@material-ui/core/Button';
 import { Redirect } from 'react-router-dom';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+
+const hoveredStyle = {
+    cursor: 'pointer'
+}
 export class CarAddButtons extends React.Component {
     constructor(props) {
         super(props);
@@ -14,6 +19,7 @@ export class CarAddButtons extends React.Component {
             buttonLabel: '',
             isButtonDisabled: false,
             isButtonDisabledPrev: false,
+            redirectEditRepair: false,
         }
     }
     componentDidMount() {
@@ -32,19 +38,18 @@ export class CarAddButtons extends React.Component {
 
             });
         }
-            
+
     }
     componentDidUpdate(prevProps) {
         debugger;
         if (prevProps.dataChanged != this.props.dataChanged) {
             var dataChanged = this.props.dataChanged;
-            if (dataChanged) {
-                this.setState({
-                    isButtonDisabled: false,
-                    isButtonDisabledPrev: false,
+            var isDisabled = !dataChanged;
+            this.setState({
+                isButtonDisabled: isDisabled,
+                isButtonDisabledPrev: isDisabled,
 
-                })
-            }
+            })
         }
 
     }
@@ -52,13 +57,25 @@ export class CarAddButtons extends React.Component {
         this.props.addButtonHandler();
         this.setState({ openAddCar: true, });
     }
-
+    OnArrowClick = () => {
+        this.setState({
+            redirectEditRepair:true,
+        })
+    }
+    redirectEditRepair = () => {
+        if (this.state.redirectEditRepair) {
+            return <Redirect to={'/car-grid'} />
+        }
+    }
     render() {
         return (
             <div>
+                <ArrowBackIcon onClick={this.OnArrowClick} hoveredStyle={hoveredStyle} />
+                {this.redirectEditRepair()}
+
                 <Button variant="outlined" color="primary" onClick={this.onClick} disabled={this.state.isButtonDisabled}>
                     {this.state.buttonLabel}
-            </Button>
+                </Button>
             </div>
         );
     }

@@ -87,17 +87,17 @@ class CarService {
         this.isRowSelected = isRowSelected;
     }
     GetBrands() {
-        return [{ id: 1, brand: "audi" }, { id: 2, brand: "vw" }];
+        return [{ id: 1, brand: "audi" }, { id: 2, brand: "VW" }];
     }
     GetModelByBrandId(brandId) {
 
-        let cars = [{ id: 1, brand: "audi", models: [{ id: 1, model: "A3" }, { id: 2, model: "A4" }, { id: 3, model: "A5" }] }, { id: 2, brand: "vw", models: [{ id: 11, model: "Polo" }, { id: 21, model: "Golf" }, { id: 13, model: "Passat" }] }]
+        let cars = [{ id: 1, brand: "audi", models: [{ id: 1, model: "A3" }, { id: 2, model: "A4" }, { id: 3, model: "A5" }] }, { id: 2, brand: "VW", models: [{ id: 11, model: "Polo" }, { id: 21, model: "Golf" }, { id: 13, model: "Passat" }] }]
         return cars.find(x => x.id == brandId).models;
 
     }
     GetEngines(brandId, modelId) {
         debugger;
-        let cars = [{ id: 1, brand: "audi", models: [{ id: 1, model: "A3", engines: [{ id: 1, name: "1.9TDI" }, { id: 2, name: "1.8TFSI" }] }, { id: 2, model: "A4", engines: [{ id: 1, name: "1.9TDI" }, { id: 2, name: "1.8TFSI" }] }, { id: 3, model: "A5", engines: [{ id: 1, name: "1.9TDI" }, { id: 2, name: "1.8TFSI" }] }] }, { id: 2, brand: "vw", models: [{ id: 11, model: "Polo", engines: [{ id: 1, name: "1.9TDI" }, { id: 2, name: "1.8TFSI" }] }, { id: 21, model: "Golf", engines: [{ id: 1, name: "1.9TDI" }, { id: 2, name: "2.0TFSI" }] }, { id: 13, model: "Passat", engines: [{ id: 1, name: "1.9TDI" }, { id: 2, name: "1.4TFSI" }] }] }]
+        let cars = [{ id: 1, brand: "audi", models: [{ id: 1, model: "A3", engines: [{ id: 1, name: "1.9TDI" }, { id: 2, name: "1.8TFSI" }] }, { id: 2, model: "A4", engines: [{ id: 1, name: "1.9TDI" }, { id: 2, name: "1.8TFSI" }] }, { id: 3, model: "A5", engines: [{ id: 1, name: "1.9TDI" }, { id: 2, name: "1.8TFSI" }] }] }, { id: 2, brand: "VW", models: [{ id: 11, model: "Polo", engines: [{ id: 1, name: "1.9TDI" }, { id: 2, name: "1.8TFSI" }] }, { id: 21, model: "Golf", engines: [{ id: 1, name: "1.9TDI" }, { id: 2, name: "2.0TFSI" }] }, { id: 13, model: "Passat", engines: [{ id: 1, name: "1.9TDI" }, { id: 2, name: "1.4TFSI" }] }] }]
         let models = cars.find(x => x.id == brandId).models;
         debugger;
         let engines = models.find(y => y.id == modelId).engines

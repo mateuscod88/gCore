@@ -1,6 +1,11 @@
 ﻿import React from 'react';
 import Button from '@material-ui/core/Button';
 import { Redirect } from 'react-router-dom';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+
+const hoveredStyle = {
+    cursor: 'pointer'
+}
 
 export class RepairAddButton extends React.Component {
     constructor(props) {
@@ -12,7 +17,7 @@ export class RepairAddButton extends React.Component {
             isRemoveRepairDisabled: true,
             isRemoveRepairDisabledPrev: true,
             redirectEditRepair: false,
-            buttonLabel:'',
+            buttonLabel: '',
         }
     }
     componentDidMount() {
@@ -46,7 +51,7 @@ export class RepairAddButton extends React.Component {
                 })
             }
         }
-        
+
     }
     //componentDidUpdate(prevProps) {
     //    debugger;
@@ -78,7 +83,12 @@ export class RepairAddButton extends React.Component {
         else {
             this.props.setValidationMsg();
         }
-        
+
+    }
+    OnArrowClick = () => {
+        this.setState({
+            redirectEditRepair: true,
+        })
     }
     redirectEditRepair = () => {
         if (this.state.redirectEditRepair) {
@@ -88,12 +98,13 @@ export class RepairAddButton extends React.Component {
     render() {
         return (
             <div>
+                <ArrowBackIcon onClick={this.OnArrowClick} hoveredStyle={hoveredStyle} />
+
                 {this.redirectEditRepair()}
                 <Button variant="outlined" color="primary" onClick={this.onClickEditButton} disabled={this.state.isButtonDisabled} >
                     {this.state.buttonLabel}
 
-            </Button>
-               
+                </Button>
             </div>
         );
     }
