@@ -54,6 +54,9 @@ class CarService {
     Add(car) {
         this.carsGetByID.push(car);
     }
+    Update(car) {
+        this.carsGetByID.push(car);
+    }
     GetColumns() {
         this.columns =
             [

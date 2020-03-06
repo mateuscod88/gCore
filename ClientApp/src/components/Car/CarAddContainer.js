@@ -360,9 +360,13 @@ class CarAddContainer extends React.Component {
         }
     }
     handleChangeBrand = name => event => {
-        this.setButtonByDataChanged(event.label);
+        if (this.state.operationType == "edit") {
+            this.setButtonByDataChanged(event.label);
+        }
         this.setState({
-            [name]: event
+            [name]: event,
+            singleModel: '',
+            singleEngine:'',
         });
         var model = this.service.GetModelByBrandId(event.value).map(x => ({ value: x.id, label: x.model }));
         this.setState({
@@ -372,13 +376,15 @@ class CarAddContainer extends React.Component {
         console.log(event);
     };
     handleChangeModel = event => {
-        this.setButtonByDataChanged(event.label);
-
+        if (this.state.operationType == "edit") {
+            this.setButtonByDataChanged(event.label);
+        }
         var engine = this.service.GetEngines(this.state.singleBrand.value, event.value).map(x => ({ value: x.id, label: x.name }));
         var singleModel = event;
         this.setState({
             engine,
             singleModel,
+            singleEngine: '',
             isCarModelValid: false,
         });
         console.log(event);
@@ -462,12 +468,13 @@ class CarAddContainer extends React.Component {
                 });
             }
             if (!isCarModelInvalid && !isCarBrandInvalid && !isCarEngineInvalid && (!isOwnerNotSelected || !isPhoneInvalid)) {
+                debugger;
                 var dateToday = Date.now().toString();
                 var ownerId = this.state.owners[this.state.owners.findIndex((owner) => this.state.owner.label == owner.label && this.state.owner.value == owner.value)].value;
                 var carDto = {
-                    BrandId: this.state.brand[this.state.brand.findIndex((singleBrand) => this.state.singleBrand == singleBrand)].value,
+                    BrandId: this.state.brands[this.state.brands.findIndex((singleBrand) => this.state.singleBrand == singleBrand)].value,
                     ModelId: this.state.model[this.state.model.findIndex((singleModel) => this.state.singleModel == singleModel)].value,
-                    Engine: this.state.engine[this.state.engine.findIndex((singleEngine) => this.state.singleEngine == singleEngine)].label,
+                    EngineId: this.state.engine[this.state.engine.findIndex((singleEngine) => this.state.singleEngine == singleEngine)].label,
                     Year: this.state.years[this.state.years.findIndex((year) => this.state.year == year.value)].value,
                     TechnicalCheck: (document.getElementById('date')).value,
                     PlateNumber: this.state.regNumber,
@@ -485,7 +492,14 @@ class CarAddContainer extends React.Component {
                 //    dueDateTechService: (document.getElementById('date')).value,
                 //    lastOilChange: dateToday
                 //};
-                this.service.Add(carDto);
+                if (this.state.operationType == "add") {
+                    debugger;
+                    this.service.Add(carDto);
+                }
+                else {
+                    debugger;
+                    this.service.Update(carDto);
+                }
                 debugger;
                 //var ownerId = this.state.owners[this.state.owners.findIndex((owner) => this.state.owner.label == owner.label && this.state.owner.value == owner.value)].value;
 
