@@ -1,0 +1,16 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace GaragePersistent.Entities
+{
+    public class Repair
+    {
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public string Note { get; set; }
+        public DateTime RepairDate { get; set; }
+        public string CarId { get; set; }
+        public Car Car { get; set; }
+    }
+}

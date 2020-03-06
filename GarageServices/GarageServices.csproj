@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="CarServices\Dto\" />
+    <Folder Include="RepairService\Implementation\" />
+    <Folder Include="RepairService\Interface\" />
+    <Folder Include="CarServices\Interface\" />
+    <Folder Include="CarServices\Implementation\" />
+    <Folder Include="RepairService\Dto\" />
+  </ItemGroup>
+
+</Project>
