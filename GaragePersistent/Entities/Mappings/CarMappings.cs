@@ -1,8 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace GaragePersistent.Entities.Mappings
 {
@@ -10,7 +7,7 @@ namespace GaragePersistent.Entities.Mappings
     {
         public void Configure(EntityTypeBuilder<Car> entityTypeBuilder)
         {
-            //entityTypeBuilder.ToTable("Adres");
+            entityTypeBuilder.ToTable("Car");
 
             //entityTypeBuilder.Property(e => e.IdPodmiotWlascicielBiznesowy).HasMaxLength(64);
 

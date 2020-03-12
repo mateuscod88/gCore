@@ -16,13 +16,25 @@
 
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
+    <Compile Remove="GaragePersistent\**" />
+    <Compile Remove="GarageServices\**" />
     <Content Remove="$(SpaRoot)**" />
+    <Content Remove="GaragePersistent\**" />
+    <Content Remove="GarageServices\**" />
+    <EmbeddedResource Remove="GaragePersistent\**" />
+    <EmbeddedResource Remove="GarageServices\**" />
     <None Remove="$(SpaRoot)**" />
+    <None Remove="GaragePersistent\**" />
+    <None Remove="GarageServices\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="ClientApp\src\components\Services\Dto\CarDto.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="GarageServices\GarageServices.csproj" />
   </ItemGroup>
 
   <ItemGroup>

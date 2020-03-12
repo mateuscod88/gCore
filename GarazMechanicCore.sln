@@ -5,9 +5,9 @@ VisualStudioVersion = 16.0.28803.202
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GarazMechanicCore", "GarazMechanicCore.csproj", "{C4A09E20-9ABB-42AE-8B52-08E1518F5674}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GarageServices", "..\GarageServices\GarageServices.csproj", "{235CF9A4-848A-407F-88BB-1BDE8B191E53}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GaragePersistent", "GaragePersistent\GaragePersistent.csproj", "{4C79A8F1-691F-431E-99B1-331C760B3835}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GaragePersistent", "..\GaragePersistent\GaragePersistent.csproj", "{BE5CCD62-2035-4938-AEF0-367D915F7C8D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GarageServices", "GarageServices\GarageServices.csproj", "{D83C1CE4-4019-46DE-95A0-CD484E9905F7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,14 +19,14 @@ Global
 		{C4A09E20-9ABB-42AE-8B52-08E1518F5674}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4A09E20-9ABB-42AE-8B52-08E1518F5674}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4A09E20-9ABB-42AE-8B52-08E1518F5674}.Release|Any CPU.Build.0 = Release|Any CPU
-		{235CF9A4-848A-407F-88BB-1BDE8B191E53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{235CF9A4-848A-407F-88BB-1BDE8B191E53}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{235CF9A4-848A-407F-88BB-1BDE8B191E53}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{235CF9A4-848A-407F-88BB-1BDE8B191E53}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BE5CCD62-2035-4938-AEF0-367D915F7C8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BE5CCD62-2035-4938-AEF0-367D915F7C8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BE5CCD62-2035-4938-AEF0-367D915F7C8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BE5CCD62-2035-4938-AEF0-367D915F7C8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C79A8F1-691F-431E-99B1-331C760B3835}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C79A8F1-691F-431E-99B1-331C760B3835}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C79A8F1-691F-431E-99B1-331C760B3835}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C79A8F1-691F-431E-99B1-331C760B3835}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D83C1CE4-4019-46DE-95A0-CD484E9905F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D83C1CE4-4019-46DE-95A0-CD484E9905F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D83C1CE4-4019-46DE-95A0-CD484E9905F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D83C1CE4-4019-46DE-95A0-CD484E9905F7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
