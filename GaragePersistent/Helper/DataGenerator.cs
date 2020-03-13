@@ -9,12 +9,14 @@ namespace GaragePersistent.Helper
 {
     public class DataGenerator
     {
-        public void Initialize<T>(IServiceProvider serviceProvider)
+        public void Initialize<T>(IServiceProvider serviceProvider, IEnumerable<T> set) where T: class
         {
             using (var context = new GaragePersistent.Context.GarageContext(serviceProvider.GetRequiredService<DbContextOptions<GaragePersistent.Context.GarageContext>>()))
 
             {
-                context.Car.AddRange(CarSeed.GetAll());
+                IEnumerable<T> setToAdd = set;
+                var dbset = context.Set<T>();
+                dbset.AddRange(setToAdd);
                 context.SaveChanges();
             }
         }

@@ -18,11 +18,6 @@ namespace GarageServices.CarServices.Implementation
         public CarService(GarageContext garageContext)
         {
             _garageContext = garageContext;
-            //var options = new DbContextOptionsBuilder<GarageContext>()
-            //    .UseInMemoryDatabase(databaseName: "GarageApp")
-            //    .Options;
-
-            //_garageContext = new GarageContext(options);
         }
 
         public async Task Add(CarAddDto carAddDto)

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using GaragePersistent.Entities;
 using GaragePersistent.Helper;
+using GaragePersistent.Seed;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -19,12 +20,16 @@ namespace GarazMechanicCore
         {
 
             var host = CreateWebHostBuilder(args).Build();
-            using(var scope = host.Services.CreateScope())
+            using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
 
-                var context = services.GetRequiredService<GaragePersistent.Context.GarageContext>();
-                new DataGenerator().Initialize<Car>(services);
+                //var context = services.GetRequiredService<GaragePersistent.Context.GarageContext>();
+                new DataGenerator().Initialize<Car>(services,CarSeed.GetAll());
+                new DataGenerator().Initialize<CarBrand>(services, BrandSeed.GetAll());
+                new DataGenerator().Initialize<CarModel>(services, ModelSeed.GetAll());
+                new DataGenerator().Initialize<CarEngine>(services, EngineSeed.GetAll());
+
             }
 
             host.Run();
