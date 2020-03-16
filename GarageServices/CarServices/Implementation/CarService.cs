@@ -38,27 +38,19 @@ namespace GarageServices.CarServices.Implementation
             await _garageContext.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<CarDto>> GetAllAsync()
+        public async Task<IEnumerable<CarDto>> GetAllAsync(int pageSize, int pageNumber)
         {
-            var cars = _garageContext.Car
+
+            return await _garageContext.Car
                 .Select(x =>
                 new CarDto
                 {
                     Id = x.Id,
                     Brand = x.Brand.Name,
                     Model = x.Model.Name,
-                    Engine = x.Engine.Name
-                }).ToList();
-
-            return await _garageContext.Car
-                .Select(x => 
-                new CarDto 
-                { 
-                    Id = x.Id,
-                    Brand = x.Brand.Name,
-                    Model = x.Model.Name,
-                    Engine = x.Engine.Name
-                }).ToListAsync();
+                    Engine = x.Engine.Name,
+                    Owner = $"{ x.Owner.FirstName} {x.Owner.LastName}"
+                }).Skip(pageSize * pageNumber).Take(pageSize).ToListAsync();
         }
 
     }

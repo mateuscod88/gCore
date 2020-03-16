@@ -4,7 +4,7 @@ using System.Text;
 
 namespace GaragePersistent.Entities
 {
-    public class Repair
+    public class Repair : IBaseEntite
     {
         public string Id { get; set; }
         public string Name { get; set; }
@@ -12,5 +12,7 @@ namespace GaragePersistent.Entities
         public DateTime RepairDate { get; set; }
         public string CarId { get; set; }
         public Car Car { get; set; }
+        public DateTime CreateDate { get; set; }
+
     }
 }

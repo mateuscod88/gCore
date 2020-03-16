@@ -24,9 +24,9 @@ namespace GarazMechanicCore.Controllers
         }
 
         [HttpGet("[action]")]
-        public async Task<IEnumerable<object>> GetAll()
+        public async Task<IEnumerable<object>> GetAll(int pageSize, int pageNumber)
         {
-            return await _carService.GetAllAsync();
+            return await _carService.GetAllAsync(pageSize, pageNumber);
         }
     }
 

@@ -29,7 +29,7 @@ namespace GarazMechanicCore
                 new DataGenerator().Initialize<CarBrand>(services, BrandSeed.GetAll());
                 new DataGenerator().Initialize<CarModel>(services, ModelSeed.GetAll());
                 new DataGenerator().Initialize<CarEngine>(services, EngineSeed.GetAll());
-
+                new DataGenerator().Initialize<CarOwner>(services, OwnerSeed.GetAll());
             }
 
             host.Run();

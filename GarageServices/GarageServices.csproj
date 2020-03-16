@@ -5,12 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="RepairService\Implementation\" />
-    <Folder Include="RepairService\Interface\" />
-    <Folder Include="RepairService\Dto\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\GaragePersistent\GaragePersistent.csproj" />
   </ItemGroup>
 

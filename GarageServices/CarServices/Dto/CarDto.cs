@@ -10,5 +10,7 @@ namespace GarageServices.CarServices.Dto
         public string Brand { get; set; }
         public string Model { get; set; }
         public string Engine { get; set; }
+        public string Owner { get; set; }
+
     }
 }
