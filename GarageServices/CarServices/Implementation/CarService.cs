@@ -1,5 +1,6 @@
 ﻿using GaragePersistent.Context;
 using GaragePersistent.Entities;
+using GarageServices.BaseServices.Interfaces;
 using GarageServices.CarServices.Dto;
 using GarageServices.CarServices.Interface;
 using Microsoft.EntityFrameworkCore;
@@ -11,13 +12,10 @@ using System.Threading.Tasks;
 
 namespace GarageServices.CarServices.Implementation
 {
-    public class CarService : ICarService
+    public class CarService : BaseContext, ICarService
     {
-        private readonly GarageContext _garageContext;
-        
-        public CarService(GarageContext garageContext)
+        public CarService(GarageContext garageContext) : base(garageContext)
         {
-            _garageContext = garageContext;
         }
 
         public async Task Add(CarAddDto carAddDto)
@@ -38,6 +36,11 @@ namespace GarageServices.CarServices.Implementation
             await _garageContext.SaveChangesAsync();
         }
 
+        public Task Delete(string carId)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<IEnumerable<CarDto>> GetAllAsync(int pageSize, int pageNumber)
         {
 
@@ -53,5 +56,24 @@ namespace GarageServices.CarServices.Implementation
                 }).Skip(pageSize * pageNumber).Take(pageSize).ToListAsync();
         }
 
+        public async Task<IEnumerable<CarDto>> GetAllAsync()
+        {
+
+            return await _garageContext.Car
+                .Select(x =>
+                new CarDto
+                {
+                    Id = x.Id,
+                    Brand = x.Brand.Name,
+                    Model = x.Model.Name,
+                    Engine = x.Engine.Name,
+                    Owner = $"{ x.Owner.FirstName} {x.Owner.LastName}"
+                }).ToListAsync();
+        }
+
+        public Task Update(CarAddDto carAddDto)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

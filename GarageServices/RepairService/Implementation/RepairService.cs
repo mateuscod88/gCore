@@ -1,4 +1,5 @@
 ﻿using GaragePersistent.Context;
+using GarageServices.BaseServices.Interfaces;
 using GarageServices.RepairService.Dto;
 using GarageServices.RepairService.Interface;
 using Microsoft.EntityFrameworkCore;
@@ -10,16 +11,23 @@ using System.Threading.Tasks;
 
 namespace GarageServices.RepairService.Implementation
 {
-    public class RepairService : IRepairService
+    public class RepairService : BaseContext, IRepairService
     {
-        private readonly GarageContext _garageContext;
-
-        public RepairService(GarageContext garageContext)
+        public RepairService(GarageContext garageContext) : base(garageContext)
         {
-            _garageContext = garageContext;
         }
 
-        public async Task<List<RepairDto>> GetByPageNumberAndSize(int pageNumber, int pageSize)
+        public Task Add(RepairDto added)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task Delete(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<IEnumerable<RepairDto>> GetAllAsync(int pageSize, int pageNumber)
         {
             return await _garageContext.Repair
                 .Select(x => new RepairDto
@@ -36,6 +44,18 @@ namespace GarageServices.RepairService.Implementation
                 .Skip(pageNumber * pageSize)
                 .Take(pageSize)
                 .ToListAsync();
+        }
+
+        public Task<IEnumerable<RepairDto>> GetAllAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        
+
+        public Task Update(RepairDto updated)
+        {
+            throw new NotImplementedException();
         }
     }
 }
