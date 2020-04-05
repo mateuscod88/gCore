@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GarazMechanicCore.Controllers
 {
+    [Route("api/[controller]")]
     public class BrandController : Controller
     {
         private IBrandService _brandService;

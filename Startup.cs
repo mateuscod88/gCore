@@ -1,5 +1,15 @@
+using GarageServices.BrandServices.Implementation;
+using GarageServices.BrandServices.Interface;
 using GarageServices.CarServices.Implementation;
 using GarageServices.CarServices.Interface;
+using GarageServices.EngineServices.Implementation;
+using GarageServices.EngineServices.Interface;
+using GarageServices.ModelServices.Implementation;
+using GarageServices.ModelServices.Interface;
+using GarageServices.OwnerServices.Implementation;
+using GarageServices.OwnerServices.Interface;
+using GarageServices.RepairService.Implementation;
+using GarageServices.RepairService.Interface;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,6 +36,13 @@ namespace GarazMechanicCore
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddDbContext<GaragePersistent.Context.GarageContext>(options => options.UseInMemoryDatabase(databaseName: "gDb"));
             services.AddTransient<ICarService,CarService>();
+            services.AddTransient<IRepairService, RepairService>();
+            services.AddTransient<IOwnerService, OwnerService>();
+            services.AddTransient<ICarModelService, CarModelService>();
+            services.AddTransient<IEngineService, EngineService>();
+            services.AddTransient<IBrandService, BrandService>();
+
+
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {

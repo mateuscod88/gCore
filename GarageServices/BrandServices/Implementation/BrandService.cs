@@ -2,8 +2,10 @@
 using GarageServices.BaseServices.Interfaces;
 using GarageServices.BrandServices.Dto;
 using GarageServices.BrandServices.Interface;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -30,9 +32,14 @@ namespace GarageServices.BrandServices.Implementation
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<CarBrandDto>> GetAllAsync()
+        public async Task<IEnumerable<CarBrandDto>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await this._garageContext.CarBrand.Select(x => new CarBrandDto
+            {
+                Id = x.Id,
+                Name = x.Name
+            })
+            .ToListAsync();
         }
 
         public Task Update(CarBrandDto updated)
