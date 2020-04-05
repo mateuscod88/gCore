@@ -36,6 +36,11 @@ namespace GarageServices.EngineServices.Implementation
             throw new NotImplementedException();
         }
 
+        public Task<IEnumerable<CarEngineDto>> GetEnginesByBrandIdModelId(string brandId, string modelId)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task Update(CarEngineDto updated)
         {
             throw new NotImplementedException();
