@@ -77,7 +77,7 @@ class CarService {
     GetAll() {
 
         var endpoint = 'api/car/getall';
-        var result = RESTService.Get();
+        var result = RESTService.Get(endpoint);
         var carDto = result
             .then(data => this.repairs = {
                 rows: (data.map(suggestion => ({
@@ -108,25 +108,63 @@ class CarService {
         this.isRowSelected = isRowSelected;
     }
     GetBrands() {
-        return [{ id: 1, brand: "audi" }, { id: 2, brand: "VW" }];
+        var endpoint = 'api/brand/getall';
+        var result = RESTService.Get(endpoint);
+        var brandDto = result
+            .then(data => this.repairs = {
+                rows: (data.map(suggestion => ({
+                    id: suggestion.Id,
+                    brand: suggestion.Name,
+                }))),
+            });
+        return brandDto.rows;
+        //return [{ id: 1, brand: "audi" }, { id: 2, brand: "VW" }];
     }
     GetModelByBrandId(brandId) {
-
-        let cars = [{ id: 1, brand: "audi", models: [{ id: 1, model: "A3" }, { id: 2, model: "A4" }, { id: 3, model: "A5" }] }, { id: 2, brand: "VW", models: [{ id: 11, model: "Polo" }, { id: 21, model: "Golf" }, { id: 13, model: "Passat" }] }]
-        return cars.find(x => x.id == brandId).models;
+        var endpoint = 'api/model/GetCarModelsByBrandId&brandId='+brandId;
+        var result = RESTService.Get(endpoint);
+        var modelDto = result
+            .then(data => this.repairs = {
+                rows: (data.map(suggestion => ({
+                    id: suggestion.Id,
+                    model: suggestion.Name,
+                }))),
+            });
+        //let cars = [{ id: 1, brand: "audi", models: [{ id: 1, model: "A3" }, { id: 2, model: "A4" }, { id: 3, model: "A5" }] }, { id: 2, brand: "VW", models: [{ id: 11, model: "Polo" }, { id: 21, model: "Golf" }, { id: 13, model: "Passat" }] }]
+        //return cars.find(x => x.id == brandId).models;
+        return modelDto.rows;
 
     }
     GetEngines(brandId, modelId) {
-        debugger;
-        let cars = [{ id: 1, brand: "audi", models: [{ id: 1, model: "A3", engines: [{ id: 1, name: "1.9TDI" }, { id: 2, name: "1.8TFSI" }] }, { id: 2, model: "A4", engines: [{ id: 1, name: "1.9TDI" }, { id: 2, name: "1.8TFSI" }] }, { id: 3, model: "A5", engines: [{ id: 1, name: "1.9TDI" }, { id: 2, name: "1.8TFSI" }] }] }, { id: 2, brand: "VW", models: [{ id: 11, model: "Polo", engines: [{ id: 1, name: "1.9TDI" }, { id: 2, name: "1.8TFSI" }] }, { id: 21, model: "Golf", engines: [{ id: 1, name: "1.9TDI" }, { id: 2, name: "2.0TFSI" }] }, { id: 13, model: "Passat", engines: [{ id: 1, name: "1.9TDI" }, { id: 2, name: "1.4TFSI" }] }] }]
-        let models = cars.find(x => x.id == brandId).models;
-        debugger;
-        let engines = models.find(y => y.id == modelId).engines
-        return cars.find(x => x.id == brandId).models.find(y => y.id == modelId).engines;
+        var endpoint = 'api/model/GetEnginesByBrandIdModelId&brandId=' + brandId +'?modelId='+modelId;
+        var result = RESTService.Get(endpoint);
+        var engineDto = result
+            .then(data => this.repairs = {
+                rows: (data.map(suggestion => ({
+                    id: suggestion.Id,
+                    name: suggestion.Name,
+                }))),
+            });
+        return engineDto.rows;
+        //let cars = [{ id: 1, brand: "audi", models: [{ id: 1, model: "A3", engines: [{ id: 1, name: "1.9TDI" }, { id: 2, name: "1.8TFSI" }] }, { id: 2, model: "A4", engines: [{ id: 1, name: "1.9TDI" }, { id: 2, name: "1.8TFSI" }] }, { id: 3, model: "A5", engines: [{ id: 1, name: "1.9TDI" }, { id: 2, name: "1.8TFSI" }] }] }, { id: 2, brand: "VW", models: [{ id: 11, model: "Polo", engines: [{ id: 1, name: "1.9TDI" }, { id: 2, name: "1.8TFSI" }] }, { id: 21, model: "Golf", engines: [{ id: 1, name: "1.9TDI" }, { id: 2, name: "2.0TFSI" }] }, { id: 13, model: "Passat", engines: [{ id: 1, name: "1.9TDI" }, { id: 2, name: "1.4TFSI" }] }] }]
+        //let models = cars.find(x => x.id == brandId).models;
+        //debugger;
+        //let engines = models.find(y => y.id == modelId).engines
+        //return cars.find(x => x.id == brandId).models.find(y => y.id == modelId).engines;
     }
     GetOwners() {
-        let owners = [{ id: 1, name: "Mat mal" }, { id: 2, name: "Mat mal1" }, { id: 3, name: "Mat mal2" }, { id: 4, name: "Mat mal3" }]
-        return owners;
+        var endpoint = 'api/model/GetAll';
+        var result = RESTService.Get(endpoint);
+        var engineDto = result
+            .then(data => this.repairs = {
+                rows: (data.map(suggestion => ({
+                    id: suggestion.Id,
+                    name: suggestion.Name,
+                }))),
+            });
+        return engineDto.rows;
+        //let owners = [{ id: 1, name: "Mat mal" }, { id: 2, name: "Mat mal1" }, { id: 3, name: "Mat mal2" }, { id: 4, name: "Mat mal3" }]
+        //return owners;
     }
     GetCarById(carId) {
         return this.carsGetByID.find(x => x.id == carId);
