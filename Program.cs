@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using GaragePersistent.Entities;
 using GaragePersistent.Helper;
 using GaragePersistent.Seed;
+using GaragePersistent.Seed.SeedReader;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -26,10 +27,11 @@ namespace GarazMechanicCore
 
                 //var context = services.GetRequiredService<GaragePersistent.Context.GarageContext>();
                 new DataGenerator().Initialize<Car>(services,CarSeed.GetAll());
+
                 new DataGenerator().Initialize<CarBrand>(services, BrandSeed.GetAll());
-                new DataGenerator().Initialize<CarModel>(services, ModelSeed.GetAll());
-                new DataGenerator().Initialize<CarEngine>(services, EngineSeed.GetAll());
-                new DataGenerator().Initialize<CarOwner>(services, OwnerSeed.GetAll());
+                new DataGenerator().Initialize<CarModel>(services, new ModelReader().GetModels(services));
+                //new DataGenerator().Initialize<CarEngine>(services, EngineSeed.GetAll());
+                //new DataGenerator().Initialize<CarOwner>(services, OwnerSeed.GetAll());
             }
 
             host.Run();

@@ -2,8 +2,10 @@
 using GarageServices.BaseServices.Interfaces;
 using GarageServices.ModelServices.Dto;
 using GarageServices.ModelServices.Interface;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -30,9 +32,9 @@ namespace GarageServices.ModelServices.Implementation
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<CarModelDto>> GetAllAsync()
+        public async Task<IEnumerable<CarModelDto>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _garageContext.CarModel.Select(x => new CarModelDto {Id = x.Id,Name = x.Name }).ToListAsync();
         }
 
         public Task<IEnumerable<CarModelDto>> GetCarModelsByBrandId(string brandId)

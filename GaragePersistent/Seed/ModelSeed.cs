@@ -7,6 +7,7 @@ namespace GaragePersistent.Seed
 {
     public static class ModelSeed
     {
+
         public static IEnumerable<CarModel> GetAll()
         {
             return new List<CarModel>

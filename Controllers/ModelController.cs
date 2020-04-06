@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GarazMechanicCore.Controllers
 {
+    [Route("api/[controller]")]
     public class ModelController : Controller
     {
         private ICarModelService _carModelService;
@@ -25,6 +26,12 @@ namespace GarazMechanicCore.Controllers
         public async Task<IEnumerable<object>> GetCarModelsByBrandId(string brandId)
         {
             return await _carModelService.GetCarModelsByBrandId(brandId);
+        }
+        [HttpGet("[action]")]
+        public async Task<IEnumerable<object>> GetAll ()
+        {
+            var brandId = "e298b7bf-7434-444c-8484-de427888c132";
+            return await _carModelService.GetAllAsync();
         }
     }
 }
