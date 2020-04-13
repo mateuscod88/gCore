@@ -39,6 +39,7 @@ namespace GarageServices.BrandServices.Implementation
                 Id = x.Id,
                 Name = x.Name
             })
+            .OrderBy(x => x.Name)
             .ToListAsync();
         }
 

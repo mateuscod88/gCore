@@ -22,5 +22,6 @@ namespace GaragePersistent.Entities
         public string Phone { get; set; }
         public List<Repair> Repairs { get; set; }
         public DateTime CreateDate { get; set; }
+        public DateTime LastOilChange { get; set; }
     }
 }

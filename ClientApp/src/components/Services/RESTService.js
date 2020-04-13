@@ -1,18 +1,23 @@
 ﻿
 class RESTService {
 
-    function Post(url, endpoint, Dto) {
-    const postResult = fetch(endpoint, {
+    async Post(endpoint, Dto) {
+        debugger;
+        var js = JSON.stringify(Dto);
+        debugger;
+
+    const postResult = await fetch(endpoint, {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
         method: 'POST',
-        body: JSON.stringify(repairDTO)
+        body: JSON.stringify(Dto)
     });
+    await postResult;
     return postResult;
     }
-    function Update(endpoint,id,dto) {
+     async Update(endpoint,id,dto) {
         const putResult = await fetch(endpoint+'?id='+ id, {
         headers: {
             'Accept': 'application/json',
@@ -24,7 +29,8 @@ class RESTService {
     });
     await putResult;
     }
-    function Get(endpoint) : Promise<any>{
+    async Get(endpoint) {
+        debugger;
         const result = await fetch(endpoint)
             .then(response => response.json());
             //.then(data => this.repairs = {
@@ -39,6 +45,7 @@ class RESTService {
 
             //    }))),
             //});
+        await result;
         return result;
     }
 }

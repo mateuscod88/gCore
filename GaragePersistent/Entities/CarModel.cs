@@ -7,6 +7,8 @@ namespace GaragePersistent.Entities
     {
         public string Id { get; set; }
         public string Name { get; set; }
+        public string DateTo { get; set; }
+        public string DateFrom { get; set; }
         public string CarBrandId { get; set; }
         public CarBrand Brand { get; set; }
         public List<CarEngine> CarEngines { get; set; }

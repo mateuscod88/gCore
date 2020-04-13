@@ -37,9 +37,14 @@ namespace GarageServices.ModelServices.Implementation
             return await _garageContext.CarModel.Select(x => new CarModelDto {Id = x.Id,Name = x.Name }).ToListAsync();
         }
 
-        public Task<IEnumerable<CarModelDto>> GetCarModelsByBrandId(string brandId)
+        public async  Task<IEnumerable<CarModelDto>> GetCarModelsByBrandId(string brandId)
         {
-            throw new NotImplementedException();
+            return await _garageContext
+                .CarModel
+                .Where(x => x.CarBrandId == brandId)
+                .Select(x => new CarModelDto { Id = x.Id,Name = $"{x.Name} {x.DateFrom}-{x.DateTo}"})
+                .OrderBy(x => x.Name)
+                .ToListAsync();
         }
 
         public Task Update(CarModelDto updated)

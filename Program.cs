@@ -21,18 +21,6 @@ namespace GarazMechanicCore
         {
 
             var host = CreateWebHostBuilder(args).Build();
-            using (var scope = host.Services.CreateScope())
-            {
-                var services = scope.ServiceProvider;
-
-                //var context = services.GetRequiredService<GaragePersistent.Context.GarageContext>();
-                new DataGenerator().Initialize<Car>(services,CarSeed.GetAll());
-
-                new DataGenerator().Initialize<CarBrand>(services, BrandSeed.GetAll());
-                new DataGenerator().Initialize<CarModel>(services, new ModelReader().GetModels(services));
-                //new DataGenerator().Initialize<CarEngine>(services, EngineSeed.GetAll());
-                //new DataGenerator().Initialize<CarOwner>(services, OwnerSeed.GetAll());
-            }
 
             host.Run();
         }

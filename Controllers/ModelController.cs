@@ -25,7 +25,8 @@ namespace GarazMechanicCore.Controllers
         [HttpGet("[action]")]
         public async Task<IEnumerable<object>> GetCarModelsByBrandId(string brandId)
         {
-            return await _carModelService.GetCarModelsByBrandId(brandId);
+            var b = await _carModelService.GetCarModelsByBrandId(brandId);
+            return b;
         }
         [HttpGet("[action]")]
         public async Task<IEnumerable<object>> GetAll ()

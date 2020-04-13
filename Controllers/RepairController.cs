@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using GarageServices.RepairService.Dto;
 using GarageServices.RepairService.Interface;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,6 +10,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GarazMechanicCore.Controllers
 {
+    [Route("api/[controller]")]
+
     public class RepairController : Controller
     {
         private IRepairService _repairService;
@@ -24,7 +27,26 @@ namespace GarazMechanicCore.Controllers
         [HttpGet("[action]")]
         public async Task<IEnumerable<object>> GetAll(int pageSize, int pageNumber)
         {
-            return await _repairService.GetAllAsync(pageSize, pageNumber);
+            return await _repairService.GetAllAsync();
         }
+        [HttpGet("[action]")]
+        public async Task<object> GetById(string repairId)
+        {
+            return await _repairService.GetById(repairId);
+        }
+        [HttpPost("[action]")]
+        public async Task<string> Add([FromBody]RepairDto repairDto)
+        {
+            string repairId = await _repairService.Add(repairDto);
+
+            return repairId;
+        }
+        [HttpPut("[action]")]
+        public async Task<object> Update([FromBody]RepairDto carAddDto, [FromQuery] string id)
+        {
+            await _repairService.Update(carAddDto, id);
+            return null;
+        }
+
     }
 }

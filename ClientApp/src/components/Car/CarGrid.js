@@ -1,6 +1,6 @@
 ﻿import React from 'react';
-import { EditingState, PagingState, IntegratedPaging, SelectionState } from '@devexpress/dx-react-grid';
-import { Grid, Table, TableHeaderRow, TableEditColumn, PagingPanel, TableSelection } from '@devexpress/dx-react-grid-material-ui';
+import { EditingState, PagingState, IntegratedPaging, SelectionState, SearchState, IntegratedFiltering} from '@devexpress/dx-react-grid';
+import { Grid, Table, TableHeaderRow, TableEditColumn, PagingPanel, TableSelection, SearchPanel, Toolbar } from '@devexpress/dx-react-grid-material-ui';
 
 import { Column } from '@devexpress/dx-react-grid';
 import CarService from '../Services/CarService.js';
@@ -35,9 +35,9 @@ export class CarGrid extends React.Component {
         }
         this.service = new CarService();
     }
-    componentDidMount() {
+    async componentDidMount() {
         var columns = this.service.GetColumns();
-        var rows = this.service.GetAll();
+        var rows = await this.service.GetAll();
         console.log(rows);
         this.setState({
             columns: columns,
@@ -117,6 +117,11 @@ export class CarGrid extends React.Component {
 
         }
     }
+    setSearchState = (value) => {
+        this.setState({
+            searchValue: value,
+        });
+    }
     render() {
         const { columns, rows, selection } = this.state;
 
@@ -131,6 +136,13 @@ export class CarGrid extends React.Component {
                         selection={selection}
                         onSelectionChange={this.changeSelection}
                     />
+                    <SearchState
+                        value={this.state.searchValue}
+                        onValueChange={this.setSearchState}
+                    />
+                    <IntegratedFiltering />
+                    <Toolbar />
+                    <SearchPanel />
                     <PagingState
                         defaultCurrentPage={0}
                         pageSize={5}

@@ -6,14 +6,15 @@ namespace GarageServices.CarServices.Dto
 {
     public class CarAddDto
     {
-        public string BrandId { get; internal set; }
-        public string EngineId { get; internal set; }
-        public string ModelId { get; internal set; }
-        public string OwnerId { get; internal set; }
-        public string KilometerCounter { get; internal set; }
-        public string PlateNumber { get; internal set; }
-        public string Phone { get; internal set; }
-        public DateTime TechnicalCheck { get; internal set; }
-        public string Year { get; internal set; }
+        public string BrandId { get;  set; }
+        public string EngineId { get;  set; }
+        public string ModelId { get;  set; }
+        public string OwnerId { get;  set; }
+        public string KilometerCounter { get;  set; }
+        public string PlateNumber { get;  set; }
+        public string Phone { get;  set; }
+        public DateTime TechnicalCheck { get;  set; }
+        public string Year { get;  set; }
+
     }
 }

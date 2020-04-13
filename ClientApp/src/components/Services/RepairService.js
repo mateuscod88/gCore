@@ -1,5 +1,9 @@
-﻿class RepairService {
+﻿import RESTService from './RESTService.js';
+
+class RepairService {
     constructor() {
+        this.RESTService = new RESTService();
+
         this.repairs = null;
         this.columns = null;
         this.singleRow = null;
@@ -14,7 +18,9 @@
         ]
     }
     async AddRepair(repairDTO) {
-        const postResult = await fetch('/repairs/addRepair', {
+        var rep = JSON.stringify(repairDTO);
+        debugger;
+        const postResult = await fetch('api/repair/add', {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
@@ -24,8 +30,8 @@
         });
         await postResult;
     }
-    async UpdateRepair(repairDTO) {
-        const putResult = await fetch('home/updateRepair?id=' + this.state.row.id, {
+    async UpdateRepair(repairDTO,repairId) {
+        const putResult = await fetch('api/repair/update?id=' + repairId, {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
@@ -36,10 +42,17 @@
         });
         await putResult;
     }
-    GetRepairById(repairId) {
-        return this.data.find(x => x.Id == repairId);
+    async GetRepairById(repairId) {
+        const endpoint = "/api/repair/GetById?repairId=" + repairId;
+        var result = await this.RESTService.Get(endpoint);
+        await result;
+        return result;
     }
-    GetAll() {
+    async GetAll() {
+        debugger;
+        const endpoint = "/api/repair/getall?pageSize=&pageNumber="
+        var result = await this.RESTService.Get(endpoint);
+        await result;
         //const result = await fetch('/repairs/GetRepairs')
         //    .then(response => response.json())
         //    .then(data => this.repairs = {
@@ -57,18 +70,32 @@
         //await result;
         debugger;
         
-        this.repairs =  {
-            rows: this.data.map(suggestion => ({
-                id: suggestion.Id,
-                name: suggestion.Name,
-                date: suggestion.Date,
-                note: suggestion.Note,
-                carBrand: suggestion.Brand,
-                carModel: suggestion.Model,
-                carRegNum: suggestion.PlateNumber,
+        //this.repairs =  {
+        //    rows: this.data.map(suggestion => ({
+        //        id: suggestion.Id,
+        //        name: suggestion.Name,
+        //        date: suggestion.Date,
+        //        note: suggestion.Note,
+        //        carBrand: suggestion.Brand,
+        //        carModel: suggestion.Model,
+        //        carRegNum: suggestion.PlateNumber,
+
+        //    }))
+        //};
+        this.repairs = {
+            rows: result.map(suggestion => ({
+                id: suggestion.id,
+                name: suggestion.name,
+                date: suggestion.date,
+                note: suggestion.note,
+                carBrand: suggestion.brand,
+                carModel: suggestion.model,
+                carRegNum: suggestion.plateNumber,
 
             }))
         };
+        
+
         debugger;
         return this.repairs.rows;
     }

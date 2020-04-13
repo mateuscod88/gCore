@@ -1,4 +1,5 @@
 ﻿using GaragePersistent.Context;
+using GaragePersistent.Entities;
 using GarageServices.BaseServices.Interfaces;
 using GarageServices.RepairService.Dto;
 using GarageServices.RepairService.Interface;
@@ -17,9 +18,21 @@ namespace GarageServices.RepairService.Implementation
         {
         }
 
-        public Task Add(RepairDto added)
+        public async Task<string> Add(RepairDto added)
         {
-            throw new NotImplementedException();
+            var repairEntitie = new Repair
+            {
+                Id = Guid.NewGuid().ToString(),
+                Name = added.Name,
+                CarId = added.CarId,
+                CreateDate = DateTime.Now,
+                Note = added.Note,
+                RepairDate = DateTime.Parse(added.Date),
+                KilometerCounter = added.Counter
+            };
+            await _garageContext.Repair.AddAsync(repairEntitie);
+            await _garageContext.SaveChangesAsync();
+            return repairEntitie.Id;
         }
 
         public Task Delete(string id)
@@ -37,7 +50,7 @@ namespace GarageServices.RepairService.Implementation
                     Model = x.Car.Model.Name,
                     Name = x.Name,
                     Note = x.Note,
-                    Date = x.RepairDate,
+                    Date = x.RepairDate.ToShortDateString(),
                     Engine = x.Car.Engine.Name,
                     PlateNumber = x.Car.PlateNumber
                 })
@@ -46,14 +59,66 @@ namespace GarageServices.RepairService.Implementation
                 .ToListAsync();
         }
 
-        public Task<IEnumerable<RepairDto>> GetAllAsync()
+        public async Task<IEnumerable<RepairDto>> GetAllAsync()
+        {
+            return await _garageContext.Repair
+                .Select(x => new RepairDto
+                {
+                    Id = x.Id,
+                    Brand = x.Car.Brand.Name,
+                    Model = x.Car.Model.Name,
+                    Name = x.Name,
+                    Note = x.Note,
+                    Date = x.RepairDate.ToShortDateString(),
+                    Engine = x.Car.Engine.Name,
+                    PlateNumber = x.Car.PlateNumber,
+                    Counter = x.KilometerCounter,
+                    CarId = x.CarId
+                })
+                .ToListAsync();
+        }
+
+        public async Task<RepairDto> GetById(string repairId)
+        {
+            return await _garageContext
+                .Repair
+                .Select(x => new RepairDto
+                {
+                    Id = x.Id,
+                    Brand = x.Car.Brand.Name,
+                    Model = x.Car.Model.Name,
+                    Name = x.Name,
+                    Note = x.Note,
+                    Date = x.RepairDate.ToShortDateString(),
+                    Engine = x.Car.Engine.Name,
+                    PlateNumber = x.Car.PlateNumber,
+                    Counter = x.KilometerCounter,
+                    CarId = x.CarId
+                })
+                .SingleOrDefaultAsync(x => x.Id == repairId);
+        }
+
+        public Task Update(RepairDto updated)
         {
             throw new NotImplementedException();
         }
 
-        
+        public async Task Update(RepairDto added, string repairId)
+        {
 
-        public Task Update(RepairDto updated)
+            var repairEntitie = await _garageContext.Repair.SingleOrDefaultAsync(x => x.Id == repairId);
+
+            repairEntitie.Name = added.Name;
+            repairEntitie.CreateDate = DateTime.Now;
+            repairEntitie.Note = added.Note;
+            repairEntitie.RepairDate = DateTime.Parse(added.Date);
+            repairEntitie.KilometerCounter = added.Counter;
+
+            _garageContext.Repair.Update(repairEntitie);
+            await _garageContext.SaveChangesAsync();
+        }
+
+        Task IBaseService<RepairDto>.Add(RepairDto added)
         {
             throw new NotImplementedException();
         }

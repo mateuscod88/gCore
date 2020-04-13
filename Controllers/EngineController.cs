@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GarazMechanicCore.Controllers
 {
+    [Route("api/[controller]")]
+
     public class EngineController : Controller
     {
         private readonly IEngineService _engineService;

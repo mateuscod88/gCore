@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GarazMechanicCore.Controllers
 {
+    [Route("api/[controller]")]
+
     public class OwnerController : Controller
     {
         private IOwnerService _ownerService;

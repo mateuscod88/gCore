@@ -13,6 +13,6 @@ namespace GaragePersistent.Entities
         public string CarId { get; set; }
         public Car Car { get; set; }
         public DateTime CreateDate { get; set; }
-
+        public string KilometerCounter { get; set; }
     }
 }

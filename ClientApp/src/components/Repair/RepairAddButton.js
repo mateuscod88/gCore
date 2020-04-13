@@ -76,6 +76,7 @@ export class RepairAddButton extends React.Component {
     }
     onClickEditButton = () => {
         if (this.props.isDataValid()) {
+            this.props.addButtonHandler();
             this.setState({
                 redirectEditRepair: true,
             })

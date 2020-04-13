@@ -2,8 +2,10 @@
 using GarageServices.BaseServices.Interfaces;
 using GarageServices.OwnerServices.Dto;
 using GarageServices.OwnerServices.Interface;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -30,9 +32,10 @@ namespace GarageServices.OwnerServices.Implementation
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<OwnerDto>> GetAllAsync()
+        public async  Task<IEnumerable<OwnerDto>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            var owner = await _garageContext.CarOwner.Select(x => new OwnerDto { Id = x.Id, Name = $"{x.FirstName} {x.LastName}" }).ToListAsync();
+            return new List<OwnerDto> { new OwnerDto {Id = "1",Name = "Mateo" } };
         }
 
         public Task Update(OwnerDto updated)

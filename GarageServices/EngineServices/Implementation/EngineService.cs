@@ -2,8 +2,10 @@
 using GarageServices.BaseServices.Interfaces;
 using GarageServices.EngineServices.Dto;
 using GarageServices.EngineServices.Interface;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -36,9 +38,15 @@ namespace GarageServices.EngineServices.Implementation
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<CarEngineDto>> GetEnginesByBrandIdModelId(string brandId, string modelId)
+        public async  Task<IEnumerable<CarEngineDto>> GetEnginesByBrandIdModelId(string brandId, string modelId)
         {
-            throw new NotImplementedException();
+            var e = await _garageContext
+                .CarEngine
+                .Where(x => x.CarModelId == modelId)
+                .Select(x => new CarEngineDto { Id = x.Id, Name = $"{x.Name}({x.Code}) {x.DateFrom}-{x.DatoTo}" })
+                .OrderBy(x => x.Name)
+                .ToListAsync();
+            return e;
         }
 
         public Task Update(CarEngineDto updated)

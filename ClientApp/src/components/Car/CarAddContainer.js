@@ -48,6 +48,7 @@ const styles = theme => ({
     formControl: {
         margin: theme.spacing.unit,
         minWidth: 300,
+        background: 'red'
     },
     input: {
         display: 'flex',
@@ -82,10 +83,11 @@ const styles = theme => ({
     },
     paper: {
         position: 'absolute',
-        zIndex: 1,
+        zIndex: 1600,
         marginTop: theme.spacing.unit,
         left: 0,
         right: 0,
+        background:'red',
     },
     divider: {
         height: theme.spacing.unit * 2,
@@ -217,9 +219,9 @@ class CarAddContainer extends React.Component {
     constructor(props) {
         super(props);
         this.service = new CarService();
-        let owners = this.service.GetOwners().map(x => ({ value: x.id, label: x.name }));
-        var carId = this.props.location.search.substring(7, 8);
-        var operationType = carId > 0 ? 'edit' : 'add';
+        var isCarIdExist = this.props.location.search.indexOf("carId") > 0;
+        var carId = this.props.location.search.substring(7, this.props.location.search.length);
+        var operationType = carId.length > 0 && isCarIdExist ? 'edit' : 'add';
         this.state = {
             data: null,
             phone: '',
@@ -244,7 +246,7 @@ class CarAddContainer extends React.Component {
             regNumError: '',
             dueDateTechService: '',
             owner: '',
-            owners: owners,
+            owners: [],
             isOwnerValid: false,
             age: '',
             year: '',
@@ -264,17 +266,30 @@ class CarAddContainer extends React.Component {
         };
 
     };
-    componentDidMount() {
-        var brands = this.service.GetBrands().map(x => ({ value: x.id, label: x.brand }));
+    async componentDidMount() {
+        var b = await this.service.GetBrands();
+        await b;
+        debugger;
+
+        var brands = b.map(x => ({ value: x.id, label: x.brand }));
+        debugger;
+
         console.log(brands);
+        
+        var o = await this.service.GetOwners();
+        await o;
+        let owners = o.map(x => ({ value: x.id, label: x.name }));
         this.setState({
             brands,
+            owners
         });
-        var carId = this.props.location.search.substring(7, 8);
+        var carId = this.props.location.search.substring(7, this.props.location.search.length);
         debugger;
-        if (carId > 0) {
+        if (carId.length > 0) {
 
-            var car = this.service.GetCarById(carId);
+            var car = await this.service.GetCarById(carId);
+            await car;
+            debugger;
             this.setState({
                 car: car,
             });
@@ -330,7 +345,9 @@ class CarAddContainer extends React.Component {
         }
     }
     handleChangeDropDown = name => event => {
-
+        if (event.target.value != this.state.year) {
+            this.setDataChanged(true);
+        }
         this.setState({
             [name]: event.target.value,
             yearError: '',
@@ -352,6 +369,7 @@ class CarAddContainer extends React.Component {
         return carValid;
     }
     setButtonByDataChanged = (text) => {
+        debugger;
         if (this.carDataChangedValidation(text)) {
             this.setDataChanged(false);
         }
@@ -359,7 +377,7 @@ class CarAddContainer extends React.Component {
             this.setDataChanged(true);
         }
     }
-    handleChangeBrand = name => event => {
+    handleChangeBrand = name => async event => {
         if (this.state.operationType == "edit") {
             this.setButtonByDataChanged(event.label);
         }
@@ -368,18 +386,28 @@ class CarAddContainer extends React.Component {
             singleModel: '',
             singleEngine:'',
         });
-        var model = this.service.GetModelByBrandId(event.value).map(x => ({ value: x.id, label: x.model }));
+        debugger;
+        var m = await this.service.GetModelByBrandId(event.value);
+        await m;
+        debugger;
+
+        var model = m.map(x => ({ value: x.id, label: x.name }));;
+        debugger;
+
         this.setState({
             model,
             isCarBrandValid: false
         });
         console.log(event);
     };
-    handleChangeModel = event => {
+    handleChangeModel = async event => {
         if (this.state.operationType == "edit") {
             this.setButtonByDataChanged(event.label);
         }
-        var engine = this.service.GetEngines(this.state.singleBrand.value, event.value).map(x => ({ value: x.id, label: x.name }));
+        debugger;
+        var e = await this.service.GetEngines(this.state.singleBrand.value, event.value);
+        await e;
+        var engine = e.map(x => ({ value: x.id, label: x.name }));
         var singleModel = event;
         this.setState({
             engine,
@@ -467,14 +495,17 @@ class CarAddContainer extends React.Component {
                     yearError: 'Rok produkcji wymagany',
                 });
             }
+            debugger;
             if (!isCarModelInvalid && !isCarBrandInvalid && !isCarEngineInvalid && (!isOwnerNotSelected || !isPhoneInvalid)) {
                 debugger;
                 var dateToday = Date.now().toString();
-                var ownerId = this.state.owners[this.state.owners.findIndex((owner) => this.state.owner.label == owner.label && this.state.owner.value == owner.value)].value;
+                if (this.state.owner != undefined) {
+                    var ownerId = this.state.owners[this.state.owners.findIndex((owner) => this.state.owner.label == owner.label && this.state.owner.value == owner.value)].value;
+                }
                 var carDto = {
-                    BrandId: this.state.brands[this.state.brands.findIndex((singleBrand) => this.state.singleBrand == singleBrand)].value,
-                    ModelId: this.state.model[this.state.model.findIndex((singleModel) => this.state.singleModel == singleModel)].value,
-                    EngineId: this.state.engine[this.state.engine.findIndex((singleEngine) => this.state.singleEngine == singleEngine)].label,
+                    BrandId: this.state.singleBrand.value,
+                    ModelId: this.state.singleModel.value,
+                    EngineId: this.state.singleEngine.value,
                     Year: this.state.years[this.state.years.findIndex((year) => this.state.year == year.value)].value,
                     TechnicalCheck: (document.getElementById('date')).value,
                     PlateNumber: this.state.regNumber,
@@ -498,7 +529,8 @@ class CarAddContainer extends React.Component {
                 }
                 else {
                     debugger;
-                    this.service.Update(carDto);
+                    var carId = this.props.location.search.substring(7, this.props.location.search.length);
+                    this.service.Update(carDto, carId);
                 }
                 debugger;
                 //var ownerId = this.state.owners[this.state.owners.findIndex((owner) => this.state.owner.label == owner.label && this.state.owner.value == owner.value)].value;
@@ -601,7 +633,7 @@ class CarAddContainer extends React.Component {
         };
         return (
             <div>
-                <FormControl className={classes.formControl} error={this.state.isCarBrandValid}>
+                <FormControl className={classes.formControl} error={this.state.isCarBrandValid} >
                     <Select
                         classes={classes}
                         styles={selectStyles}
@@ -615,7 +647,7 @@ class CarAddContainer extends React.Component {
                     {this.state.isCarBrandValid && <FormHelperText> This is required!</FormHelperText>}
                 </FormControl>
                 <div className={classes.divider} />
-                <FormControl className={classes.formControl} error={this.state.isCarModelValid}>
+                <FormControl className={classes.formControl} error={this.state.isCarModelValid} >
                     <Select
                         classes={classes}
                         styles={selectStyles}

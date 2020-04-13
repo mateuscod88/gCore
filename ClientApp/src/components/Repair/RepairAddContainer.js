@@ -82,9 +82,10 @@ class RepairAddContainer extends React.Component {
     constructor(props) {
         super(props);
 
-        var repairId = parseInt(this.props.location.search.substring(10, 11));
+        var repairId = this.props.location.search.substring(10, this.props.location.search.length);
+        var isRepairIdExists = this.props.location.search.indexOf("repairId") > 0;
         debugger;
-        var operationType = repairId > 0 ? 'edit' : 'add';
+        var operationType = repairId.length > 0 && isRepairIdExists ? 'edit' : 'add';
         this.state = {
             noteName: '',
             noteNameError: '',
@@ -97,18 +98,23 @@ class RepairAddContainer extends React.Component {
             repairId: repairId,
             dataChanged: false,
             operationType: operationType,
-            dueDateTechService:'',
+            dueDateTechService: '',
+            counter: '',
+            counterErrorText:'',
         };
         debugger;
         this.carService = new CarService();
         this.repairService = new RepairService();
     }
-    componentDidMount() {
-        var repairId = this.state.repairId;
-        var carId = this.props.location.search.substring(7, 8);
+    async componentDidMount() {
         debugger;
-        if (carId > 0) {
-            var car = this.carService.GetCarById(carId);
+        var repairId = this.state.repairId;
+        var carId = this.props.location.search.substring(7, this.props.location.search.length);
+        var isCarIdExist = this.props.location.search.indexOf("carId") > 0;
+        debugger;
+        if (carId.length > 0 && isCarIdExist) {
+            var car = await this.carService.GetCarById(carId);
+            await car;
             if (car != undefined) {
                 this.setState({
                     carBrand: car.brand,
@@ -119,23 +125,25 @@ class RepairAddContainer extends React.Component {
             }
 
         }
-        else if (repairId > 0) {
+        else if (repairId.length > 0) {
             debugger;
-            var repair = this.repairService.GetRepairById(repairId);
+            var repair = await this.repairService.GetRepairById(repairId);
+            await repair;
             if (repair != undefined) {
                 this.setState({
-                    noteName:repair.Name,
-                    note: repair.Note,
-                    carBrand: repair.Brand,
-                    carModel: repair.Model,
-                        carEngine: repair.Engine,
-                    regNum: repair.PlateNumber,
-                    dueDateTechService: repair.Date,
-                    }
+                    noteName: repair.name,
+                    note: repair.note,
+                    carBrand: repair.brand,
+                    carModel: repair.model,
+                    carEngine: repair.engine,
+                    regNum: repair.plateNumber,
+                    dueDateTechService: repair.date,
+                    counter: repair.counter
+                }
                 );
             }
         }
-        
+
     }
 
     setDataChanged = () => {
@@ -169,13 +177,13 @@ class RepairAddContainer extends React.Component {
             [text]: event.target.value
         });
     }
-    
+
     handleChangeNote = name => event => {
         debugger;
 
         if (this.state[name] != event.target.value) {
             this.setDataChanged();
-           
+
         }
         if (this.validateisFieldEmpty(event.target.value)) {
             this.setState({
@@ -220,7 +228,58 @@ class RepairAddContainer extends React.Component {
             noteNameError: 'Pole wymagane',
         });
     }
+    handleSaveButton = async () => {
+        var carIdd = this.props.location.search.substring(7, this.props.location.search.length);
+        debugger;
+        var repairDto = {
+            name: this.state.noteName,
+            note: this.state.note,
+            carId: carIdd,
+            date: this.state.dueDateTechService,
+            counter: this.state.counter
+        }
+        if (this.operationType == 'add') {
+            await this.repairService.AddRepair(repairDto);
+        }
+        else {
+            await this.repairService.UpdateRepair(repairDto, this.state.repairId);
+        }
+        
+        
+    }
+    handleChangeCounter = name => event => {
+        this.NumberValidation(event.target.value, name, 8, 'counterErrorText');
+        this.setState(
+            {
+                [name]: event.target.value,
+            });
+        console.log(name);
+    };
+    NumberValidation = (value, name, length, errorMsg) => {
+        var regex = /^\d+$/;
+        if (!(value === null)) {
+            if ((value.match(regex) && value.length < length) || value === "") {
+                this.setState({
+                    [name]: value,
+                    [errorMsg]: ''
+                });
+            }
+            else if (value.length === length) {
 
+            }
+            else {
+                this.setState({
+                    [errorMsg]: 'Tylko cyfry',
+                })
+            }
+        }
+        else {
+            this.setState({
+                [name]: '',
+                [errorMsg]: '',
+            })
+        }
+    }
     render() {
         const { classes, theme } = this.props;
         return (
@@ -261,7 +320,18 @@ class RepairAddContainer extends React.Component {
                     }}
 
                 />
-                <RepairAddButton operationType={this.state.operationType} dataChanged={this.state.dataChanged} isDataValid={this.isDataValid} setValidationMsg={this.setValidationMsg} />
+                <TextField
+                    id="outlined-name"
+                    label="Stan Licznika"
+                    error={this.state.counterErrorText.length !== 0 ? true : false}
+                    className={classes.textField}
+                    helperText={this.state.counterErrorText}
+                    value={this.state.counter}
+                    onChange={this.handleChangeCounter('counter')}
+                    margin="normal"
+                    variant="outlined"
+                />
+                <RepairAddButton operationType={this.state.operationType} dataChanged={this.state.dataChanged} isDataValid={this.isDataValid} setValidationMsg={this.setValidationMsg} addButtonHandler={this.handleSaveButton} />
             </div>
         );
     }

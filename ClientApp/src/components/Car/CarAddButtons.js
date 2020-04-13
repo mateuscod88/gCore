@@ -55,7 +55,10 @@ export class CarAddButtons extends React.Component {
     }
     onClick = () => {
         this.props.addButtonHandler();
-        this.setState({ openAddCar: true, });
+        this.setState({
+            openAddCar: true,
+            redirectEditRepair: true,
+        });
     }
     OnArrowClick = () => {
         this.setState({
@@ -67,6 +70,7 @@ export class CarAddButtons extends React.Component {
             return <Redirect to={'/car-grid'} />
         }
     }
+    
     render() {
         return (
             <div>
