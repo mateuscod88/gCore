@@ -238,7 +238,7 @@ class RepairAddContainer extends React.Component {
             date: this.state.dueDateTechService,
             counter: this.state.counter
         }
-        if (this.operationType == 'add') {
+        if (this.state.operationType == 'add') {
             await this.repairService.AddRepair(repairDto);
         }
         else {

@@ -12,7 +12,7 @@ class CarService {
         this.isRepairDetailsDialogBox = false;
         this.updateGrid = false;
         var dateToday = Date.now().toString();
-        this.url = 'http://localhost:5001/';
+        this.url = 'http://localhost:5000/';
         this.carsGetByID = [
 
             {
@@ -151,7 +151,7 @@ class CarService {
         //return [{ id: 1, brand: "audi" }, { id: 2, brand: "VW" }];
     }
     async GetModelByBrandId(brandId) {
-        var endpoint = 'api/model/GetCarModelsByBrandId?brandId='+brandId;
+        var endpoint ='api/model/GetCarModelsByBrandId?brandId='+brandId;
         //var result = RESTService.Get(endpoint);
         var modelDto = await fetch(endpoint)
             .then(response => response.json())

@@ -9,9 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GaragePersistent", "GarageP
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GarageServices", "GarageServices\GarageServices.csproj", "{D83C1CE4-4019-46DE-95A0-CD484E9905F7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrzegladarkaTest", "..\..\intercarsImporter\icimporternew\icimport\PrzegladarkaTest\PrzegladarkaTest.csproj", "{1BFBE191-2DA4-49D7-979A-C7F7AF2255A3}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Importer", "..\Importer\Importer.csproj", "{848B92AD-A33C-48BB-8735-D3326D4A6EDE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Importer", "..\Importer\Importer.csproj", "{848B92AD-A33C-48BB-8735-D3326D4A6EDE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,10 +29,6 @@ Global
 		{D83C1CE4-4019-46DE-95A0-CD484E9905F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D83C1CE4-4019-46DE-95A0-CD484E9905F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D83C1CE4-4019-46DE-95A0-CD484E9905F7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1BFBE191-2DA4-49D7-979A-C7F7AF2255A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1BFBE191-2DA4-49D7-979A-C7F7AF2255A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1BFBE191-2DA4-49D7-979A-C7F7AF2255A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1BFBE191-2DA4-49D7-979A-C7F7AF2255A3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{848B92AD-A33C-48BB-8735-D3326D4A6EDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{848B92AD-A33C-48BB-8735-D3326D4A6EDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{848B92AD-A33C-48BB-8735-D3326D4A6EDE}.Release|Any CPU.ActiveCfg = Release|Any CPU

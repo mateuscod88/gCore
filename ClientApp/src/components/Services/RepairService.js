@@ -11,7 +11,7 @@ class RepairService {
         this.isRepairDetailsDialogBox = false;
         this.updateGrid = false;
         this.data = [
-            { Id: 1, Name: "rozrzad", Date: "2020-01-02", Note: "Wymiana rozrzadu ina", Brand: "Vw", Model: "Passat", PlateNumber: "BIA004411",Engine:"1.9TDI" },
+            { Id: 1, Name: "rozrzad", Date: "2020-01-02", Note: "Wymiana rozrzadu ina", Brand: "Vw", Model: "Passat", PlateNumber: "BIA004411", Engine: "1.9TDI" },
             { Id: 2, Name: "olej", Date: "2020-01-02", Note: "Wymiana rozrzadu ina", Brand: "Vw", Model: "Passat", PlateNumber: "BIA004411", Engine: "1.9TDI" },
             { Id: 3, Name: "filtr paliwa", Date: "2020-01-02", Note: "Wymiana rozrzadu ina", Brand: "Vw", Model: "Passat", PlateNumber: "BIA004411", Engine: "1.9TDI" },
             { Id: 4, Name: "wymiana klockow", Date: "2020-01-02", Note: "Wymiana rozrzadu ina", Brand: "Vw", Model: "Passat", PlateNumber: "BIA004411", Engine: "1.9TDI" }
@@ -30,7 +30,7 @@ class RepairService {
         });
         await postResult;
     }
-    async UpdateRepair(repairDTO,repairId) {
+    async UpdateRepair(repairDTO, repairId) {
         const putResult = await fetch('api/repair/update?id=' + repairId, {
             headers: {
                 'Accept': 'application/json',
@@ -69,7 +69,7 @@ class RepairService {
         //    });
         //await result;
         debugger;
-        
+
         //this.repairs =  {
         //    rows: this.data.map(suggestion => ({
         //        id: suggestion.Id,
@@ -91,10 +91,10 @@ class RepairService {
                 carBrand: suggestion.brand,
                 carModel: suggestion.model,
                 carRegNum: suggestion.plateNumber,
-
+                counter: suggestion.counter + ' KM'
             }))
         };
-        
+
 
         debugger;
         return this.repairs.rows;
@@ -107,6 +107,8 @@ class RepairService {
                 { name: 'carRegNum', title: "Numer Rejestracyjny" },
                 { name: 'name', title: "Nazwa" },
                 { name: 'date', title: "Data Naprawy" },
+                { name: 'counter', title: "Stan Licznika" },
+
             ];
         return this.columns;
     }

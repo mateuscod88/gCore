@@ -43,7 +43,7 @@ namespace GarageServices.EngineServices.Implementation
             var e = await _garageContext
                 .CarEngine
                 .Where(x => x.CarModelId == modelId)
-                .Select(x => new CarEngineDto { Id = x.Id, Name = $"{x.Name}({x.Code}) {x.DateFrom}-{x.DatoTo}" })
+                .Select(x => new CarEngineDto { Id = x.Id, Name = $"{x.Name}({x.Code}) {x.HorsePower}KM({x.KWPower}KW) {x.DateFrom}-{x.DatoTo}" })
                 .OrderBy(x => x.Name)
                 .ToListAsync();
             return e;

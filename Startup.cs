@@ -23,6 +23,7 @@ namespace GarazMechanicCore
 {
     public class Startup
     {
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -44,7 +45,14 @@ namespace GarazMechanicCore
             services.AddTransient<ICarModelService, CarModelService>();
             services.AddTransient<IEngineService, EngineService>();
             services.AddTransient<IBrandService, BrandService>();
-
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: MyAllowSpecificOrigins,
+                                  builder =>
+                                  {
+                                      builder.WithOrigins("http://http://localhost:3000");
+                                  });
+            });
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -66,7 +74,7 @@ namespace GarazMechanicCore
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
+            app.UseCors(MyAllowSpecificOrigins);
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();

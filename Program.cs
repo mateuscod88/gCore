@@ -17,16 +17,18 @@ namespace GarazMechanicCore
 {
     public class Program
     {
+        
         public static void Main(string[] args)
         {
-
-            var host = CreateWebHostBuilder(args).Build();
+            var hostUrl = "http://0.0.0.0:5000";
+            var host = CreateWebHostBuilder(args,hostUrl).Build();
 
             host.Run();
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args,string hostUrl) =>
             WebHost.CreateDefaultBuilder(args)
+                .UseUrls(hostUrl)
                 .UseStartup<Startup>();
     }
 }
