@@ -47,8 +47,7 @@ const styles = theme => ({
     },
     formControl: {
         margin: theme.spacing.unit,
-        minWidth: 300,
-        background: 'red'
+        minWidth: 500,
     },
     input: {
         display: 'flex',
@@ -87,7 +86,7 @@ const styles = theme => ({
         marginTop: theme.spacing.unit,
         left: 0,
         right: 0,
-        background:'red',
+        background:'#4DA6FF',
     },
     divider: {
         height: theme.spacing.unit * 2,
@@ -98,7 +97,7 @@ const styles = theme => ({
     },
     textField: {
         display: 'flex',
-        width: 300,
+        width: 500,
         marginLeft: 0,
         marginRight: theme.spacing.unit,
 

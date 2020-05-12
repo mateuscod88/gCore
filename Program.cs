@@ -28,7 +28,7 @@ namespace GarazMechanicCore
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args,string hostUrl) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseUrls(hostUrl)
+                //.UseUrls(hostUrl)
                 .UseStartup<Startup>();
     }
 }
