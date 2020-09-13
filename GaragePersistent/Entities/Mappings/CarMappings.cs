@@ -8,7 +8,7 @@ namespace GaragePersistent.Entities.Mappings
         public void Configure(EntityTypeBuilder<Car> entityTypeBuilder)
         {
             entityTypeBuilder.ToTable("Car");
-
+            entityTypeBuilder.HasQueryFilter(x => !x.IsDeleted);
             //entityTypeBuilder.Property(e => e.IdPodmiotWlascicielBiznesowy).HasMaxLength(64);
 
             //entityTypeBuilder.Property(e => e.KodPocztowy)

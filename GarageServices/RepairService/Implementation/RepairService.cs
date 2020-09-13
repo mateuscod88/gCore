@@ -35,9 +35,12 @@ namespace GarageServices.RepairService.Implementation
             return repairEntitie.Id;
         }
 
-        public Task Delete(string id)
+        public async Task Delete(string id)
         {
-            throw new NotImplementedException();
+            var repair = _garageContext.Repair.Single(x => x.Id == id);
+            repair.IsDeleted = true;
+            _garageContext.Repair.Update(repair);
+            await _garageContext.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<RepairDto>> GetAllAsync(int pageSize, int pageNumber)
@@ -62,6 +65,7 @@ namespace GarageServices.RepairService.Implementation
         public async Task<IEnumerable<RepairDto>> GetAllAsync()
         {
             return await _garageContext.Repair
+                .OrderByDescending(x => x.CreateDate)
                 .Select(x => new RepairDto
                 {
                     Id = x.Id,

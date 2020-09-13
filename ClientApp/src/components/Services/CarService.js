@@ -213,5 +213,8 @@ class CarService {
         await result;
         return result;
     }
+    async Delete(carId) {
+        await this.RESTService.Delete("/api/car/delete?id=",carId);
+    }
 }
 export default CarService

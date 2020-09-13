@@ -15,7 +15,7 @@ namespace GaragePersistent.Entities
         public CarEngine  Engine{ get; set; }
         public string OwnerId { get; set; }
         public CarOwner Owner { get; set; }
-        public DateTime TechnicalCheck { get; set; }
+        public DateTime? TechnicalCheck { get; set; }
         public string PlateNumber { get; set; }
         public string KilometerCounter { get; set; }
         public string Year { get; set; }
@@ -23,5 +23,6 @@ namespace GaragePersistent.Entities
         public List<Repair> Repairs { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime LastOilChange { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

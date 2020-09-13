@@ -39,11 +39,16 @@ class RepairGrid extends Component {
             columns: service.GetColumns(),
         });
     }
-    componentDidUpdate(prevProps) {
+    async componentDidUpdate(prevProps) {
+        debugger;
         var service = this.service;
         if (service.GetUpdateGrid() == true) {
-            this.GetRows();
+            await this.GetRows();
             service.SetUpdateGrid(false);
+        }
+        else if (this.props.updateRepairGrid) {
+            await this.GetRows();
+            this.props.resetUpdateRepairGrid();
         }
     }
     commitChanges({ added, changed, deleted }) {

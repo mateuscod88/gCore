@@ -13,7 +13,11 @@ import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
-
+import {
+    MuiPickersUtilsProvider,
+    KeyboardDatePicker,
+} from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
 import Select from 'react-select';
 import classNames from 'classnames';
 
@@ -262,6 +266,8 @@ class CarAddContainer extends React.Component {
             operationType: operationType,
             dataChanged: false,
             car: null,
+            selectedDatenew: '',
+            dueDateTechServiceDataPicker:null
         };
 
     };
@@ -376,6 +382,9 @@ class CarAddContainer extends React.Component {
             this.setDataChanged(true);
         }
     }
+    handleDateChangenew = name => {
+        console.log(name);
+    }
     handleChangeBrand = name => async event => {
         if (this.state.operationType == "edit") {
             this.setButtonByDataChanged(event.label);
@@ -439,10 +448,21 @@ class CarAddContainer extends React.Component {
         });
     };
     OnDateChange = text => event => {
-        let dueDateTechService = event.target.value;
-        this.setState({
-            dueDateTechService
-        });
+        debugger;
+        if (event.target == undefined) {
+            let a = event.getDate();
+            this.setState({
+                dueDateTechService: event.toISOString(),
+                dueDateTechServiceDataPicker: event,
+            });
+        }
+        //else {
+        //    dueDateTechService = event.target.value;
+        //    this.setState({
+        //        dueDateTechService
+        //    });
+        //}
+        
     };
     handleChangeOwner = text => event => {
         let owner = event;
@@ -461,6 +481,7 @@ class CarAddContainer extends React.Component {
     handleSaveButton = async () => {
 
         if (this.state.isEditDialogBox == false) {
+            debugger;
             var isCarModelInvalid = this.state.singleModel === '';
             var isCarBrandInvalid = this.state.singleBrand === '';
             var isCarEngineInvalid = this.state.singleEngine === '';
@@ -506,95 +527,31 @@ class CarAddContainer extends React.Component {
                     ModelId: this.state.singleModel.value,
                     EngineId: this.state.singleEngine.value,
                     Year: this.state.years[this.state.years.findIndex((year) => this.state.year == year.value)].value,
-                    TechnicalCheck: (document.getElementById('date')).value,
+                    TechnicalCheck: this.state.dueDateTechService,
                     PlateNumber: this.state.regNumber,
                     KilometerCounter: this.state.counter,
                     OwnerId: ownerId,
                     Phone: this.state.phone,
                 };
-                //var car = {
-                //    id: "3",
-                //    brand: this.state.singleBrand,
-                //    model: this.state.singleModel,
-                //    engine: this.state.singleEngine,
-                //    regNum: this.state.regNumber,
-                //    phone: this.state.phone,
-                //    dueDateTechService: (document.getElementById('date')).value,
-                //    lastOilChange: dateToday
-                //};
+
                 if (this.state.operationType == "add") {
                     debugger;
-                    this.service.Add(carDto);
+                    await this.service.Add(carDto);
+                    return true;
                 }
                 else {
-                    debugger;
                     var carId = this.props.location.search.substring(7, this.props.location.search.length);
-                    this.service.Update(carDto, carId);
+                    await this.service.Update(carDto, carId);
+                    return true;
+
                 }
-                debugger;
-                //var ownerId = this.state.owners[this.state.owners.findIndex((owner) => this.state.owner.label == owner.label && this.state.owner.value == owner.value)].value;
-
-                //var carDTO =
-                //{
-                //    BrandId: this.state.brand[this.state.brand.findIndex((singleBrand) => this.state.singleBrand == singleBrand)].value,
-                //    ModelId: this.state.model[this.state.model.findIndex((singleModel) => this.state.singleModel == singleModel)].value,
-                //    Engine: this.state.engine[this.state.engine.findIndex((singleEngine) => this.state.singleEngine == singleEngine)].label,
-                //    Year: this.state.years[this.state.years.findIndex((year) => this.state.year == year.value)].value,
-                //    TechnicalCheck: (document.getElementById('date')).value,
-                //    PlateNumber: this.state.regNumber,
-                //    KilometerCounter: this.state.counter,
-                //    OwnerId: ownerId,
-                //    Phone: this.state.phone,
-                //};
-
-
-                //const postResult = await fetch('/home/addCar', {
-                //    headers: {
-                //        'Accept': 'application/json',
-                //        'Content-Type': 'application/json'
-                //    },
-                //    method: 'POST',
-                //    body: JSON.stringify(carDTO)
-                //});
-                //await postResult;
-                //this.setState({
-                //    open: false,
-                //    updateCarGrid: true,
-                //});
+            }
+            else {
+                return false;
             }
         }
         else {
-            //debugger;
-            //var ownerId = this.state.owners[this.state.owners.findIndex((owner) => this.state.owner.label == owner.label && this.state.owner.value == owner.value)].value;
-            //var enginee = this.state.engine[this.state.engine.findIndex((singleEngine) => this.state.singleEngine.label == singleEngine.label && this.state.singleEngine.value == singleEngine.value)].label;
-            //var carDTO =
-            //{
-            //    Id: this.state.row.id,
-            //    BrandId: this.state.brand[this.state.brand.findIndex((singleBrand) => this.state.singleBrand == singleBrand)].value,
-            //    ModelId: this.state.model[this.state.model.findIndex((singleModel) => this.state.singleModel == singleModel)].value,
-            //    Engine: this.state.engine[this.state.engine.findIndex((singleEngine) => this.state.singleEngine.label == singleEngine.label && this.state.singleEngine.value == singleEngine.value)].label,
-            //    Year: this.state.years[this.state.years.findIndex((year) => this.state.year == year.value)].value,
-            //    TechnicalCheck: (document.getElementById('date')).value,
-            //    PlateNumber: this.state.regNumber,
-            //    KilometerCounter: this.state.counter,
-            //    OwnerId: ownerId,
-            //    Phone: this.state.phone,
-
-            //};
-            //const putResult = await fetch('home/updateCar?id=' + this.state.row.id, {
-            //    headers: {
-            //        'Accept': 'application/json',
-            //        'Content-Type': 'application/json'
-            //    },
-            //    method: 'PUT',
-            //    body: JSON.stringify(carDTO)
-
-            //});
-            //await putResult;
-            //this.setState({
-            //    open: false,
-            //    updateCarGrid: true,
-            //});
+            
         }
     };
     setDataChanged = (isChanged) => {
@@ -720,18 +677,21 @@ class CarAddContainer extends React.Component {
                     margin="normal"
                     variant="outlined"
                 />
-                <TextField
-                    id="date"
-                    label="Badanie techniczne"
-                    type="date"
-                    value={this.state.dueDateTechService}
-                    className={classes.textField}
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <KeyboardDatePicker
+                    disableToolbar
+                    variant="inline"
+                    format="MM/dd/yyyy"
+                    margin="normal"
+                    id="date-picker-inline"
+                        label="Badanie techniczne"
+                        value={this.state.dueDateTechServiceDataPicker}
                     onChange={this.OnDateChange('dueDateTechService')}
-                    InputLabelProps={{
-                        shrink: true,
+                    KeyboardButtonProps={{
+                        'aria-label': 'change date',
                     }}
-
-                />
+                    />
+                    </MuiPickersUtilsProvider>
                 <FormControl className={classes.formControl} error={this.state.isOwnerValid}>
 
                     <Select

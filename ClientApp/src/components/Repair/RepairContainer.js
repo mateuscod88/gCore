@@ -1,6 +1,7 @@
 ﻿import React, { Component } from 'react';
 import RepairGrid from './RepairGrid.js';
 import { RepairButton } from './RepairButton.js';
+import RepairService from '../Services/RepairService.js';
 
 export class RepairContainer extends Component {
     constructor(props) {
@@ -8,7 +9,9 @@ export class RepairContainer extends Component {
         this.state = {
             isAddRepairButtonDisable: true,
             repairId: 0,
+            updateRepairGrid:false,
         };
+        this.service = new RepairService();
     }
     enableAddRepairButton = () => {
         this.setState({
@@ -32,11 +35,26 @@ export class RepairContainer extends Component {
     getRepairId = () => {
         return this.state.repairId;
     }
+    resetUpdateRepairGrid = () => {
+        this.setState({
+            updateRepairGrid: false,
+        });
+    }
+    setUpdateRepairGrid = () => {
+        this.setState({
+            updateRepairGrid: true,
+        });
+    }
+    deleteRepair = async (repairId) => {
+        debugger;
+        await this.service.Delete(repairId);
+    }
     render() {
         return (
             <div>
-                <RepairGrid setRepairId={this.setRepairId} enableButton={this.enableAddRepairButton} disableButton={this.disableAddRepairButton} />
-                <RepairButton getRepairId={this.getRepairId} setButtonVisibility={this.setButtonVisibility} />
+                <RepairGrid setRepairId={this.setRepairId} updateRepairGrid={this.state.updateRepairGrid} resetUpdateRepairGrid={this.resetUpdateRepairGrid} enableButton={this.enableAddRepairButton} disableButton={this.disableAddRepairButton} />
+                <RepairButton  updateRepairGrid={this.setUpdateRepairGrid} getRepairId={this.getRepairId} deleteRepairHandler={this.deleteRepair} setButtonVisibility={this.setButtonVisibility} />
+
             </div>
         );
     }

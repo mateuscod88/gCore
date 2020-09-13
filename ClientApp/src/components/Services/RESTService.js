@@ -1,6 +1,15 @@
 ﻿
 class RESTService {
-
+    async Delete(endpoint, carId) {
+        await fetch(endpoint+carId, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: 'Delete'
+        });
+        
+    }
     async Post(endpoint, Dto) {
         debugger;
         var js = JSON.stringify(Dto);

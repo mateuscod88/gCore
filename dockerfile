@@ -1,0 +1,12 @@
+FROM microsoft/dotnet:2.2-sdk
+RUN curl --silent --location https://deb.nodesource.com/setup_10.x | bash -
+RUN apt-get install --yes nodejs
+COPY . /app
+WORKDIR /app
+RUN ["dotnet", "restore"]
+RUN dotnet publish -c Release -o out
+EXPOSE 5002:5002/tcp
+ENV ASPNETCORE_ENVIRONMENT="developmentt"
+COPY entrypoint.sh /app
+RUN chmod +x ./entrypoint.sh
+CMD /bin/bash ./entrypoint.sh

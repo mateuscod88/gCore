@@ -11,6 +11,8 @@ namespace GaragePersistent.Entities.Mappings
         public void Configure(EntityTypeBuilder<Repair> builder)
         {
             builder.ToTable("Repair");
+            builder.HasQueryFilter(x => !x.IsDeleted);
+
         }
     }
 }

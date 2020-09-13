@@ -112,6 +112,9 @@ class RepairService {
             ];
         return this.columns;
     }
+    async Delete(repairId) {
+        await this.RESTService.Delete("/api/repair/delete?id=", repairId);
+    }
     SetSingleRow(singleRow) {
         this.singleRow = singleRow;
     }

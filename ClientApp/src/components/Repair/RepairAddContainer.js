@@ -6,7 +6,11 @@ import { emphasize } from '@material-ui/core/styles/colorManipulator';
 import CarService from '../Services/CarService.js';
 import RepairService from '../Services/RepairService.js';
 import { RepairAddButton } from './RepairAddButton';
-
+import {
+    MuiPickersUtilsProvider,
+    KeyboardDatePicker,
+} from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
 
 
 const styles = theme => ({
@@ -100,7 +104,8 @@ class RepairAddContainer extends React.Component {
             operationType: operationType,
             dueDateTechService: '',
             counter: '',
-            counterErrorText:'',
+            counterErrorText: '',
+            dueDateTechServiceDataPicker: null,
         };
         debugger;
         this.carService = new CarService();
@@ -177,7 +182,23 @@ class RepairAddContainer extends React.Component {
             [text]: event.target.value
         });
     }
+    OnDateChange = text => event => {
+        debugger;
+        if (event.target == undefined) {
+            let a = event.getDate();
+            this.setState({
+                dueDateTechService: event.toISOString(),
+                dueDateTechServiceDataPicker: event,
+            });
+        }
+        //else {
+        //    dueDateTechService = event.target.value;
+        //    this.setState({
+        //        dueDateTechService
+        //    });
+        //}
 
+    };
     handleChangeNote = name => event => {
         debugger;
 
@@ -200,17 +221,6 @@ class RepairAddContainer extends React.Component {
         }
         this.setState({
             [name]: event.target.value
-        });
-    };
-    OnDateChange = (text) => event => {
-        debugger;
-
-        if (this.state[text] != event.target.value) {
-            this.setDataChanged();
-        }
-        let dueDateTechService = event.target.value;
-        this.setState({
-            dueDateTechService
         });
     };
     isDataValid = () => {
@@ -308,18 +318,22 @@ class RepairAddContainer extends React.Component {
                     variant="outlined"
                     multiline="true"
                 />
-                <TextField
-                    id="date"
-                    label="Data Naprawy"
-                    type="date"
-                    value={this.state.dueDateTechService}
-                    className={classes.textField}
-                    onChange={this.OnDateChange('dueDateTechService')}
-                    InputLabelProps={{
-                        shrink: true,
-                    }}
-
-                />
+              
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                    <KeyboardDatePicker
+                        disableToolbar
+                        variant="inline"
+                        format="MM/dd/yyyy"
+                        margin="normal"
+                        id="date-picker-inline"
+                        label="Data Naprawy"
+                        value={this.state.dueDateTechServiceDataPicker}
+                        onChange={this.OnDateChange('dueDateTechService')}
+                        KeyboardButtonProps={{
+                            'aria-label': 'change date',
+                        }}
+                    />
+                </MuiPickersUtilsProvider>
                 <TextField
                     id="outlined-name"
                     label="Stan Licznika"

@@ -1,6 +1,7 @@
 ﻿import React from 'react';
 import Button from '@material-ui/core/Button';
 import { Redirect } from 'react-router-dom';
+import RepairService from '../Services/RepairService.js';
 
 export class RepairButton extends React.Component {
     constructor(props) {
@@ -13,6 +14,8 @@ export class RepairButton extends React.Component {
             isRemoveRepairDisabledPrev: true,
             redirectEditRepair: false,
         }
+        this.service = new RepairService();
+
     }
     componentDidUpdate(prevProps) {
         debugger;
@@ -40,6 +43,11 @@ export class RepairButton extends React.Component {
             redirectEditRepair : true,
         })
     }
+    onClickDeleteButton = async () => {
+        debugger;
+        await this.props.deleteRepairHandler(this.props.getRepairId());
+        this.props.updateRepairGrid();
+    }
     redirectEditRepair = () => {
         if (this.state.redirectEditRepair) {
             return <Redirect to={'/repair-add?repairId=' + this.props.getRepairId()} />
@@ -52,7 +60,7 @@ export class RepairButton extends React.Component {
                 <Button variant="outlined" color="primary" onClick={this.onClickEditButton} disabled={this.state.isEditRepairDisabled} >
                     Edytuj
             </Button>
-                <Button variant="outlined" color="primary" disabled={this.state.isRemoveRepairDisabled}>
+                <Button variant="outlined" color="primary" onClick={this.onClickDeleteButton} disabled={this.state.isRemoveRepairDisabled}>
                     Usun
             </Button>
             </div>

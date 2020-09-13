@@ -13,7 +13,7 @@ namespace GarageServices.CarServices.Dto
         public string KilometerCounter { get;  set; }
         public string PlateNumber { get;  set; }
         public string Phone { get;  set; }
-        public DateTime TechnicalCheck { get;  set; }
+        public DateTime? TechnicalCheck { get;  set; }
         public string Year { get;  set; }
 
     }

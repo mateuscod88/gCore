@@ -36,26 +36,6 @@ namespace GarazMechanicCore.Controllers
         {
             var cars = await _carService.GetAllAsync();
             return cars;
-            //return new List<CarDto> { new CarDto
-            //{
-            //    Id = "1",
-            //    Brand = "Audi",
-            //    Model = "A4",
-            //    Engine = "1.9TDI",
-            //    Owner = "Mateusz Malinowski",
-            //    OwnerId = "1",
-            //    BrandId = "1",
-            //    DueDateTechService = "1.1.2020",
-            //    EngineId = "1",
-            //    KilometerCounter = "222222",
-            //    LastOilChange = "1.1.2020",
-            //    ModelId = "2",
-            //    Phone ="1123131",
-            //     RegNum = "BBI2121",
-            //     TechnicalService = "1.1.2020",
-            //     Year = "2009"
-            //} 
-        //};
     }
         [HttpPost("[action]")]
         public async Task<object> Add([FromBody]CarAddDto carAddDto)
@@ -68,6 +48,11 @@ namespace GarazMechanicCore.Controllers
         {
             await _carService.Update(carAddDto,id);
             return null;
+        }
+        [HttpDelete("[action]")]
+        public async Task Delete(string id)
+        {
+            await _carService.Delete(id);
         }
     }
 

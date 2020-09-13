@@ -54,6 +54,9 @@ export class CarButtons extends React.Component {
             redirectEditCar: true,
         });
     }
+    onClickDelete = () => {
+        this.props.deleteCarHandler(this.props.getCarId());
+    }
     redirectAddCar = () => {
         if (this.state.redirectAddCar) {
             return <Redirect to={'/car-add'} />
@@ -80,7 +83,7 @@ export class CarButtons extends React.Component {
                 <Button variant="outlined" color="primary" onClick={this.onClickEditCar} disabled={this.state.isEditCarDisabled} >
                     Edytuj
             </Button>
-                <Button variant="outlined" color="primary" disabled={this.state.isRemoveCarDisabled}>
+                <Button variant="outlined" color="primary" onClick={this.onClickDelete} disabled={this.state.isRemoveCarDisabled}>
                     Usun
             </Button>
                 {this.redirectAddRepair()}

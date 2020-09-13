@@ -47,6 +47,11 @@ namespace GarazMechanicCore.Controllers
             await _repairService.Update(carAddDto, id);
             return null;
         }
+        [HttpDelete("[action]")]
+        public async Task Delete(string id)
+        {
+            await _repairService.Delete(id);
+        }
 
     }
 }

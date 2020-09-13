@@ -20,15 +20,17 @@ namespace GarazMechanicCore
         
         public static void Main(string[] args)
         {
-            var hostUrl = "http://0.0.0.0:5000";
+            var hostUrl = "http://0.0.0.0:5002";
+            //var hostUrl = "http://malinagaraz.pl:5000";
             var host = CreateWebHostBuilder(args,hostUrl).Build();
+
 
             host.Run();
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args,string hostUrl) =>
             WebHost.CreateDefaultBuilder(args)
-                //.UseUrls(hostUrl)
+                .UseUrls(hostUrl)
                 .UseStartup<Startup>();
     }
 }

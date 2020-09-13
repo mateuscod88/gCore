@@ -53,12 +53,16 @@ export class CarAddButtons extends React.Component {
         }
 
     }
-    onClick = () => {
-        this.props.addButtonHandler();
-        this.setState({
-            openAddCar: true,
-            redirectEditRepair: true,
-        });
+    onClick = async () => {
+        var isSucced = await this.props.addButtonHandler();
+        debugger;
+        if (isSucced) {
+            this.setState({
+                openAddCar: true,
+                redirectEditRepair: true,
+            });
+        }
+        
     }
     OnArrowClick = () => {
         this.setState({

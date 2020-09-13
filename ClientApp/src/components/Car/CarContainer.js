@@ -1,17 +1,33 @@
 ﻿import React from 'react';
 import { CarGrid } from './CarGrid';
 import { CarButtons } from './CarButtons'
+import CarService from '../Services/CarService.js';
 
 export class CarContainer extends React.Component {
     constructor(props) {
         super(props);
+        this.service = new CarService();
         this.state = {
             carId: 0,
             isAddRepairButtonDisable: true,
             isAddRepairButtonDisablePrev: true,
+            updateCarGrid: false,
         };
     }
+    deleteCar = async (carId) => {
+        debugger;
+        await this.service.Delete(carId);
+        this.setState({
+            updateCarGrid: true,
+        });
+    }
+    resetUpdateCarGrid = () => {
+        this.setState({
+            updateCarGrid: false,
+        });
+    }
     setCarId = (carId) => {
+        debugger;
         this.setState({
             carId: carId,
         });
@@ -38,8 +54,8 @@ export class CarContainer extends React.Component {
     render() {
         return (
             <div>
-                <CarGrid setCarId={this.setCarId} enableButton={this.enableAddRepairButton} disableButton={this.disableAddRepairButton} />
-                <CarButtons getCarId={this.getCarId} setButtonVisibility={this.setButtonVisibility}/>
+                <CarGrid setCarId={this.setCarId} enableButton={this.enableAddRepairButton} disableButton={this.disableAddRepairButton} updateCarGrid={this.state.updateCarGrid} resetUpdateCarGrid={this.resetUpdateCarGrid} />
+                <CarButtons getCarId={this.getCarId} setButtonVisibility={this.setButtonVisibility} deleteCarHandler={this.deleteCar}/>
             </div>
         );
     }

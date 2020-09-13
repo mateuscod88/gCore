@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GaragePersistent", "GarageP
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GarageServices", "GarageServices\GarageServices.csproj", "{D83C1CE4-4019-46DE-95A0-CD484E9905F7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Importer", "..\Importer\Importer.csproj", "{848B92AD-A33C-48BB-8735-D3326D4A6EDE}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

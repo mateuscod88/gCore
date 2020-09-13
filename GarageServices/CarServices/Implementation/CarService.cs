@@ -38,9 +38,17 @@ namespace GarageServices.CarServices.Implementation
             return carEntity.Id;
         }
 
-        public Task Delete(string carId)
+        public async Task Delete(string carId)
         {
-            throw new NotImplementedException();
+            var car = _garageContext.Car.Single(x => x.Id == carId);
+            car.IsDeleted = true;
+            var repairs = await _garageContext.Repair
+                .Where(x => x.CarId == carId)
+                .ToListAsync();
+            repairs.ForEach(x => x.IsDeleted = true);
+            _garageContext.Repair.UpdateRange(repairs);
+            _garageContext.Car.Update(car);
+            await _garageContext.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<CarDto>> GetAllAsync(int pageSize, int pageNumber)
@@ -62,6 +70,7 @@ namespace GarageServices.CarServices.Implementation
         {
 
             return await _garageContext.Car
+                .OrderBy(x => x.CreateDate)
                 .Select(x =>
                 new CarDto
                 {
@@ -72,9 +81,10 @@ namespace GarageServices.CarServices.Implementation
                     Owner = $"{ x.Owner.FirstName} {x.Owner.LastName}",
                     RegNum = x.PlateNumber,
                     Phone = x.Phone,
-                    DueDateTechService = x.TechnicalCheck.ToShortDateString(),
+                    DueDateTechService = x.TechnicalCheck.HasValue ? x.TechnicalCheck.Value.ToShortDateString():"",
                     LastOilChange = x.LastOilChange.ToShortDateString()
-                }).ToListAsync();
+                })
+                .ToListAsync();
         }
 
         public async Task<CarDto> GetById(string carId)
@@ -90,19 +100,19 @@ namespace GarageServices.CarServices.Implementation
                     ModelId = x.ModelId,
                     Engine = x.Engine.Name,
                     EngineId = x.EngineId,
-                    Owner = x.Owner != null ? "{ x.Owner.FirstName} {x.Owner.LastName}": null,
+                    Owner = x.Owner != null ? "{ x.Owner.FirstName} {x.Owner.LastName}" : null,
                     OwnerId = x.OwnerId,
                     RegNum = x.PlateNumber,
                     Phone = x.Phone,
-                    DueDateTechService = x.TechnicalCheck.ToShortDateString(),
+                    DueDateTechService = x.TechnicalCheck.HasValue ? x.TechnicalCheck.Value.ToShortDateString() : "",
                     LastOilChange = x.LastOilChange.ToShortDateString(),
                     Year = x.Year,
                     KilometerCounter = x.KilometerCounter,
-                    TechnicalService = x.TechnicalCheck.ToShortDateString()
-                }).SingleOrDefaultAsync(x => x.Id ==carId);
+                    TechnicalService = x.TechnicalCheck.HasValue ? x.TechnicalCheck.Value.ToShortDateString() : "",
+                }).SingleOrDefaultAsync(x => x.Id == carId);
         }
 
-        public async Task Update(CarAddDto carAddDto,string carId)
+        public async Task Update(CarAddDto carAddDto, string carId)
         {
             var carEntitie = await _garageContext
                 .Car

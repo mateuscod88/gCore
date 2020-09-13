@@ -1,3 +1,4 @@
+using GaragePersistent.Context;
 using GarageServices.BrandServices.Implementation;
 using GarageServices.BrandServices.Interface;
 using GarageServices.CarServices.Implementation;
@@ -12,7 +13,6 @@ using GarageServices.RepairService.Implementation;
 using GarageServices.RepairService.Interface;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
@@ -36,8 +36,10 @@ namespace GarazMechanicCore
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             //services.AddDbContext<GaragePersistent.Context.GarageContext>(options => options.UseInMemoryDatabase(databaseName: "gDb"));
-            var connectionString = Configuration.GetSection("ConnectionString:GarageContext");
-            services.AddDbContext<GaragePersistent.Context.GarageContext>(options => options.UseSqlServer(connectionString.Value));
+            //var connectionString = Configuration.GetSection("ConnectionString:GarageContext");
+            var connectionString1 = @"Server=db;Database=master;User=sa;Password=Your_password123;";
+            //services.AddDbContext<GarageContext>(options => options.UseSqlServer(connectionString.Value));
+            services.AddDbContext<GarageContext>(options => options.UseSqlServer(connectionString1));
 
             services.AddTransient<ICarService,CarService>();
             services.AddTransient<IRepairService, RepairService>();
@@ -45,14 +47,14 @@ namespace GarazMechanicCore
             services.AddTransient<ICarModelService, CarModelService>();
             services.AddTransient<IEngineService, EngineService>();
             services.AddTransient<IBrandService, BrandService>();
-            services.AddCors(options =>
-            {
-                options.AddPolicy(name: MyAllowSpecificOrigins,
-                                  builder =>
-                                  {
-                                      builder.WithOrigins("http://http://localhost:3000");
-                                  });
-            });
+            //services.AddCors(options =>
+            //{
+            //    options.AddPolicy(name: MyAllowSpecificOrigins,
+            //                      builder =>
+            //                      {
+            //                          builder.WithOrigins("http://http://localhost:3000");
+            //                      });
+            //});
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -74,11 +76,12 @@ namespace GarazMechanicCore
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            app.UseCors(MyAllowSpecificOrigins);
-            app.UseHttpsRedirection();
+            //app.UseCors(MyAllowSpecificOrigins);
+            //app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
-
+            //var dataGenerator = new DataGeneratorJson();
+            //dataGenerator.GetCars(app.ApplicationServices.CreateScope().ServiceProvider);
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

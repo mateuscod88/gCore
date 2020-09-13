@@ -4,14 +4,16 @@ using GaragePersistent.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GaragePersistent.Migrations
 {
     [DbContext(typeof(GarageContext))]
-    partial class GarageContextModelSnapshot : ModelSnapshot
+    [Migration("20200530170825_repairIsDeletedColumn_Add")]
+    partial class repairIsDeletedColumn_Add
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,7 +46,7 @@ namespace GaragePersistent.Migrations
 
                     b.Property<string>("PlateNumber");
 
-                    b.Property<DateTime?>("TechnicalCheck");
+                    b.Property<DateTime>("TechnicalCheck");
 
                     b.Property<string>("Year");
 
