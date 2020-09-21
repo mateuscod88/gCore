@@ -1,23 +1,29 @@
 ﻿using GaragePersistent.Entities;
 using GaragePersistent.Entities.Mappings;
+using GaragePersistent.Helper;
 using GaragePersistent.Seed;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Text;
-
 namespace GaragePersistent.Context
 {
     public class GarageContext : DbContext
     {
         private readonly string _connectionString;
-        //public GarageContext(string connectionString)
-        //{
-        //    _connectionString = connectionString;
-        //}
+        public IConfiguration Configuration { get; }
+
+        public GarageContext(string connectionString)
+        {
+            _connectionString = connectionString;
+        }
         public GarageContext()
         {
-
+        }
+        public GarageContext(IConfiguration configuration)
+        {
+            Configuration = configuration;
         }
         public GarageContext(DbContextOptions<GarageContext> options)
         : base(options)
@@ -26,7 +32,30 @@ namespace GaragePersistent.Context
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=db;Database=master;User=sa;Password=Your_password123;");
+            //optionsBuilder.UseSqlServer(@"Server=db;Database=master;User=sa;Password=Your_password123;");
+            if (!optionsBuilder.IsConfigured)
+            {
+                if (!string.IsNullOrEmpty(_connectionString))
+                {
+                    optionsBuilder.UseSqlServer(_connectionString);
+                }
+
+                else
+                {
+                    var config = new ConfigurationBuilder()
+                        .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+                        .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                        .Build();
+                    var configRoot = config.GetSection("ConnectionString:GarageContext");
+                    if (configRoot == null)
+                    {
+                        throw new ArgumentNullException("Configuration empty");
+                    }
+                    var connectionString = configRoot.Value;
+                    optionsBuilder.UseSqlServer(connectionString);
+                }
+            }
+
         }
         public virtual DbSet<Car> Car { get; set; }
         public virtual DbSet<CarBrand> CarBrand { get; set; }

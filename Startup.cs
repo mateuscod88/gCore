@@ -36,10 +36,13 @@ namespace GarazMechanicCore
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             //services.AddDbContext<GaragePersistent.Context.GarageContext>(options => options.UseInMemoryDatabase(databaseName: "gDb"));
-            //var connectionString = Configuration.GetSection("ConnectionString:GarageContext");
-            var connectionString1 = @"Server=db;Database=master;User=sa;Password=Your_password123;";
-            //services.AddDbContext<GarageContext>(options => options.UseSqlServer(connectionString.Value));
-            services.AddDbContext<GarageContext>(options => options.UseSqlServer(connectionString1));
+            var connectionString = Configuration.GetSection("ConnectionString:GarageContext");
+            services.AddDbContext<GarageContext>(options => options.UseSqlServer(connectionString.Value));
+
+
+            //var connectionString1 = @"Server=MATEO-PC\SQLEXPRESS1;Database=GarazContext;Integrated Security=True;User Id=Mateo;Password=malina;";
+            //var connectionString1 = @"Server=db;Database=master;User=sa;Password=Your_password123;";
+            //services.AddDbContext<GarageContext>(options => options.UseSqlServer(connectionString1));
 
             services.AddTransient<ICarService,CarService>();
             services.AddTransient<IRepairService, RepairService>();
