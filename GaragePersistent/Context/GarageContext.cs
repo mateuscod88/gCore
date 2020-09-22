@@ -21,10 +21,6 @@ namespace GaragePersistent.Context
         public GarageContext()
         {
         }
-        public GarageContext(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
         public GarageContext(DbContextOptions<GarageContext> options)
         : base(options)
         {

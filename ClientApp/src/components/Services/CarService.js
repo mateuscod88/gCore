@@ -78,7 +78,7 @@ class CarService {
     }
     async GetAll() {
 
-        var endpoint = 'api/car/getall';
+        var endpoint = 'http://localhost:5002/api/car/getall';
         //var result = RESTService.Get(endpoint);
         //var carDto = result
         //    .then(data => this.repairs = {
