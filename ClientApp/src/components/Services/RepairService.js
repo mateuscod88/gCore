@@ -19,7 +19,7 @@ class RepairService {
     }
     async AddRepair(repairDTO) {
         var rep = JSON.stringify(repairDTO);
-        debugger;
+        
         const postResult = await fetch('api/repair/add', {
             headers: {
                 'Accept': 'application/json',
@@ -49,7 +49,7 @@ class RepairService {
         return result;
     }
     async GetAll() {
-        debugger;
+        
         const endpoint = "/api/repair/getall?pageSize=&pageNumber="
         var result = await this.RESTService.Get(endpoint);
         await result;
@@ -68,7 +68,7 @@ class RepairService {
         //        }))),
         //    });
         //await result;
-        debugger;
+        
 
         //this.repairs =  {
         //    rows: this.data.map(suggestion => ({
@@ -96,7 +96,7 @@ class RepairService {
         };
 
 
-        debugger;
+        
         return this.repairs.rows;
     }
     GetColumns() {

@@ -21,10 +21,6 @@ namespace GaragePersistent.Context
         public GarageContext()
         {
         }
-        public GarageContext(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
         public GarageContext(DbContextOptions<GarageContext> options)
         : base(options)
         {
@@ -32,7 +28,6 @@ namespace GaragePersistent.Context
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //optionsBuilder.UseSqlServer(@"Server=db;Database=master;User=sa;Password=Your_password123;");
             if (!optionsBuilder.IsConfigured)
             {
                 if (!string.IsNullOrEmpty(_connectionString))
@@ -71,26 +66,6 @@ namespace GaragePersistent.Context
             modelBuilder.ApplyConfiguration(new CarEngineMappings());
             modelBuilder.ApplyConfiguration(new CarOwnerMappings());
             modelBuilder.ApplyConfiguration(new RepairMappings());
-
-            
-            //modelBuilder.Seed<Car>(CarSeed.GetAll());
-            //modelBuilder.Seed<CarBrand>(BrandSeed.GetAll());
-            //modelBuilder.Seed<CarModel>(ModelSeed.GetAll());
-            //modelBuilder.Seed<CarEngine>(EngineSeed.GetAll());
-
-
-
         }
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    if (!optionsBuilder.IsConfigured)
-        //    {
-        //        //optionsBuilder.UseNpgsql(_connectionString);
-        //    }
-        //}
-
-
-
-
     }
 }

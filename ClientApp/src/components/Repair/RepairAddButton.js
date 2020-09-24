@@ -23,7 +23,7 @@ export class RepairAddButton extends React.Component {
     componentDidMount() {
 
         var operationType = this.props.operationType;
-        debugger;
+        
         if (operationType == 'edit') {
             this.setState({
                 buttonLabel: 'Zapisz',
@@ -40,7 +40,7 @@ export class RepairAddButton extends React.Component {
 
     }
     componentDidUpdate(prevProps) {
-        debugger;
+        
         if (prevProps.dataChanged != this.props.dataChanged) {
             var dataChanged = this.props.dataChanged;
             if (dataChanged) {
@@ -54,14 +54,14 @@ export class RepairAddButton extends React.Component {
 
     }
     //componentDidUpdate(prevProps) {
-    //    debugger;
+    //    
     //    var isAddRepair = this.props.setButtonVisibility();
     //    this.toggleButton('isEditRepairDisabled', 'isEditRepairDisabledPrev', isAddRepair);
     //    this.toggleButton('isRemoveRepairDisabled', 'isRemoveRepairDisabledPrev', isAddRepair);
 
     //}
     //toggleButton = (current, prev, isAddRepair) => {
-    //    debugger;
+    //    
     //    var prevIs = this.state[prev];
     //    if (prevIs != isAddRepair) {
     //        this.setState({

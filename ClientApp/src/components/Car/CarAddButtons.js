@@ -24,7 +24,6 @@ export class CarAddButtons extends React.Component {
     }
     componentDidMount() {
         var operationType = this.props.operationType;
-        debugger;
         if (operationType == 'edit') {
             this.setState({
                 buttonLabel: 'Zapisz',
@@ -41,7 +40,6 @@ export class CarAddButtons extends React.Component {
 
     }
     componentDidUpdate(prevProps) {
-        debugger;
         if (prevProps.dataChanged != this.props.dataChanged) {
             var dataChanged = this.props.dataChanged;
             var isDisabled = !dataChanged;
@@ -55,7 +53,6 @@ export class CarAddButtons extends React.Component {
     }
     onClick = async () => {
         var isSucced = await this.props.addButtonHandler();
-        debugger;
         if (isSucced) {
             this.setState({
                 openAddCar: true,

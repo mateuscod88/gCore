@@ -15,7 +15,7 @@ export class CarContainer extends React.Component {
         };
     }
     deleteCar = async (carId) => {
-        debugger;
+        
         await this.service.Delete(carId);
         this.setState({
             updateCarGrid: true,
@@ -27,7 +27,7 @@ export class CarContainer extends React.Component {
         });
     }
     setCarId = (carId) => {
-        debugger;
+        
         this.setState({
             carId: carId,
         });

@@ -274,10 +274,10 @@ class CarAddContainer extends React.Component {
     async componentDidMount() {
         var b = await this.service.GetBrands();
         await b;
-        debugger;
+        
 
         var brands = b.map(x => ({ value: x.id, label: x.brand }));
-        debugger;
+        
 
         console.log(brands);
         
@@ -289,12 +289,12 @@ class CarAddContainer extends React.Component {
             owners
         });
         var carId = this.props.location.search.substring(7, this.props.location.search.length);
-        debugger;
+        
         if (carId.length > 0) {
 
             var car = await this.service.GetCarById(carId);
             await car;
-            debugger;
+            
             this.setState({
                 car: car,
             });
@@ -360,7 +360,7 @@ class CarAddContainer extends React.Component {
 
     };
     carDataChangedValidation(value) {
-        debugger;
+        
         var carValid = false;
         if (this.state.car.brand === value) { return !carValid; }
         if (this.state.car.model === value) { return !carValid; }
@@ -374,7 +374,7 @@ class CarAddContainer extends React.Component {
         return carValid;
     }
     setButtonByDataChanged = (text) => {
-        debugger;
+        
         if (this.carDataChangedValidation(text)) {
             this.setDataChanged(false);
         }
@@ -394,13 +394,13 @@ class CarAddContainer extends React.Component {
             singleModel: '',
             singleEngine:'',
         });
-        debugger;
+        
         var m = await this.service.GetModelByBrandId(event.value);
         await m;
-        debugger;
+        
 
         var model = m.map(x => ({ value: x.id, label: x.name }));;
-        debugger;
+        
 
         this.setState({
             model,
@@ -412,7 +412,7 @@ class CarAddContainer extends React.Component {
         if (this.state.operationType == "edit") {
             this.setButtonByDataChanged(event.label);
         }
-        debugger;
+        
         var e = await this.service.GetEngines(this.state.singleBrand.value, event.value);
         await e;
         var engine = e.map(x => ({ value: x.id, label: x.name }));
@@ -448,7 +448,7 @@ class CarAddContainer extends React.Component {
         });
     };
     OnDateChange = text => event => {
-        debugger;
+        
         if (event.target == undefined) {
             let a = event.getDate();
             this.setState({
@@ -481,7 +481,7 @@ class CarAddContainer extends React.Component {
     handleSaveButton = async () => {
 
         if (this.state.isEditDialogBox == false) {
-            debugger;
+            
             var isCarModelInvalid = this.state.singleModel === '';
             var isCarBrandInvalid = this.state.singleBrand === '';
             var isCarEngineInvalid = this.state.singleEngine === '';
@@ -515,9 +515,9 @@ class CarAddContainer extends React.Component {
                     yearError: 'Rok produkcji wymagany',
                 });
             }
-            debugger;
+            
             if (!isCarModelInvalid && !isCarBrandInvalid && !isCarEngineInvalid && (!isOwnerNotSelected || !isPhoneInvalid)) {
-                debugger;
+                
                 var dateToday = Date.now().toString();
                 if (this.state.owner != undefined) {
                     var ownerId = this.state.owners[this.state.owners.findIndex((owner) => this.state.owner.label == owner.label && this.state.owner.value == owner.value)].value;
@@ -535,7 +535,7 @@ class CarAddContainer extends React.Component {
                 };
 
                 if (this.state.operationType == "add") {
-                    debugger;
+                    
                     await this.service.Add(carDto);
                     return true;
                 }
@@ -561,7 +561,7 @@ class CarAddContainer extends React.Component {
     }
 
     isDataValid = () => {
-        debugger;
+        
         if (this.state.note != '' && this.state.noteName != '', this.state.dueDateTechService != '') {
             return true;
         }

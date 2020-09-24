@@ -88,7 +88,7 @@ class RepairAddContainer extends React.Component {
 
         var repairId = this.props.location.search.substring(10, this.props.location.search.length);
         var isRepairIdExists = this.props.location.search.indexOf("repairId") > 0;
-        debugger;
+        
         var operationType = repairId.length > 0 && isRepairIdExists ? 'edit' : 'add';
         this.state = {
             noteName: '',
@@ -107,16 +107,16 @@ class RepairAddContainer extends React.Component {
             counterErrorText: '',
             dueDateTechServiceDataPicker: null,
         };
-        debugger;
+        
         this.carService = new CarService();
         this.repairService = new RepairService();
     }
     async componentDidMount() {
-        debugger;
+        
         var repairId = this.state.repairId;
         var carId = this.props.location.search.substring(7, this.props.location.search.length);
         var isCarIdExist = this.props.location.search.indexOf("carId") > 0;
-        debugger;
+        
         if (carId.length > 0 && isCarIdExist) {
             var car = await this.carService.GetCarById(carId);
             await car;
@@ -131,7 +131,7 @@ class RepairAddContainer extends React.Component {
 
         }
         else if (repairId.length > 0) {
-            debugger;
+            
             var repair = await this.repairService.GetRepairById(repairId);
             await repair;
             if (repair != undefined) {
@@ -161,7 +161,7 @@ class RepairAddContainer extends React.Component {
     }
 
     handleChangeName = (text) => event => {
-        debugger;
+        
         if (this.state[text] != event.target.value) {
             this.setDataChanged();
         }
@@ -183,7 +183,7 @@ class RepairAddContainer extends React.Component {
         });
     }
     OnDateChange = text => event => {
-        debugger;
+        
         if (event.target == undefined) {
             let a = event.getDate();
             this.setState({
@@ -200,7 +200,7 @@ class RepairAddContainer extends React.Component {
 
     };
     handleChangeNote = name => event => {
-        debugger;
+        
 
         if (this.state[name] != event.target.value) {
             this.setDataChanged();
@@ -224,7 +224,7 @@ class RepairAddContainer extends React.Component {
         });
     };
     isDataValid = () => {
-        debugger;
+        
         if (this.state.note != '' && this.state.noteName != '', this.state.dueDateTechService != '') {
             return true;
         }
@@ -240,7 +240,7 @@ class RepairAddContainer extends React.Component {
     }
     handleSaveButton = async () => {
         var carIdd = this.props.location.search.substring(7, this.props.location.search.length);
-        debugger;
+        
         var repairDto = {
             name: this.state.noteName,
             note: this.state.note,

@@ -11,9 +11,9 @@ class RESTService {
         
     }
     async Post(endpoint, Dto) {
-        debugger;
+        
         var js = JSON.stringify(Dto);
-        debugger;
+        
 
     const postResult = await fetch(endpoint, {
         headers: {
@@ -39,7 +39,7 @@ class RESTService {
     await putResult;
     }
     async Get(endpoint) {
-        debugger;
+        
         const result = await fetch(endpoint)
             .then(response => response.json());
             //.then(data => this.repairs = {

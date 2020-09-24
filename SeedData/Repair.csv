@@ -1,0 +1,73 @@
+﻿Id,Name,Note,RepairDate,CarId,CreateDate,KilometerCounter,IsDeleted
+05fdcf4a-6286-4266-88d6-16aa34f0af4f,Wymiana drazkow kierwoniczych,febi drazek lewy i prawy,2020-03-01 00:00:00.0000000,8a2f1718-bfe9-44fe-864b-c8f32c9a4466,2020-04-13 11:48:00.2454637,NULL,1
+067474de-6836-42d0-810b-32ccd9a58606,test olej,olej,2020-05-30 00:00:00.0000000,cf26828e-2595-4f3e-9403-fdfcfef42352,2020-05-31 01:21:38.3726114,251000,1
+0a5c515c-1faf-460d-97af-21109473727a,Wymiana oleju,"filtr oe666
+5 litrow 
+stan licznika 250tys",2020-04-13 00:00:00.0000000,ab96a5a7-e9ae-4345-a0f5-f7f82b5d717d,2020-04-13 17:53:14.8971000,NULL,1
+16e5e114-dddb-4315-9474-a508244d1491,wymiana oleju test,test,2020-05-29 00:00:00.0000000,050a6a0b-29ea-45eb-b43b-b91ed37b2021,2020-05-31 01:17:13.3254516,200000,1
+1aac65ca-e249-46d6-8bdd-7445843089f5,Wymiana sprzęgła,"Wymienione zestaw sprzęgła
+Klient dostarczył samochód ze świecąca się kontrolka oleju.
+Została przeprowadzona  kontrola ciśnienia oleju, wynik to  brak cisnienia.Zostal dokrecony dekiel od wakum popmy i cisnienie oleju wrocilo do normy",2020-06-30 00:00:00.0000000,5282f27b-c442-44ac-85c6-471012cbec28,2020-07-15 16:09:00.7399844,445000,0
+1d087ed0-30eb-4980-9fc5-cf0bbe6c9532,Wymiana lamp tyl,"Lewa lampa byla pobita,
+w dobrej cenie zostaly kupione 2 szt na olx , dlatego zostaly wymienione dwie zeby nie bylo widac roznicy",2020-08-21 20:25:00.0000000,7f1921f9-1170-48f3-bad0-2998bded407b,2020-08-21 20:26:32.5744249,276066,0
+26379071-3193-4eda-9f74-57849436b959,wymiana hamulców tył,"Wymiana hamulców tylna oś:
+Tarcze 
+szczeki 
+klocki",2020-08-03 00:00:00.0000000,19d174f5-266e-462e-afe9-01f2bc17694f,2020-08-06 19:33:01.3389893,000000,0
+4e9acba3-7480-42c1-87a7-c415cd424029,Wymiana drązków kierowniczych i łączników,"drązki firma mentz
+łaczniki firma do sprawdzenia
+",2020-09-19 14:23:00.0000000,884db602-d5b9-4f74-84bd-ea220181ca38,2020-09-22 14:23:47.6812593,200000,0
+526884e0-9715-42a3-b161-908ed2e1fba4,"Wymiana oleju , filtrow","Wymiana filtrow 
+paliwa
+oleju 
+powietrza
+olej 5w30 syn power valvoline",2020-08-05 00:00:00.0000000,7f1921f9-1170-48f3-bad0-2998bded407b,2020-08-06 19:29:29.3748656,276066,0
+5cd053c4-f8af-4fed-a9a8-e34a4cd46ca5,Wymiana oleju i filtrow,"Wymiana filtrow:
+oleju
+paliwa
+powietrza 
+kabinowy",2020-08-06 00:00:00.0000000,85ab0a6d-42e2-457c-8e2b-e2739cdcc56f,2020-08-06 19:26:37.3690275,296000,0
+5df6ffe7-25d1-4b66-96d6-edb171292ec3,naprawa silnika,naprawa silnika,2020-04-01 00:00:00.0000000,9f55229d-2ef2-4bce-806c-902b27b8ce9b,2020-04-13 23:58:10.7879837,3535353,1
+5ff0f557-5b9f-4a59-a505-a9c46d9d39b7,Wymiana sprzęgiełka alternatora,"sprzęgiełko fimy maxis
+pisk przy odpalaniu ustąpił ",2020-09-19 14:22:00.0000000,884db602-d5b9-4f74-84bd-ea220181ca38,2020-09-22 14:22:59.4711918,200000,0
+625629e1-4783-4bc6-9799-8ad9a17fc944,wymiana rozrządu,"Zestaw Ina
+pasek, rolka, pompa wody",2020-09-14 14:18:00.0000000,3a6f52ae-342b-4cdd-82ba-997bb3a1975e,2020-09-22 14:19:09.0828638,80096,0
+6d685920-9d38-4587-932c-bd2d00e5c19f,Wymiana Chlodnicy Klimatyzacji,"Chlodnica klimy wstawiona:
+Uzupelniono czynnikiem  w ilosci 650( u tośka) ",2020-06-26 00:00:00.0000000,d96a4bb2-0e38-496c-914f-86130d86b5cb,2020-07-15 15:59:14.0924301,0,0
+73c468b5-68fd-4dfb-8d09-72c381f57d7c,Wymiana Rozrzadu,"Zestaw rozrzadu z pompa wody
+uszczelniacz na wale korbowym 
+",2020-05-16 00:00:00.0000000,b4d6cdf1-71e3-470e-8985-6d9292310948,2020-05-30 01:24:58.6247322,198681,0
+777c69fd-3533-440f-82aa-034e95d79379,olej test 3,test2,2020-05-30 00:00:00.0000000,050a6a0b-29ea-45eb-b43b-b91ed37b2021,2020-05-31 01:29:00.9329244,233000,1
+7c0afaa0-0ef9-4b6d-9199-1e7e139e1416,Wymiana paska wielorowkowego,"Pasek dayco 1090EE  
+stwierdzono ze ktos usunal orginalny napinacz i zostawil rolke.
+",2020-08-21 20:23:00.0000000,7f1921f9-1170-48f3-bad0-2998bded407b,2020-08-21 20:24:31.1944823,276066,0
+7c6f4865-31f4-4522-aac3-1c93956d64b3,Wymiana Lancuszka + naprawa glowicy,"1.Wymiana komplet rozrzadu
+2.lancuch pompy oleju
+3.natryskiwacz oleju na lancuch
+4.docisk i taarcza sprzegla.
+5.Glowica: 6 zaworów , 6 dzwigienek zaworowych
+6.podpora mostu wału
+7.poduszki skrzyni",2020-05-01 00:00:00.0000000,050a6a0b-29ea-45eb-b43b-b91ed37b2021,2020-05-30 19:28:06.5255771,198000,0
+9f3bc28e-59bb-4da5-a3bc-f51772ef9468,mycie test,test,2020-08-07 17:41:00.0000000,050a6a0b-29ea-45eb-b43b-b91ed37b2021,2020-08-07 17:42:14.9284341,203000,1
+a4335c98-7c91-4d8f-93c8-0de7b8b894f4,Wymiana koło pasowe,Koło firmy hart,2020-07-22 00:00:00.0000000,050a6a0b-29ea-45eb-b43b-b91ed37b2021,2020-07-28 16:18:36.4774754,203000,0
+ad857cc1-1e3b-4286-aa5d-a6ef7e20c145,Wymiana sworzania Prawy Przod,"Wymiana sworznia wahacza
+po wymianie stukanie ustapilo
+niestety sworzen troche sie roznil wiec trzeba bylo skrecic troche drazek kierowniczy w celu ustawienia zbieznosci , zostala przeprowadzona adaptacja czujnika kata skretu.",2020-08-20 20:26:00.0000000,d96a4bb2-0e38-496c-914f-86130d86b5cb,2020-08-21 20:28:04.7496970,000000,0
+b8103c99-761e-4e93-803e-2e589f52c24a,Wymiana podpora wału,"Podpora wału febi 
+dodatkowo wymieniony został tylny tłumik drgan wału(używany z innego samochodu).",2020-09-19 14:21:00.0000000,884db602-d5b9-4f74-84bd-ea220181ca38,2020-09-22 14:22:08.4001186,200000,0
+bbfc5153-858e-4d2f-b2f8-202ea4ea7445,Wymiana oleju,oe666/1,2020-04-02 00:00:00.0000000,c4054a1c-9b36-4d8e-adab-3b53fae76800,2020-04-13 23:46:25.7736592,200000,1
+bf6aa6bc-81fd-4afa-abed-7170c29d2879,Wstawienie tempomatu i kierownicy,"wstawienie tempomatu
+ i zaprogramowanie programem ncsExpert  dodanie FA $540",2020-08-21 20:29:00.0000000,050a6a0b-29ea-45eb-b43b-b91ed37b2021,2020-08-21 20:29:59.3342508,204000,0
+bf7af654-bb6a-48dc-b5cc-417b63a4cf7c,Wymiana rozrzadu,rozrzad ina,2020-04-03 00:00:00.0000000,f96cfd8c-cf6d-479f-b266-c2fc14193ea4,2020-04-13 23:48:49.8338990,42424,1
+c746a3e6-a65b-43c5-8ac2-4e511a64812c,Wymiana Oleju,feoe666,2020-02-05 00:00:00.0000000,8a2f1718-bfe9-44fe-864b-c8f32c9a4466,2020-04-13 23:39:21.4293881,340000,1
+ca834089-4866-4788-bc20-37abd602dca2,Uszczelnienie pokrywy zaworów(z odma),"Uszczelnienie pokrywy zaworów(z odma)-
+Po wyczyszczeniu został połozony czarny silikon erlinga. Naprawa została wykonana przy okazji próby wyjęcia wtryskiwaczy.",2020-08-07 00:00:00.0000000,7f1921f9-1170-48f3-bad0-2998bded407b,2020-08-07 17:21:41.7429000,276066,0
+cdf41606-65c2-4e53-b241-9db8b0c6c677,olej test 2,test,2020-05-30 00:00:00.0000000,050a6a0b-29ea-45eb-b43b-b91ed37b2021,2020-05-31 01:28:18.3964915,230000,1
+d88720ea-c3c4-4ed0-a1b6-a029f705a7a5,testowe olej,olej,2020-05-30 00:00:00.0000000,cf26828e-2595-4f3e-9403-fdfcfef42352,2020-05-31 01:24:11.4503670,251000,1
+da7380bc-3cdc-40b8-846c-89e23dfeafe2,testolej,olej,2020-05-30 00:00:00.0000000,050a6a0b-29ea-45eb-b43b-b91ed37b2021,2020-05-31 01:24:40.2830161,201000,1
+db1bce10-272b-4f17-93d7-7ce28f0798e6,wymiana oleju test,"fe666/1
+5litrow 5w30",2020-05-22 00:00:00.0000000,04c99463-9b8b-48d0-9594-632b26376dfc,2020-05-31 02:18:32.4758869,3535353,1
+e4b2d485-3834-4312-829a-e853a215095d,Wymiana hamulców tył,"Wymiana 
+Tarcze z łożyskiem ABE
+klocki TRW
+uszczelnienie tłoczka lewa stronaa",2020-08-07 00:00:00.0000000,7f1921f9-1170-48f3-bad0-2998bded407b,2020-08-07 17:15:30.0176385,276066,0

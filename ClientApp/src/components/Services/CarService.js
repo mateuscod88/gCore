@@ -92,7 +92,7 @@ class CarService {
         //            carRegNum: suggestion.PlateNumber,
 
         //        }))),
-        debugger;
+        
         var carDto = await fetch(endpoint)
             .then(response => response.json())
             .then(data => this.repairs = {
@@ -135,7 +135,7 @@ class CarService {
     }
     async GetBrands() {
         var endpoint = 'api/brand/getall';
-        debugger;
+        
 
         var brandDto = await fetch(endpoint)
             .then(response => response.json())
@@ -145,7 +145,7 @@ class CarService {
                     brand: suggestion.name,
                 }))),
             });
-        debugger;
+        
         await brandDto;
         return brandDto.rows;
         //return [{ id: 1, brand: "audi" }, { id: 2, brand: "VW" }];
@@ -161,9 +161,9 @@ class CarService {
                     name: suggestion.name,
                 }))),
             });
-        debugger;
+        
         await modelDto;
-        debugger;
+        
 
         //let cars = [{ id: 1, brand: "audi", models: [{ id: 1, model: "A3" }, { id: 2, model: "A4" }, { id: 3, model: "A5" }] }, { id: 2, brand: "VW", models: [{ id: 11, model: "Polo" }, { id: 21, model: "Golf" }, { id: 13, model: "Passat" }] }]
         //return cars.find(x => x.id == brandId).models;
@@ -173,7 +173,7 @@ class CarService {
     async GetEngines(brandId, modelId) {
         var endpoint = 'api/engine/GetEnginesByBrandIdModelId?brandId=' + brandId +'&modelId='+modelId;
         //var result = RESTService.Get(endpoint);
-        debugger;
+        
         var engineDto = await fetch(endpoint)
             .then(response => response.json())
             .then(data => this.repairs = {
@@ -182,13 +182,13 @@ class CarService {
                     name: suggestion.name,
                 }))),
             });
-        debugger;
+        
 
         await engineDto;
         return engineDto.rows;
         //let cars = [{ id: 1, brand: "audi", models: [{ id: 1, model: "A3", engines: [{ id: 1, name: "1.9TDI" }, { id: 2, name: "1.8TFSI" }] }, { id: 2, model: "A4", engines: [{ id: 1, name: "1.9TDI" }, { id: 2, name: "1.8TFSI" }] }, { id: 3, model: "A5", engines: [{ id: 1, name: "1.9TDI" }, { id: 2, name: "1.8TFSI" }] }] }, { id: 2, brand: "VW", models: [{ id: 11, model: "Polo", engines: [{ id: 1, name: "1.9TDI" }, { id: 2, name: "1.8TFSI" }] }, { id: 21, model: "Golf", engines: [{ id: 1, name: "1.9TDI" }, { id: 2, name: "2.0TFSI" }] }, { id: 13, model: "Passat", engines: [{ id: 1, name: "1.9TDI" }, { id: 2, name: "1.4TFSI" }] }] }]
         //let models = cars.find(x => x.id == brandId).models;
-        //debugger;
+        //
         //let engines = models.find(y => y.id == modelId).engines
         //return cars.find(x => x.id == brandId).models.find(y => y.id == modelId).engines;
     }

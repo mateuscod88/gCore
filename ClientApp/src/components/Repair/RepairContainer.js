@@ -19,7 +19,7 @@ export class RepairContainer extends Component {
         })
     }
     disableAddRepairButton = () => {
-        debugger;
+        
         this.setState({
             isAddRepairButtonDisable: true,
         })
@@ -46,7 +46,7 @@ export class RepairContainer extends Component {
         });
     }
     deleteRepair = async (repairId) => {
-        debugger;
+        
         await this.service.Delete(repairId);
     }
     render() {

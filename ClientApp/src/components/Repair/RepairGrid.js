@@ -18,7 +18,7 @@ class RepairGrid extends Component {
         this.service = new RepairService();
     }
     GetRows = async () => {
-        debugger;
+        
         var service = this.service;
         var rows =  await service.GetAll();
         rows;
@@ -40,7 +40,7 @@ class RepairGrid extends Component {
         });
     }
     async componentDidUpdate(prevProps) {
-        debugger;
+        
         var service = this.service;
         if (service.GetUpdateGrid() == true) {
             await this.GetRows();

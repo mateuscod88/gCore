@@ -35,14 +35,8 @@ namespace GarazMechanicCore
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            //services.AddDbContext<GaragePersistent.Context.GarageContext>(options => options.UseInMemoryDatabase(databaseName: "gDb"));
             var connectionString = Configuration.GetSection("ConnectionString:GarageContext");
             services.AddDbContext<GarageContext>(options => options.UseSqlServer(connectionString.Value));
-
-
-            //var connectionString1 = @"Server=MATEO-PC\SQLEXPRESS1;Database=GarazContext;Integrated Security=True;User Id=Mateo;Password=malina;";
-            //var connectionString1 = @"Server=db;Database=master;User=sa;Password=Your_password123;";
-            //services.AddDbContext<GarageContext>(options => options.UseSqlServer(connectionString1));
 
             services.AddTransient<ICarService,CarService>();
             services.AddTransient<IRepairService, RepairService>();
@@ -50,14 +44,6 @@ namespace GarazMechanicCore
             services.AddTransient<ICarModelService, CarModelService>();
             services.AddTransient<IEngineService, EngineService>();
             services.AddTransient<IBrandService, BrandService>();
-            //services.AddCors(options =>
-            //{
-            //    options.AddPolicy(name: MyAllowSpecificOrigins,
-            //                      builder =>
-            //                      {
-            //                          builder.WithOrigins("http://http://localhost:3000");
-            //                      });
-            //});
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -83,8 +69,7 @@ namespace GarazMechanicCore
             //app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
-            //var dataGenerator = new DataGeneratorJson();
-            //dataGenerator.GetCars(app.ApplicationServices.CreateScope().ServiceProvider);
+            
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

@@ -21,7 +21,7 @@ export class CarButtons extends React.Component {
         }
     }
     componentDidUpdate(prevProps) {
-        debugger;
+        
         var isAddRepair = this.props.setButtonVisibility();
         this.toggleButton('isAddRepairDisabled', 'isAddRepairDisabledPrev', isAddRepair);
         this.toggleButton('isEditCarDisabled', 'isEditCarDisabledPrev', isAddRepair);
@@ -29,7 +29,7 @@ export class CarButtons extends React.Component {
 
     }
     toggleButton = (current, prev, isAddRepair) => {
-        debugger;
+        
         var prevIs = this.state[prev];
         if (prevIs != isAddRepair) {
             this.setState({

@@ -18,14 +18,14 @@ export class RepairButton extends React.Component {
 
     }
     componentDidUpdate(prevProps) {
-        debugger;
+        
         var isAddRepair = this.props.setButtonVisibility();
         this.toggleButton('isEditRepairDisabled', 'isEditRepairDisabledPrev', isAddRepair);
         this.toggleButton('isRemoveRepairDisabled', 'isRemoveRepairDisabledPrev', isAddRepair);
 
     }
     toggleButton = (current, prev, isAddRepair) => {
-        debugger;
+        
         var prevIs = this.state[prev];
         if (prevIs != isAddRepair) {
             this.setState({
@@ -44,7 +44,7 @@ export class RepairButton extends React.Component {
         })
     }
     onClickDeleteButton = async () => {
-        debugger;
+        
         await this.props.deleteRepairHandler(this.props.getRepairId());
         this.props.updateRepairGrid();
     }
