@@ -3,7 +3,7 @@
 class RepairService {
     constructor() {
         this.RESTService = new RESTService();
-
+        this.url = process.env.REACT_APP_URL;
         this.repairs = null;
         this.columns = null;
         this.singleRow = null;
@@ -20,7 +20,7 @@ class RepairService {
     async AddRepair(repairDTO) {
         var rep = JSON.stringify(repairDTO);
         
-        const postResult = await fetch('api/repair/add', {
+        const postResult = await fetch(this.url+'api/repair/add', {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
@@ -31,7 +31,7 @@ class RepairService {
         await postResult;
     }
     async UpdateRepair(repairDTO, repairId) {
-        const putResult = await fetch('api/repair/update?id=' + repairId, {
+        const putResult = await fetch(this.url +'api/repair/update?id=' + repairId, {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
@@ -43,45 +43,16 @@ class RepairService {
         await putResult;
     }
     async GetRepairById(repairId) {
-        const endpoint = "/api/repair/GetById?repairId=" + repairId;
+        const endpoint = this.url +"api/repair/GetById?repairId=" + repairId;
         var result = await this.RESTService.Get(endpoint);
         await result;
         return result;
     }
     async GetAll() {
         
-        const endpoint = "/api/repair/getall?pageSize=&pageNumber="
+        const endpoint = this.url +"api/repair/getall?pageSize=&pageNumber="
         var result = await this.RESTService.Get(endpoint);
         await result;
-        //const result = await fetch('/repairs/GetRepairs')
-        //    .then(response => response.json())
-        //    .then(data => this.repairs = {
-        //        rows: (data.map(suggestion => ({
-        //            id: suggestion.Id,
-        //            name: suggestion.Name,
-        //            date: suggestion.Date,
-        //            note: suggestion.Note,
-        //            carBrand: suggestion.Brand,
-        //            carModel: suggestion.Model,
-        //            carRegNum: suggestion.PlateNumber,
-
-        //        }))),
-        //    });
-        //await result;
-        
-
-        //this.repairs =  {
-        //    rows: this.data.map(suggestion => ({
-        //        id: suggestion.Id,
-        //        name: suggestion.Name,
-        //        date: suggestion.Date,
-        //        note: suggestion.Note,
-        //        carBrand: suggestion.Brand,
-        //        carModel: suggestion.Model,
-        //        carRegNum: suggestion.PlateNumber,
-
-        //    }))
-        //};
         this.repairs = {
             rows: result.map(suggestion => ({
                 id: suggestion.id,
@@ -95,8 +66,6 @@ class RepairService {
             }))
         };
 
-
-        
         return this.repairs.rows;
     }
     GetColumns() {
@@ -113,7 +82,7 @@ class RepairService {
         return this.columns;
     }
     async Delete(repairId) {
-        await this.RESTService.Delete("/api/repair/delete?id=", repairId);
+        await this.RESTService.Delete(this.url +"api/repair/delete?id=", repairId);
     }
     SetSingleRow(singleRow) {
         this.singleRow = singleRow;

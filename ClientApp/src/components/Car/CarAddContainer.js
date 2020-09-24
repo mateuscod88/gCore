@@ -274,12 +274,7 @@ class CarAddContainer extends React.Component {
     async componentDidMount() {
         var b = await this.service.GetBrands();
         await b;
-        
-
         var brands = b.map(x => ({ value: x.id, label: x.brand }));
-        
-
-        console.log(brands);
         
         var o = await this.service.GetOwners();
         await o;
@@ -313,7 +308,6 @@ class CarAddContainer extends React.Component {
                     ccarId: carId,
                     operationType: 'edit',
                 });
-                //(document.getElementById('date')).value
             }
 
         }
@@ -334,7 +328,6 @@ class CarAddContainer extends React.Component {
                 });
             }
             else if (value.length === length) {
-
             }
             else {
                 this.setState({
@@ -456,13 +449,6 @@ class CarAddContainer extends React.Component {
                 dueDateTechServiceDataPicker: event,
             });
         }
-        //else {
-        //    dueDateTechService = event.target.value;
-        //    this.setState({
-        //        dueDateTechService
-        //    });
-        //}
-        
     };
     handleChangeOwner = text => event => {
         let owner = event;
