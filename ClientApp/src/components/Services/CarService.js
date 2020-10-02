@@ -70,8 +70,8 @@ class CarService {
                 { name: 'engine', title: 'Silnik' },
                 { name: 'regNum', title: 'Nr Rejestracyjny' },
                 { name: 'phone', title: 'Telefon' },
-                { name: 'dueDateTechService', title: 'Do Przeglądu' },
-                { name: 'lastOilChange', title: 'Wymiana Oleju' }
+                //{ name: 'dueDateTechService', title: 'Do Przeglądu' },
+                //{ name: 'lastOilChange', title: 'Wymiana Oleju' }
 
             ];
         return this.columns;

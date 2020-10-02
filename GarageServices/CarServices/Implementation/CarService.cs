@@ -32,6 +32,7 @@ namespace GarageServices.CarServices.Implementation
                 Phone = carAddDto.Phone,
                 TechnicalCheck = carAddDto.TechnicalCheck,
                 Year = carAddDto.Year,
+                CreateDate = DateTime.Now
             };
             await _garageContext.AddAsync(carEntity);
             await _garageContext.SaveChangesAsync();
@@ -55,6 +56,7 @@ namespace GarageServices.CarServices.Implementation
         {
 
             return await _garageContext.Car
+                .OrderByDescending(x => x.CreateDate)
                 .Select(x =>
                 new CarDto
                 {
@@ -70,7 +72,7 @@ namespace GarageServices.CarServices.Implementation
         {
 
             return await _garageContext.Car
-                .OrderBy(x => x.CreateDate)
+                .OrderByDescending(x => x.CreateDate)
                 .Select(x =>
                 new CarDto
                 {
