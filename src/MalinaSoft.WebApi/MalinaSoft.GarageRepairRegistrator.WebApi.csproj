@@ -39,7 +39,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MalinaSoft.Services\MalinaSoft.Services.csproj" />
+    <ProjectReference Include="..\MalinaSoft.Services\MalinaSoft.GarageRepairRegistrator.Services.csproj" />
   </ItemGroup>
 
   <ItemGroup>

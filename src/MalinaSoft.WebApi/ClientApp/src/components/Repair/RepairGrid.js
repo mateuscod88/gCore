@@ -2,6 +2,7 @@
 import { EditingState, PagingState, IntegratedPaging, SelectionState, SearchState, IntegratedFiltering } from '@devexpress/dx-react-grid';
 import { Grid, Table, TableHeaderRow, TableEditColumn, PagingPanel, TableSelection, SearchPanel, Toolbar} from '@devexpress/dx-react-grid-material-ui';
 import RepairService from '../Services/RepairService.js';
+import RepairGridDetailsPopover from './RepairGridDetailsPopover.js';
 const getRowId = row => row.id;
 
 class RepairGrid extends Component {
@@ -145,6 +146,7 @@ class RepairGrid extends Component {
                         showSelectionColumn={false}
                     />
                 </Grid>
+
             </div>
         );
     }

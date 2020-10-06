@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MalinaSoft.Persistance\MalinaSoft.Persistance.csproj" />
+    <ProjectReference Include="..\MalinaSoft.Persistance\MalinaSoft.GarageRepairRegistrator.Persistance.csproj" />
   </ItemGroup>
 
 </Project>
