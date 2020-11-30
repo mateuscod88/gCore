@@ -32,7 +32,7 @@ namespace GaragePersistent.Context
             {
                 if (!string.IsNullOrEmpty(_connectionString))
                 {
-                    optionsBuilder.UseSqlServer(_connectionString);
+                    optionsBuilder.UseSqlServer(_connectionString,builder => builder.UseRowNumberForPaging());
                 }
 
                 else
@@ -47,7 +47,7 @@ namespace GaragePersistent.Context
                         throw new ArgumentNullException("Configuration empty");
                     }
                     var connectionString = configRoot.Value;
-                    optionsBuilder.UseSqlServer(connectionString);
+                    optionsBuilder.UseSqlServer(connectionString, builder => builder.UseRowNumberForPaging());
                 }
             }
 

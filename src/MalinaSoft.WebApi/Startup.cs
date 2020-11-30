@@ -11,6 +11,8 @@ using GarageServices.OwnerServices.Implementation;
 using GarageServices.OwnerServices.Interface;
 using GarageServices.RepairService.Implementation;
 using GarageServices.RepairService.Interface;
+using MalinaSoft.GarageRepairRegistrator.Interfaces.Repositories;
+using MalinaSoft.GarageRepairRegistrator.Persistance.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -36,9 +38,12 @@ namespace GarazMechanicCore
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             var connectionString = Configuration.GetSection("ConnectionString:GarageContext");
-            services.AddDbContext<GarageContext>(options => options.UseSqlServer(connectionString.Value));
+            services.AddDbContext<GarageContext>(options => options.UseSqlServer(connectionString.Value, builder => builder.UseRowNumberForPaging()));
 
             services.AddTransient<ICarService,CarService>();
+            services.AddTransient<ICarRepository, CarRepositoryEF>();
+            services.AddTransient<IRepairRepository, RepairRepositoryEF>();
+
             services.AddTransient<IRepairService, RepairService>();
             services.AddTransient<IOwnerService, OwnerService>();
             services.AddTransient<ICarModelService, CarModelService>();

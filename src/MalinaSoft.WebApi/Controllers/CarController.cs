@@ -36,17 +36,17 @@ namespace GarazMechanicCore.Controllers
         {
             var cars = await _carService.GetAllAsync();
             return cars;
-    }
+        }
         [HttpPost("[action]")]
-        public async Task<object> Add([FromBody]CarAddDto carAddDto)
+        public async Task<object> Add([FromBody] CarAddDto carAddDto)
         {
             string id = await _carService.Add(carAddDto);
             return id;
         }
         [HttpPut("[action]")]
-        public async Task<object> Update([FromBody]CarAddDto carAddDto,[FromQuery] string id)
+        public async Task<object> Update([FromBody] CarAddDto carAddDto, [FromQuery] string id)
         {
-            await _carService.Update(carAddDto,id);
+            await _carService.Update(carAddDto, id);
             return null;
         }
         [HttpDelete("[action]")]

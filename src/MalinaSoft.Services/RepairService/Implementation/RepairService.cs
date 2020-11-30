@@ -3,6 +3,7 @@ using GaragePersistent.Entities;
 using GarageServices.BaseServices.Interfaces;
 using GarageServices.RepairService.Dto;
 using GarageServices.RepairService.Interface;
+using MalinaSoft.GarageRepairRegistrator.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -14,13 +15,18 @@ namespace GarageServices.RepairService.Implementation
 {
     public class RepairService : BaseContext, IRepairService
     {
-        public RepairService(GarageContext garageContext) : base(garageContext)
+        private IRepairRepository _repairRepository;
+
+        public RepairService(
+            GarageContext garageContext,
+            IRepairRepository repairRepository) : base(garageContext)
         {
+            this._repairRepository = repairRepository;
         }
 
         public async Task<string> Add(RepairDto added)
         {
-            var repairEntitie = new Repair
+            var repairEntitie = new GaragePersistent.Entities.Repair
             {
                 Id = Guid.NewGuid().ToString(),
                 Name = added.Name,
@@ -30,8 +36,7 @@ namespace GarageServices.RepairService.Implementation
                 RepairDate = DateTime.Parse(added.Date),
                 KilometerCounter = added.Counter
             };
-            await _garageContext.Repair.AddAsync(repairEntitie);
-            await _garageContext.SaveChangesAsync();
+            await _repairRepository.AddAsync(repairEntitie);
             return repairEntitie.Id;
         }
 
@@ -39,8 +44,7 @@ namespace GarageServices.RepairService.Implementation
         {
             var repair = _garageContext.Repair.Single(x => x.Id == id);
             repair.IsDeleted = true;
-            _garageContext.Repair.Update(repair);
-            await _garageContext.SaveChangesAsync();
+            await _repairRepository.UpdateAsync(repair);
         }
 
         public async Task<IEnumerable<RepairDto>> GetAllAsync(int pageSize, int pageNumber)
@@ -84,22 +88,20 @@ namespace GarageServices.RepairService.Implementation
 
         public async Task<RepairDto> GetById(string repairId)
         {
-            return await _garageContext
-                .Repair
-                .Select(x => new RepairDto
-                {
-                    Id = x.Id,
-                    Brand = x.Car.Brand.Name,
-                    Model = x.Car.Model.Name,
-                    Name = x.Name,
-                    Note = x.Note,
-                    Date = x.RepairDate.ToShortDateString(),
-                    Engine = x.Car.Engine.Name,
-                    PlateNumber = x.Car.PlateNumber,
-                    Counter = x.KilometerCounter,
-                    CarId = x.CarId
-                })
-                .SingleOrDefaultAsync(x => x.Id == repairId);
+            var repair = await _repairRepository.GetByIdAsync(repairId);
+            return new RepairDto
+            {
+                Id = repair.Id,
+                Brand = repair.Car.Brand.Name,
+                Model = repair.Car.Model.Name,
+                Name = repair.Name,
+                Note = repair.Note,
+                Date = repair.RepairDate.ToShortDateString(),
+                Engine = repair.Car.Engine.Name,
+                PlateNumber = repair.Car.PlateNumber,
+                Counter = repair.KilometerCounter,
+                CarId = repair.CarId
+            };
         }
 
         public Task Update(RepairDto updated)
@@ -110,7 +112,7 @@ namespace GarageServices.RepairService.Implementation
         public async Task Update(RepairDto added, string repairId)
         {
 
-            var repairEntitie = await _garageContext.Repair.SingleOrDefaultAsync(x => x.Id == repairId);
+            var repairEntitie = await _repairRepository.GetByIdAsync(repairId);
 
             repairEntitie.Name = added.Name;
             repairEntitie.CreateDate = DateTime.Now;
@@ -118,8 +120,7 @@ namespace GarageServices.RepairService.Implementation
             repairEntitie.RepairDate = DateTime.Parse(added.Date);
             repairEntitie.KilometerCounter = added.Counter;
 
-            _garageContext.Repair.Update(repairEntitie);
-            await _garageContext.SaveChangesAsync();
+            await _repairRepository.UpdateAsync(repairEntitie);
         }
 
         Task IBaseService<RepairDto>.Add(RepairDto added)
