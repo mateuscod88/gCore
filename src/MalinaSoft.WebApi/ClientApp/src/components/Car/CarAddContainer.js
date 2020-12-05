@@ -663,35 +663,7 @@ class CarAddContainer extends React.Component {
                     margin="normal"
                     variant="outlined"
                 />
-                <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                <KeyboardDatePicker
-                    disableToolbar
-                    variant="inline"
-                    format="MM/dd/yyyy"
-                    margin="normal"
-                    id="date-picker-inline"
-                        label="Badanie techniczne"
-                        value={this.state.dueDateTechServiceDataPicker}
-                    onChange={this.OnDateChange('dueDateTechService')}
-                    KeyboardButtonProps={{
-                        'aria-label': 'change date',
-                    }}
-                    />
-                    </MuiPickersUtilsProvider>
-                <FormControl className={classes.formControl} error={this.state.isOwnerValid}>
-
-                    <Select
-                        classes={classes}
-                        styles={selectStyles}
-                        options={this.state.owners}
-                        components={components}
-                        value={this.state.owner}
-                        onChange={this.handleChangeOwner('owner')}
-                        placeholder="Wybierz właściciela"
-                        isClearable
-                    />
-                    {this.state.isOwnerValid && <FormHelperText>{this.state.phoneErrorText}</FormHelperText>}
-                </FormControl>
+                
                 <TextField
                     id="outlined-name"
                     label="Numer telefonu"
