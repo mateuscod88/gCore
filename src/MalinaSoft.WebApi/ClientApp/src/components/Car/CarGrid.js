@@ -4,6 +4,7 @@ import { Grid, Table, TableHeaderRow, TableEditColumn, PagingPanel, TableSelecti
 
 import { Column } from '@devexpress/dx-react-grid';
 import CarService from '../Services/CarService.js';
+import $ from "jquery";
 
 const getRowId = row => row.id;
 
@@ -25,6 +26,17 @@ export class CarGrid extends React.Component {
         this.setState({
             columns: columns,
             rows: rows.rows
+        });
+        console.log($('.MuiTableRow-root:not(.MuiTableRow-head)').length);
+        $('.MuiTableRow-root:not(.MuiTableRow-head)').each(function (index) {
+            console.log(this);
+
+            console.log(index);
+            $(this).mouseenter(function (e) {
+                console.log(index + 'dupa');
+                console.log(e);
+            })
+
         });
     }
     async componentDidUpdate(prevProps) {

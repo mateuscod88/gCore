@@ -3,8 +3,23 @@ import { EditingState, PagingState, IntegratedPaging, SelectionState, SearchStat
 import { Grid, Table, TableHeaderRow, TableEditColumn, PagingPanel, TableSelection, SearchPanel, Toolbar} from '@devexpress/dx-react-grid-material-ui';
 import RepairService from '../Services/RepairService.js';
 import RepairGridDetailsPopover from './RepairGridDetailsPopover.js';
+import { withStyles } from '@material-ui/styles';
+import $ from "jquery";
 const getRowId = row => row.id;
-
+const styles = {
+    customRow: {
+        '&:hover': {
+            backgroundColor: 'red',
+        }
+    },
+};
+const CustomTableRowBase = ({ classes, ...restProps }) => (
+    <Table.Row
+        className={classes.customRow}
+        {...restProps}
+    />
+);
+export const CustomTableRow = withStyles(styles, { name: 'CustomTableRow' })(CustomTableRowBase);
 class RepairGrid extends Component {
     constructor(props) {
         super(props);
@@ -30,6 +45,7 @@ class RepairGrid extends Component {
     }
 
     async componentDidMount() {
+
         var service = this.service;
 
         await this.GetRows();
@@ -116,7 +132,8 @@ class RepairGrid extends Component {
                     rows={rows}
                     columns={columns}
                     getRowId={getRowId}>
-
+                    
+                    
                     <SelectionState
                         selection={selection}
                         onSelectionChange={this.changeSelection}
@@ -136,7 +153,10 @@ class RepairGrid extends Component {
                     <EditingState
                         onCommitChanges={this.commitChanges}
                     />
-                    <Table />
+                    <Table
+                        rowComponent={CustomTableRow}
+                        
+                    />
                     <TableHeaderRow />
                     <PagingPanel />
                     
