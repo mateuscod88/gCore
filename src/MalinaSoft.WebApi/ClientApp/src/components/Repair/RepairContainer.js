@@ -55,7 +55,6 @@ export class RepairContainer extends Component {
             <div>
                 <RepairGrid setRepairId={this.setRepairId} updateRepairGrid={this.state.updateRepairGrid} resetUpdateRepairGrid={this.resetUpdateRepairGrid} enableButton={this.enableAddRepairButton} disableButton={this.disableAddRepairButton} />
                 <RepairButton  updateRepairGrid={this.setUpdateRepairGrid} getRepairId={this.getRepairId} deleteRepairHandler={this.deleteRepair} setButtonVisibility={this.setButtonVisibility} />
-                <RepairGridDetailsPopover />
             </div>
         );
     }
