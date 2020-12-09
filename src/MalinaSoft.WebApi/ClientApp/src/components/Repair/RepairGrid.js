@@ -1,10 +1,8 @@
 ﻿import React, { Component } from 'react';
 import { EditingState, PagingState, IntegratedPaging, SelectionState, SearchState, IntegratedFiltering } from '@devexpress/dx-react-grid';
-import { Grid, Table, TableHeaderRow, TableEditColumn, PagingPanel, TableSelection, SearchPanel, Toolbar} from '@devexpress/dx-react-grid-material-ui';
+import { Grid, Table, TableHeaderRow, PagingPanel, TableSelection, SearchPanel, Toolbar } from '@devexpress/dx-react-grid-material-ui';
 import RepairService from '../Services/RepairService.js';
-import RepairGridDetailsPopover from './RepairGridDetailsPopover.js';
 import { withStyles } from '@material-ui/styles';
-import $ from "jquery";
 const getRowId = row => row.id;
 const styles = {
     customRow: {
@@ -34,10 +32,9 @@ class RepairGrid extends Component {
         this.service = new RepairService();
     }
     GetRows = async () => {
-        
+
         var service = this.service;
-        var rows =  await service.GetAll();
-        rows;
+        var rows = await service.GetAll();
         this.setState({
             rows: rows,
         });
@@ -49,17 +46,15 @@ class RepairGrid extends Component {
         var service = this.service;
 
         await this.GetRows();
-        var columnss = service.GetColumns();
-        
 
         this.setState({
             columns: service.GetColumns(),
         });
     }
     async componentDidUpdate(prevProps) {
-        
+
         var service = this.service;
-        if (service.GetUpdateGrid() == true) {
+        if (service.GetUpdateGrid() === true) {
             await this.GetRows();
             service.SetUpdateGrid(false);
         }
@@ -69,7 +64,6 @@ class RepairGrid extends Component {
         }
     }
     commitChanges({ added, changed, deleted }) {
-        let { rows } = this.state;
         if (added) {
 
         }
@@ -86,14 +80,14 @@ class RepairGrid extends Component {
         var sel = [];
         sel[0] = selection[selection.length - 1];
         var selection = sel[0];
-        if (selection != undefined) {
+        if (selection !== undefined) {
 
             var rowId = sel[0];
             this.props.enableButton();
 
-            var row = this.state.rows[this.state.rows.findIndex(row => row.id == rowId)];
+            var row = this.state.rows[this.state.rows.findIndex(row => row.id === rowId)];
 
-            if (selection.length != 0) {
+            if (selection.length !== 0) {
                 this.props.setRepairId(row.id);
                 service.SetSingleRow(row);
                 service.SetIsRowSelected(true);
@@ -101,7 +95,7 @@ class RepairGrid extends Component {
             else {
                 service.SetIsRowSelected(false);
             }
-            
+
             this.setState({ selection: sel, selectedRows: sel[0], });
         }
         else {
@@ -112,8 +106,7 @@ class RepairGrid extends Component {
         }
     }
     toggleSelectionRow = (rowIds, state) => {
-        
-        var st = rowIds;
+
 
     }
 
@@ -132,8 +125,8 @@ class RepairGrid extends Component {
                     rows={rows}
                     columns={columns}
                     getRowId={getRowId}>
-                    
-                    
+
+
                     <SelectionState
                         selection={selection}
                         onSelectionChange={this.changeSelection}
@@ -155,11 +148,11 @@ class RepairGrid extends Component {
                     />
                     <Table
                         rowComponent={CustomTableRow}
-                        
+
                     />
                     <TableHeaderRow />
                     <PagingPanel />
-                    
+
                     <TableSelection
                         selectByRowClick
                         highlightRow

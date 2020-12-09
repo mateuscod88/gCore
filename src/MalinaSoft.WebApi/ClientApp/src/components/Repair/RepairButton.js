@@ -27,7 +27,7 @@ export class RepairButton extends React.Component {
     toggleButton = (current, prev, isAddRepair) => {
         
         var prevIs = this.state[prev];
-        if (prevIs != isAddRepair) {
+        if (prevIs !== isAddRepair) {
             this.setState({
                 [current]: isAddRepair,
                 [prev]: isAddRepair,

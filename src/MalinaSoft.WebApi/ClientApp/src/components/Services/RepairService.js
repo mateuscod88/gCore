@@ -18,9 +18,7 @@ class RepairService {
         ]
     }
     async AddRepair(repairDTO) {
-        var rep = JSON.stringify(repairDTO);
-        
-        const postResult = await fetch(this.url+'api/repair/add', {
+        const postResult = await fetch(this.url + 'api/repair/add', {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
@@ -31,7 +29,7 @@ class RepairService {
         await postResult;
     }
     async UpdateRepair(repairDTO, repairId) {
-        const putResult = await fetch(this.url +'api/repair/update?id=' + repairId, {
+        const putResult = await fetch(this.url + 'api/repair/update?id=' + repairId, {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
@@ -43,14 +41,14 @@ class RepairService {
         await putResult;
     }
     async GetRepairById(repairId) {
-        const endpoint = this.url +"api/repair/GetById?repairId=" + repairId;
+        const endpoint = this.url + "api/repair/GetById?repairId=" + repairId;
         var result = await this.RESTService.Get(endpoint);
         await result;
         return result;
     }
     async GetAll() {
-        
-        const endpoint = this.url +"api/repair/getall?pageSize=&pageNumber="
+
+        const endpoint = this.url + "api/repair/getall?pageSize=&pageNumber="
         var result = await this.RESTService.Get(endpoint);
         await result;
         this.repairs = {
@@ -82,7 +80,7 @@ class RepairService {
         return this.columns;
     }
     async Delete(repairId) {
-        await this.RESTService.Delete(this.url +"api/repair/delete?id=", repairId);
+        await this.RESTService.Delete(this.url + "api/repair/delete?id=", repairId);
     }
     SetSingleRow(singleRow) {
         this.singleRow = singleRow;

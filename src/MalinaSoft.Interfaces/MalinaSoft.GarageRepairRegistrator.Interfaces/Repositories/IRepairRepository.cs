@@ -9,5 +9,9 @@ namespace MalinaSoft.GarageRepairRegistrator.Interfaces.Repositories
     public interface IRepairRepository : IBaseRepository<Repair>
     {
         Task<List<Repair>> GetCarRepairsByCarId(string carId);
+        Task<int> GetRepairsCountByCarId(string carId);
+        Task<ICollection<Repair>> GetRecentCarRepairs(int numberRepairsToTake, string carId);
+        Task<Dictionary<string, List<Repair>>> GetRecentCarRepairsDictinaryByCarListAsync(int numberRepairsToTake, string[] carIdList);
+        Task<Dictionary<string, int>> GetRepairsCountDictionaryByListAsync(string[] carIdList);
     }
 }

@@ -1,12 +1,14 @@
 ﻿import React from 'react';
-import { EditingState, PagingState, IntegratedPaging, SelectionState, SearchState, IntegratedFiltering} from '@devexpress/dx-react-grid';
-import { Grid, Table, TableHeaderRow, TableEditColumn, PagingPanel, TableSelection, SearchPanel, Toolbar } from '@devexpress/dx-react-grid-material-ui';
+import { EditingState, PagingState, IntegratedPaging, SelectionState, SearchState, IntegratedFiltering } from '@devexpress/dx-react-grid';
+import { Grid, Table, TableHeaderRow, PagingPanel, TableSelection, SearchPanel, Toolbar } from '@devexpress/dx-react-grid-material-ui';
 
-import { Column } from '@devexpress/dx-react-grid';
 import CarService from '../Services/CarService.js';
-import $ from "jquery";
+import CarRepairsDetailsPopover from './CarRepairsDetailsPopover.js';
 
 const getRowId = row => row.id;
+
+
+
 
 export class CarGrid extends React.Component {
     constructor(props) {
@@ -16,61 +18,66 @@ export class CarGrid extends React.Component {
             rows: [],
             selectedRows: 0,
             selection: [],
+            anchorPopover: null,
+            popOverRepairs: [],
         }
         this.service = new CarService();
     }
     async componentDidMount() {
         var columns = this.service.GetColumns();
         var rows = await this.service.GetAll();
-        console.log(rows);
         this.setState({
             columns: columns,
             rows: rows.rows
         });
-        console.log($('.MuiTableRow-root:not(.MuiTableRow-head)').length);
-        $('.MuiTableRow-root:not(.MuiTableRow-head)').each(function (index) {
-            console.log(this);
-
-            console.log(index);
-            $(this).mouseenter(function (e) {
-                console.log(index + 'dupa');
-                console.log(e);
-            })
-
-        });
     }
     async componentDidUpdate(prevProps) {
-        var service = this.service;
         if (this.props.updateCarGrid) {
             var rows = await this.service.GetAll();
-            console.log(rows);
             this.setState({
                 rows: rows.rows
             });
             this.props.resetUpdateCarGrid();
         }
     }
+    onMouseEnterRow = (e, row) => {
+        this.setState({
+            anchorPopover: e.target.parentElement,
+            popOverRepairs: (row.recentRepairs !== null ? (row.recentRepairs.map(r => ({
+                repairName: r.name,
+                repairDate: r.repairDate,
+                id :r.id
+            }))) : [])
+
+        });
+    }
+    onMouseLeaveRow = (e, row) => {
+        this.setState({
+            anchorPopover: null,
+
+        });
+    }
+
     changeSelection = selection => {
         var service = this.service;
         var sel = [];
         sel[0] = selection[selection.length - 1];
         var selection = sel[0];
-        if (selection != undefined) {
+        if (selection !== undefined) {
             var rowId = sel[0];
             this.props.enableButton();
-            var row = this.state.rows[this.state.rows.findIndex(row => row.id == rowId)];
+            var row = this.state.rows[this.state.rows.findIndex(row => row.id === rowId)];
 
-            console.log(row);
-            
+
             this.props.setCarId(row.id);
-            if (selection.length != 0) {
+            if (selection.length !== 0) {
                 service.SetSingleRow(row);
                 service.SetIsRowSelected(true);
             }
             else {
                 service.SetIsRowSelected(false);
             }
-            
+
 
             this.setState({ selection: sel, selectedRows: sel[0], });
 
@@ -88,9 +95,9 @@ export class CarGrid extends React.Component {
 
 
     }
-    
+
     commitChanges = ({ added, changed, deleted }) => {
-        
+
         if (added) {
 
         }
@@ -107,10 +114,26 @@ export class CarGrid extends React.Component {
         });
     }
     render() {
-        const { columns, rows, selection } = this.state;
+        const { columns, selection } = this.state;
+        const TableRow = ({ row, ...restProps }) => {
 
+            return (<Table.Cell
+                {...restProps}
+                // eslint-disable-next-line no-alert
+                onMouseEnter={(e) => {
+                    this.onMouseEnterRow(e, row);
+                }}
+                onMouseLeave={(e) => {
+                    this.onMouseLeaveRow(e, row);
+                }}
+            //style={{
+            //    cursor: "pointer",
+            //    ...styles[row.brand.toLowerCase()]
+            //}}
+            />)
+        }
         return (
-            <div class="mateo">
+            <div className="mateo">
                 <Grid
                     rows={this.state.rows}
                     columns={columns}
@@ -135,16 +158,18 @@ export class CarGrid extends React.Component {
                     <EditingState
                         onCommitChanges={this.commitChanges}
                     />
-                    <Table />
-                    <TableHeaderRow />
+
                     <PagingPanel />
-                   
+                    <Table cellComponent={TableRow} />
+                    <TableHeaderRow />
                     <TableSelection
                         selectByRowClick
                         highlightRow
                         showSelectionColumn={false}
+
                     />
                 </Grid>
+                <CarRepairsDetailsPopover popOverRepairs={this.state.popOverRepairs} anchor={this.state.anchorPopover} />
             </div>
         );
     }

@@ -3,6 +3,7 @@ using GaragePersistent.Entities;
 using GarageServices.BaseServices.Interfaces;
 using GarageServices.CarServices.Dto;
 using GarageServices.CarServices.Interface;
+using GarageServices.RepairService.Dto;
 using MalinaSoft.GarageRepairRegistrator.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -94,20 +95,26 @@ namespace GarageServices.CarServices.Implementation
             //        LastOilChange = x.LastOilChange.ToShortDateString()
             //    })
             //    .ToListAsync();
+            const int numberRepairsToTake = 3;
+            string carId = "";
             var cars = await _carRepository.GetPaginatedAsync(0, 0);
+            Dictionary<string, int> repairCountDictionary = await _repairRepository.GetRepairsCountDictionaryByListAsync(cars.Select(x => x.Id).ToArray());
+            Dictionary<string, List<Repair>> recentRepairs = await _repairRepository.GetRecentCarRepairsDictinaryByCarListAsync(numberRepairsToTake, repairCountDictionary.Where(x => x.Value > 0).Select(x => x.Key).ToArray());
             return cars.Select(x =>
-                new CarDto
-                {
-                    Id = x.Id,
-                    Brand = x.Brand.Name,
-                    Model = x.Model.Name,
-                    Engine = x.Engine.Name,
-                    Owner = x.Owner == null ? "" : $"{ x.Owner.FirstName} {x.Owner.LastName}",
-                    RegNum = x.PlateNumber,
-                    Phone = x.Phone,
-                    DueDateTechService = x.TechnicalCheck.HasValue ? x.TechnicalCheck.Value.ToShortDateString() : "",
-                    LastOilChange = x.LastOilChange.ToShortDateString()
-                })
+               new CarDto
+               {
+                   Id = x.Id,
+                   Brand = x.Brand.Name,
+                   Model = x.Model.Name,
+                   Engine = x.Engine.Name,
+                   Owner = x.Owner == null ? "" : $"{ x.Owner.FirstName} {x.Owner.LastName}",
+                   RegNum = x.PlateNumber,
+                   Phone = x.Phone,
+                   DueDateTechService = x.TechnicalCheck.HasValue ? x.TechnicalCheck.Value.ToShortDateString() : "",
+                   LastOilChange = x.LastOilChange.ToShortDateString(),
+                   RepairCount = repairCountDictionary.TryGetValue(x.Id, out int repairCount) ? repairCount : 0,
+                   RecentRepairs = recentRepairs.TryGetValue(x.Id,out List<Repair> repairs) ? repairs.ToArray() : null
+               })
                 .ToList();
         }
 
@@ -133,28 +140,28 @@ namespace GarageServices.CarServices.Implementation
                 KilometerCounter = car.KilometerCounter,
                 TechnicalService = car.TechnicalCheck.HasValue ? car.TechnicalCheck.Value.ToShortDateString() : "",
             });
-                //await _garageContext.Car
-                //car.Select(x =>
-                //new CarDto
-                //{
-                //    Id = x.Id,
-                //    Brand = x.Brand.Name,
-                //    BrandId = x.BrandId,
-                //    Model = x.Model.Name,
-                //    ModelId = x.ModelId,
-                //    Engine = x.Engine.Name,
-                //    EngineId = x.EngineId,
-                //    Owner = x.Owner != null ? "{ x.Owner.FirstName} {x.Owner.LastName}" : null,
-                //    OwnerId = x.OwnerId,
-                //    RegNum = x.PlateNumber,
-                //    Phone = x.Phone,
-                //    DueDateTechService = x.TechnicalCheck.HasValue ? x.TechnicalCheck.Value.ToShortDateString() : "",
-                //    LastOilChange = x.LastOilChange.ToShortDateString(),
-                //    Year = x.Year,
-                //    KilometerCounter = x.KilometerCounter,
-                //    TechnicalService = x.TechnicalCheck.HasValue ? x.TechnicalCheck.Value.ToShortDateString() : "",
-                //})
-                //.SingleOrDefaultAsync(x => x.Id == carId);
+            //await _garageContext.Car
+            //car.Select(x =>
+            //new CarDto
+            //{
+            //    Id = x.Id,
+            //    Brand = x.Brand.Name,
+            //    BrandId = x.BrandId,
+            //    Model = x.Model.Name,
+            //    ModelId = x.ModelId,
+            //    Engine = x.Engine.Name,
+            //    EngineId = x.EngineId,
+            //    Owner = x.Owner != null ? "{ x.Owner.FirstName} {x.Owner.LastName}" : null,
+            //    OwnerId = x.OwnerId,
+            //    RegNum = x.PlateNumber,
+            //    Phone = x.Phone,
+            //    DueDateTechService = x.TechnicalCheck.HasValue ? x.TechnicalCheck.Value.ToShortDateString() : "",
+            //    LastOilChange = x.LastOilChange.ToShortDateString(),
+            //    Year = x.Year,
+            //    KilometerCounter = x.KilometerCounter,
+            //    TechnicalService = x.TechnicalCheck.HasValue ? x.TechnicalCheck.Value.ToShortDateString() : "",
+            //})
+            //.SingleOrDefaultAsync(x => x.Id == carId);
         }
 
         public async Task Update(CarAddDto carAddDto, string carId)

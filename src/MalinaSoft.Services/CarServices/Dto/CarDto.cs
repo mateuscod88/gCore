@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GaragePersistent.Entities;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -22,6 +23,7 @@ namespace GarageServices.CarServices.Dto
         public string KilometerCounter { get; set; }
         public string TechnicalService { get; set; }
         public string OwnerId { get; set; }
-
+        public int RepairCount { get; internal set; }
+        public Repair[] RecentRepairs { get; internal set; }
     }
 }

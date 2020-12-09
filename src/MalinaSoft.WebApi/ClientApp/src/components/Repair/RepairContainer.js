@@ -2,7 +2,6 @@
 import RepairGrid from './RepairGrid.js';
 import { RepairButton } from './RepairButton.js';
 import RepairService from '../Services/RepairService.js';
-import RepairGridDetailsPopover from './RepairGridDetailsPopover.js';
 
 export class RepairContainer extends Component {
     constructor(props) {

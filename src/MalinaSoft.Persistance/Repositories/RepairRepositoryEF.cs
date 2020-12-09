@@ -49,7 +49,12 @@ namespace MalinaSoft.GarageRepairRegistrator.Persistance.Repositories
 
         public async Task<Repair> GetByIdAsync(string id)
         {
-            return await _garageContext.Repair.FirstOrDefaultAsync(x => x.Id == id);
+            return await _garageContext.Repair
+                .Include(x => x.Car)
+                .Include(x => x.Car.Brand)
+                .Include(x => x.Car.Model)
+                .Include(x => x.Car.Engine)
+                .FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<IList<Repair>> GetCarRepairsByCarId(string carId)
@@ -80,6 +85,39 @@ namespace MalinaSoft.GarageRepairRegistrator.Persistance.Repositories
         Task<List<Repair>> IRepairRepository.GetCarRepairsByCarId(string carId)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<int> GetRepairsCountByCarId(string carId)
+        {
+            return await _garageContext.Repair
+                .Where(x => x.CarId == carId)
+                .CountAsync();
+        }
+
+        public async Task<ICollection<Repair>> GetRecentCarRepairs(int numberRepairsToTake, string carId)
+        {
+            return await _garageContext.Repair
+                .Where(x => x.CarId == carId)
+                .Take(numberRepairsToTake)
+                .ToListAsync();
+        }
+
+        public async Task<Dictionary<string, List<Repair>>> GetRecentCarRepairsDictinaryByCarListAsync(int numberRepairsToTake, string[] carIdList)
+        {
+            return await _garageContext.Repair
+                .Where(x => carIdList.Any(y => y == x.CarId))
+                .GroupBy(x => x.CarId)
+                .Select(x => new { carId = x.Key, repairs = x.OrderBy(y => y.RepairDate).Take(3).ToList() })
+                .ToDictionaryAsync(p => p.carId, p => p.repairs);
+        }
+
+        public async Task<Dictionary<string, int>> GetRepairsCountDictionaryByListAsync(string[] carIdList)
+        {
+            return await _garageContext.Repair
+                .Where(x => carIdList.Any(y => y == x.CarId))
+                .GroupBy(x => x.CarId)
+                .Select(x => new { carId = x.Key, RepairCount = x.Count() })
+                .ToDictionaryAsync(p => p.carId, p => p.RepairCount);
         }
     }
 }
