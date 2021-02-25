@@ -7,6 +7,7 @@ using GaragePersistent.Entities;
 using GaragePersistent.Helper;
 using GaragePersistent.Seed;
 using GaragePersistent.Seed.SeedReader;
+using MalinaSoft.GarageRepairRegistrator.WebApi.Logging;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -17,17 +18,21 @@ namespace GarazMechanicCore
 {
     public class Program
     {
-        
+
         public static void Main(string[] args)
         {
             var hostUrl = "http://0.0.0.0:5002";
-            var host = CreateWebHostBuilder(args,hostUrl).Build();
+            var host = CreateWebHostBuilder(args, hostUrl).Build();
             host.Run();
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args,string hostUrl) =>
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args, string hostUrl) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseUrls(hostUrl)
+                .ConfigureLogging(builder =>
+                {
+                    builder.AddFileLogger(c => c.LogLevel = LogLevel.Warning);
+                })
                 .UseStartup<Startup>();
     }
 }

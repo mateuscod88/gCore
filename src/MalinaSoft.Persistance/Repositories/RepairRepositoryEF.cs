@@ -107,7 +107,7 @@ namespace MalinaSoft.GarageRepairRegistrator.Persistance.Repositories
             return await _garageContext.Repair
                 .Where(x => carIdList.Any(y => y == x.CarId))
                 .GroupBy(x => x.CarId)
-                .Select(x => new { carId = x.Key, repairs = x.OrderBy(y => y.RepairDate).Take(3).ToList() })
+                .Select(x => new { carId = x.Key, repairs = x.OrderByDescending(y => y.RepairDate).Take(3).ToList() })
                 .ToDictionaryAsync(p => p.carId, p => p.repairs);
         }
 

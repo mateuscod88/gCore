@@ -71,8 +71,8 @@ namespace MalinaSoft.GarageRepairRegistrator.Persistance.Repositories
                .Include(x => x.Model)
                .Include(x => x.Owner)
                .OrderByDescending(x => x.CreateDate)
-               .Skip(0)
-               .Take(pageSize)
+               //.Skip(0)
+               //.Take(pageSize)
                .ToListAsync();
         }
 
