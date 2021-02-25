@@ -142,10 +142,11 @@ class RepairAddContainer extends React.Component {
                     carModel: repair.model,
                     carEngine: repair.engine,
                     regNum: repair.plateNumber,
-                    dueDateTechService: repair.date,
+                    dueDateTechServiceDataPicker: repair.date,
                     counter: repair.counter
                 }
                 );
+                console.log(repair);
             }
         }
 

@@ -39,47 +39,63 @@ export default function CarRepairsDetailsPopover(props) {
     const handlePopoverClose = () => {
         setAnchorEl(null);
     };
+    const setPopoverPosition = () => {
+        console.log(anchorEl);
+        return ({ left: 100, top: 0 })
+    }
+    const setLeft = () => {
+        if (anchorEl !== null) {
+            console.log(anchorEl.offsetWidth);
+            return anchorEl.offsetWidth;
+        }
+        
+    }
+    const setTop = () => {
+        if (anchorEl !== null) 
+            {
+                console.log(anchorEl);
 
-    const open = Boolean(anchorEl);
+            return anchorEl.offsetTop + 100;
+            }
 
-    return (
-        <div>
-            <Popover
-                id="mouse-over-popover"
-                className={classes.popover}
-                classes={{
-                    paper: classes.paper,
-                }}
-                open={open}
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'left',
+        }
+        const open = Boolean(anchorEl);
 
-                }}
-                transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'left',
-                }}
-                onClose={handlePopoverClose}
-                disableRestoreFocus
-            >
-                <Typography>{props.popOverRepairs.length === 0 ? 'Brak napraw' : 'Ostatnie naprawy'}</Typography>
-                <List dense={true}>
-                    {props.popOverRepairs.map((value) =>
-                        React.cloneElement(<ListItem>
-                            <ListItemText
-                                primary={value.repairName}
-                                secondary={value.repairDate}
-                            />
-                        </ListItem>, {
-                            key: value.id,
-                        }))
-                    }
+        return (
+            <div>
+                <Popover
+                    id="mouse-over-popover"
+                    className={classes.popover}
+                    classes={{
+                        paper: classes.paper,
+                    }}
+                    open={open}
 
-                </List>
-            </Popover>
-        </div>
-    );
-}
+                    anchorReference='anchorPosition'
+                    anchorPosition={{ left: setLeft(), top: setTop() }}
+                    transformOrigin={{
+                        horizontal: 'center',
+                        vertical: 'top',
+                    }}
+                    onClose={handlePopoverClose}
+                    disableRestoreFocus
+                >
+                    <Typography>{props.popOverRepairs.length === 0 ? 'Brak napraw' : 'Ostatnie naprawy'}</Typography>
+                    <List dense={true}>
+                        {props.popOverRepairs.map((value) =>
+                            React.cloneElement(<ListItem>
+                                <ListItemText
+                                    primary={value.repairName}
+                                    secondary={value.repairDate}
+                                />
+                            </ListItem>, {
+                                key: value.id,
+                            }))
+                        }
+
+                    </List>
+                </Popover>
+            </div>
+        );
+    }
 
