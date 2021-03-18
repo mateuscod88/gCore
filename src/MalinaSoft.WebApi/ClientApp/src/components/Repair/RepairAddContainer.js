@@ -88,7 +88,7 @@ class RepairAddContainer extends React.Component {
 
         var repairId = this.props.location.search.substring(10, this.props.location.search.length);
         var isRepairIdExists = this.props.location.search.indexOf("repairId") > 0;
-        
+
         var operationType = repairId.length > 0 && isRepairIdExists ? 'edit' : 'add';
         this.state = {
             noteName: '',
@@ -107,16 +107,16 @@ class RepairAddContainer extends React.Component {
             counterErrorText: '',
             dueDateTechServiceDataPicker: null,
         };
-        
+
         this.carService = new CarService();
         this.repairService = new RepairService();
     }
     async componentDidMount() {
-        
+
         var repairId = this.state.repairId;
         var carId = this.props.location.search.substring(7, this.props.location.search.length);
         var isCarIdExist = this.props.location.search.indexOf("carId") > 0;
-        
+
         if (carId.length > 0 && isCarIdExist) {
             var car = await this.carService.GetCarById(carId);
             await car;
@@ -131,7 +131,7 @@ class RepairAddContainer extends React.Component {
 
         }
         else if (repairId.length > 0) {
-            
+
             var repair = await this.repairService.GetRepairById(repairId);
             await repair;
             if (repair != undefined) {
@@ -162,7 +162,7 @@ class RepairAddContainer extends React.Component {
     }
 
     handleChangeName = (text) => event => {
-        
+
         if (this.state[text] != event.target.value) {
             this.setDataChanged();
         }
@@ -184,9 +184,12 @@ class RepairAddContainer extends React.Component {
         });
     }
     OnDateChange = text => event => {
-        
+
         if (event.target == undefined) {
             let a = event.getDate();
+            if (this.state.dueDateTechServiceDataPicker !== event) {
+                this.setDataChanged();
+            }
             this.setState({
                 dueDateTechService: event.toISOString(),
                 dueDateTechServiceDataPicker: event,
@@ -201,7 +204,7 @@ class RepairAddContainer extends React.Component {
 
     };
     handleChangeNote = name => event => {
-        
+
 
         if (this.state[name] != event.target.value) {
             this.setDataChanged();
@@ -224,14 +227,14 @@ class RepairAddContainer extends React.Component {
             [name]: event.target.value
         });
     };
-    isDataValid = () => {
-        
-        if (this.state.note != '' && this.state.noteName != '', this.state.dueDateTechService != '') {
+    isDataValidd = () => {
+        if (this.state.note != '' && this.state.noteName != '', this.state.dueDateTechServiceDataPicker != '') {
             return true;
         }
         else {
             return false;
         }
+
     }
     setValidationMsg = () => {
         this.setState({
@@ -241,13 +244,12 @@ class RepairAddContainer extends React.Component {
     }
     handleSaveButton = async () => {
         var carIdd = this.props.location.search.substring(7, this.props.location.search.length);
-        
         var repairDto = {
             name: this.state.noteName,
             note: this.state.note,
             carId: carIdd,
-            date: this.state.dueDateTechService,
-            counter: this.state.counter
+            date: this.state.dueDateTechServiceDataPicker,
+            counter: this.state.counter,
         }
         if (this.state.operationType == 'add') {
             await this.repairService.AddRepair(repairDto);
@@ -255,11 +257,14 @@ class RepairAddContainer extends React.Component {
         else {
             await this.repairService.UpdateRepair(repairDto, this.state.repairId);
         }
-        
-        
+
+
     }
     handleChangeCounter = name => event => {
         this.NumberValidation(event.target.value, name, 8, 'counterErrorText');
+        if (this.state.counter !== event.target.value) {
+            this.setDataChanged();
+        }  
         this.setState(
             {
                 [name]: event.target.value,
@@ -319,7 +324,7 @@ class RepairAddContainer extends React.Component {
                     variant="outlined"
                     multiline="true"
                 />
-              
+
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
                     <KeyboardDatePicker
                         disableToolbar
@@ -346,7 +351,7 @@ class RepairAddContainer extends React.Component {
                     margin="normal"
                     variant="outlined"
                 />
-                <RepairAddButton operationType={this.state.operationType} dataChanged={this.state.dataChanged} isDataValid={this.isDataValid} setValidationMsg={this.setValidationMsg} addButtonHandler={this.handleSaveButton} />
+                <RepairAddButton operationType={this.state.operationType} dataChanged={this.state.dataChanged} isDataValid={this.isDataValidd.bind(this)} setValidationMsg={this.setValidationMsg} addButtonHandler={this.handleSaveButton} />
             </div>
         );
     }
