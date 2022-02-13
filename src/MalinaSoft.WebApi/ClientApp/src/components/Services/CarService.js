@@ -56,10 +56,10 @@ class CarService {
     }
     async Add(car) {
         //this.carsGetByID.push(car);
-        await this.RESTService.Post(this.url + "api/car/add", car);
+        await this.RESTService.Post(this.url + "cars", car);
     }
     async Update(car, carId) {
-        var result = await this.RESTService.Update(this.url + "api/car/update", carId, car);
+        var result = await this.RESTService.Update(this.url + "cars", carId, car);
         await result;
     }
     GetColumns() {
@@ -79,7 +79,7 @@ class CarService {
     }
     async GetAll() {
 
-        var endpoint = this.url + 'api/car/getall';
+        var endpoint = this.url + 'cars';
 
         var carDto = await fetch(endpoint)
             .then(response => response.json())
@@ -124,7 +124,7 @@ class CarService {
         this.isRowSelected = isRowSelected;
     }
     async GetBrands() {
-        var endpoint = this.url + 'api/brand/getall';
+        var endpoint = this.url + 'brands';
 
 
         var brandDto = await fetch(endpoint)
@@ -141,7 +141,7 @@ class CarService {
         //return [{ id: 1, brand: "audi" }, { id: 2, brand: "VW" }];
     }
     async GetModelByBrandId(brandId) {
-        var endpoint = this.url + 'api/model/GetCarModelsByBrandId?brandId=' + brandId;
+        var endpoint = this.url + 'brands/' + brandId + '/models';
         //var result = RESTService.Get(endpoint);
         var modelDto = await fetch(endpoint)
             .then(response => response.json())
@@ -161,7 +161,7 @@ class CarService {
 
     }
     async GetEngines(brandId, modelId) {
-        var endpoint = this.url + 'api/engine/GetEnginesByBrandIdModelId?brandId=' + brandId + '&modelId=' + modelId;
+        var endpoint = this.url + 'brands/' + brandId + '/models/' + modelId;
         //var result = RESTService.Get(endpoint);
 
         var engineDto = await fetch(endpoint)
@@ -179,7 +179,7 @@ class CarService {
 
     }
     async GetOwners() {
-        var endpoint = this.url + 'api/owner/GetAll';
+        var endpoint = this.url + 'owners';
         //var result = RESTService.Get(endpoint);
         var engineDto = await fetch(endpoint)
             .then(response => response.json())
@@ -193,12 +193,12 @@ class CarService {
         return engineDto.rows;
     }
     async GetCarById(carId) {
-        var result = await this.RESTService.Get(this.url + "api/car/GetCarById?carId=" + carId);
+        var result = await this.RESTService.Get(this.url + "cars/" + carId);
         await result;
         return result;
     }
     async Delete(carId) {
-        await this.RESTService.Delete(this.url + "api/car/delete?id=", carId);
+        await this.RESTService.Delete(this.url + "cars", carId);
     }
 }
 export default CarService

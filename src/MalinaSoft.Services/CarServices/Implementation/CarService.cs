@@ -1,15 +1,10 @@
-﻿using GaragePersistent.Context;
-using GaragePersistent.Entities;
-using GarageServices.BaseServices.Interfaces;
+﻿using GaragePersistent.Entities;
 using GarageServices.CarServices.Dto;
 using GarageServices.CarServices.Interface;
-using GarageServices.RepairService.Dto;
 using MalinaSoft.GarageRepairRegistrator.Interfaces.Repositories;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace GarageServices.CarServices.Implementation
@@ -113,7 +108,7 @@ namespace GarageServices.CarServices.Implementation
                    DueDateTechService = x.TechnicalCheck.HasValue ? x.TechnicalCheck.Value.ToShortDateString() : "",
                    LastOilChange = x.LastOilChange.ToShortDateString(),
                    RepairCount = repairCountDictionary.TryGetValue(x.Id, out int repairCount) ? repairCount : 0,
-                   RecentRepairs = recentRepairs.TryGetValue(x.Id,out List<Repair> repairs) ? repairs.ToArray() : null
+                   RecentRepairs = recentRepairs.TryGetValue(x.Id, out List<Repair> repairs) ? repairs.ToArray() : null
                })
                 .ToList();
         }

@@ -112,8 +112,9 @@ namespace GarageServices.RepairService.Implementation
         public async Task Update(RepairDto added, string repairId)
         {
 
+            
             var repairEntitie = await _repairRepository.GetByIdAsync(repairId);
-
+            
             repairEntitie.Name = added.Name;
             repairEntitie.CreateDate = DateTime.Now;
             repairEntitie.Note = added.Note;

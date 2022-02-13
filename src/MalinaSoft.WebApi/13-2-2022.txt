@@ -1,0 +1,21 @@
+[2022-02-13 22:54:28][ 0: Error       ] Microsoft.AspNetCore.SpaServices - Warning: React version not specified in eslint-plugin-react settings. See https://github.com/yannickcr/eslint-plugin-react#configuration .
+
+[2022-02-13 22:55:19][20500: Warning     ] Microsoft.EntityFrameworkCore.Query - The LINQ expression 'where {from String y in __carIdList_0 where ([y] == [x].CarId) select [y] => Any()}' could not be translated and will be evaluated locally.
+[2022-02-13 22:55:19][20500: Warning     ] Microsoft.EntityFrameworkCore.Query - The LINQ expression 'where ([y] == [x].CarId)' could not be translated and will be evaluated locally.
+[2022-02-13 22:55:19][20500: Warning     ] Microsoft.EntityFrameworkCore.Query - The LINQ expression 'Any()' could not be translated and will be evaluated locally.
+[2022-02-13 22:55:19][20500: Warning     ] Microsoft.EntityFrameworkCore.Query - The LINQ expression 'GroupBy([x].CarId, [x])' could not be translated and will be evaluated locally.
+[2022-02-13 22:55:19][20500: Warning     ] Microsoft.EntityFrameworkCore.Query - The LINQ expression 'where {from String y in __carIdList_0 where ([y] == [x].CarId) select [y] => Any()}' could not be translated and will be evaluated locally.
+[2022-02-13 22:55:19][20500: Warning     ] Microsoft.EntityFrameworkCore.Query - The LINQ expression 'where ([y] == [x].CarId)' could not be translated and will be evaluated locally.
+[2022-02-13 22:55:19][20500: Warning     ] Microsoft.EntityFrameworkCore.Query - The LINQ expression 'Any()' could not be translated and will be evaluated locally.
+[2022-02-13 22:55:19][20500: Warning     ] Microsoft.EntityFrameworkCore.Query - The LINQ expression 'GroupBy([x].CarId, [x])' could not be translated and will be evaluated locally.
+[2022-02-13 22:55:19][20500: Warning     ] Microsoft.EntityFrameworkCore.Query - The LINQ expression 'Count()' could not be translated and will be evaluated locally.
+[2022-02-13 22:55:19][20500: Warning     ] Microsoft.EntityFrameworkCore.Query - The LINQ expression 'where {from String y in __carIdList_0 where ([y] == [x].CarId) select [y] => Any()}' could not be translated and will be evaluated locally.
+[2022-02-13 22:55:19][20500: Warning     ] Microsoft.EntityFrameworkCore.Query - The LINQ expression 'where ([y] == [x].CarId)' could not be translated and will be evaluated locally.
+[2022-02-13 22:55:19][20500: Warning     ] Microsoft.EntityFrameworkCore.Query - The LINQ expression 'Any()' could not be translated and will be evaluated locally.
+[2022-02-13 22:55:19][20500: Warning     ] Microsoft.EntityFrameworkCore.Query - The LINQ expression 'GroupBy([x].CarId, [x])' could not be translated and will be evaluated locally.
+[2022-02-13 22:55:19][20500: Warning     ] Microsoft.EntityFrameworkCore.Query - The LINQ expression 'where {from String y in __carIdList_0 where ([y] == [x].CarId) select [y] => Any()}' could not be translated and will be evaluated locally.
+[2022-02-13 22:55:19][20500: Warning     ] Microsoft.EntityFrameworkCore.Query - The LINQ expression 'where ([y] == [x].CarId)' could not be translated and will be evaluated locally.
+[2022-02-13 22:55:19][20500: Warning     ] Microsoft.EntityFrameworkCore.Query - The LINQ expression 'Any()' could not be translated and will be evaluated locally.
+[2022-02-13 22:55:19][20500: Warning     ] Microsoft.EntityFrameworkCore.Query - The LINQ expression 'GroupBy([x].CarId, [x])' could not be translated and will be evaluated locally.
+[2022-02-13 22:55:19][20500: Warning     ] Microsoft.EntityFrameworkCore.Query - The LINQ expression 'orderby [y].RepairDate desc' could not be translated and will be evaluated locally.
+[2022-02-13 22:55:19][20500: Warning     ] Microsoft.EntityFrameworkCore.Query - The LINQ expression 'Take(3)' could not be translated and will be evaluated locally.
